@@ -7,6 +7,7 @@ import { startGetUsers } from '../../actions/usersAction';
 const initialState = {
     users: [],
     totalPages: 0,
+    currentUser: {}
 }
 
 export const UsersProvider = ({ children }) => {
@@ -17,12 +18,16 @@ export const UsersProvider = ({ children }) => {
         dispatch({ type: 'get_users', payload: data });
     }
 
+    const setCurrentUser = (id) => {
+        dispatch({ type: 'set_users', payload: id });
+    }
+
     useEffect(() => {
         getUsers();
     }, []);
 
     return (
-        <UsersContext.Provider value={{ ...state, dispatch }}>
+        <UsersContext.Provider value={{ ...state, dispatch, setCurrentUser }}>
             {children}
         </UsersContext.Provider>
     )

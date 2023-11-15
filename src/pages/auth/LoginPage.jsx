@@ -48,6 +48,7 @@ const LoginPage = () => {
 
                     <Input
                         name="password"
+                        
                         type="password"
                         label="Contraseña"
                         variant="bordered"

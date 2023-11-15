@@ -2,9 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { PublicRoutes, PrivateRoutes } from './';
 
 import LoginPage from '../pages/auth/LoginPage';
-import Users from '../pages/users/Index';
-import { UsersProvider } from '../context/users/UsersProvider';
 import { Layout } from '../components/ui/Layout';
+import { UsersRoutes } from './';
 
 
 export const MainRouter = () => {
@@ -18,15 +17,15 @@ export const MainRouter = () => {
                 </PublicRoutes>
             } />
             <Route path="/auth/*" element={
-                <PrivateRoutes>
-                    <Layout>
+                <Layout>
+                    <PrivateRoutes>
                         <Routes>
                             <Route path="/" element={<h1>Hola mundo</h1>} />
-                            <Route path="/users" element={<UsersProvider><Users /></UsersProvider>} />
+                            <Route path="/users/*" element={<UsersRoutes />} />
                             <Route path="/*" element={<h1>esta no existe master xD</h1>} />
                         </Routes>
-                    </Layout>
-                </PrivateRoutes>
+                    </PrivateRoutes>
+                </Layout>
             }
             />
         </Routes>

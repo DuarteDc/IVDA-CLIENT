@@ -1,7 +1,10 @@
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination } from "@nextui-org/react";
-import { EditIcon, EyeIcon, TrashIcon } from "../icons";
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination, user } from "@nextui-org/react";
+import { DoneIcon, EditIcon, EyeIcon, TrashIcon } from "../icons";
+import { useUsers } from "../../hooks/useUsers";
 
-export const UsersTable = ({ users = [], totalPages }) => {
+export const UsersTable = ({ users = [], totalPages = 10, openAlert, setCurrentUser }) => {
+
+    const { handleUsersPaginate } = useUsers();
 
     return (
         <>
@@ -48,11 +51,22 @@ export const UsersTable = ({ users = [], totalPages }) => {
                                                 <EditIcon />
                                             </span>
                                         </Tooltip>
-                                        <Tooltip color="danger" content="Eliminar">
-                                            <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                                                <TrashIcon />
-                                            </span>
-                                        </Tooltip>
+                                        {
+                                            status ? (
+                                                <Tooltip color="danger" content="Eliminar">
+                                                    <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { openAlert(); setCurrentUser(id) }}>
+                                                        <TrashIcon />
+                                                    </span>
+                                                </Tooltip>
+                                            ) : (
+                                                <Tooltip color="primary" content="Activar">
+                                                    <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { openAlert(); setCurrentUser(id) }}>
+                                                        <DoneIcon />
+                                                    </span>
+                                                </Tooltip>
+                                            )
+                                        }
+
                                     </div>
                                 </TableCell>
                             </TableRow>
@@ -61,7 +75,7 @@ export const UsersTable = ({ users = [], totalPages }) => {
                 </TableBody>
             </Table>
             <div className="flex justify-end py-10 pr-10">
-                <Pagination showControls total={totalPages} initialPage={1} />
+                <Pagination showControls total={totalPages} initialPage={1} onChange={handleUsersPaginate} />
             </div>
         </>
     )
