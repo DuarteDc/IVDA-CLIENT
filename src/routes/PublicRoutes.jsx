@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
+import { AuthContext } from '../context/auth/AuthContext';
 
-const PublicRoutes = ({ children }) => {
+export const PublicRoutes = ({ children }) => {
 
-    const { logged } = useSelector(state => state.auth);
+    const { logged } = useContext(AuthContext);
     
-    return !logged ? children : <Navigate to="/usuarios" replace />
+    return !logged ? children : <Navigate to="/auth" replace />
 
 }
-
-export default PublicRoutes

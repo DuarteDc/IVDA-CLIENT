@@ -1,9 +1,24 @@
 import axios from 'axios';
 
-export const instanceApi = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+const apiInstance = axios.create({
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   responseType: 'json',
   headers: {
-    "token": localStorage.getItem('session') || ''
+    "Content-Type": "application/json"
   }
 });
+
+apiInstance.interceptors.request.use(
+    async config => {
+        const token = localStorage.getItem('session') || '';
+        if (token) {
+            config.headers.session = JSON.parse(token);
+        }
+        return config
+    },
+    error => {
+        return Promise.reject(error)
+    }
+)
+
+export default apiInstance;

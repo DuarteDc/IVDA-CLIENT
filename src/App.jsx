@@ -1,10 +1,14 @@
-import { Button, NextUIProvider } from '@nextui-org/react';
+import { useContext } from 'react';
+
+import { UIContext } from './context/ui';
+
+import { MainRouter } from './routes';
+import { LoadingScreen } from './components/ui/LoadingScreen';
 
 function App() {
 
-  return (
-      <Button>Xs</Button>
-  )
+  const { loading } = useContext(UIContext);
+  return loading ? <LoadingScreen /> : <MainRouter />
 }
 
 export default App
