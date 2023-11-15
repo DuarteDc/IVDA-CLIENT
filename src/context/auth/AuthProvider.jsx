@@ -6,7 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 
 const initialState = {
     user: {},
-    logged: false,
+    logged: true,
 }
 
 export const AuthProvider = ({ children }) => {

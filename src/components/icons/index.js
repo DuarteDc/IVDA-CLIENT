@@ -1,3 +1,4 @@
+export { MoonIcon } from "./MoonIcon";
 
 export { DoneIcon } from "./DoneIcon";
 export { EditIcon } from "./EditIcon";

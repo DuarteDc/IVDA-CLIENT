@@ -17,8 +17,8 @@ const Users = () => {
                     Crear Usuario
                 </Button>
             </div>
-            <div className="px-5">
-                <Breadcrumbs>
+            <div className="px-5 flex flex-col flex-wrap gap-4 mb-5">
+                <Breadcrumbs radius="lg" variant="bordered" color="primary">
                     <BreadcrumbItem>
                         <Link to="/">
                             Inicio

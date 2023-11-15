@@ -1,21 +1,25 @@
-import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
+import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react"
 import { useContext } from "react"
 import { AuthContext } from "../../context/auth/AuthContext"
+import { MoonIcon } from "../icons";
 
 export const Layout = ({ children }) => {
 
     const { user } = useContext(AuthContext);
 
     return (
-        <main>
+        <main className="dark text-foreground bg-background min-h-screen">
             <Navbar isBordered>
                 <NavbarContent as="div" className="items-center" justify="end">
+                    <Button isIconOnly size="sm" radius="full"  color="default" variant="faded" aria-label="dark">
+                        <MoonIcon width={15} height={15}/>
+                    </Button>
                     <Dropdown placement="bottom-end">
                         <DropdownTrigger>
                             <Avatar
                                 isBordered
                                 as="button"
-                                className="transition-transform"
+                                className="transition-transform "
                                 name={user.name + user.last_name}
                                 size="sm"
                                 src={`https://ui-avatars.com/api/?background=random&name=${user?.name} ${user?.last_name}`}
