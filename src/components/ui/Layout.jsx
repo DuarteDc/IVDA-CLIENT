@@ -8,7 +8,7 @@ export const Layout = ({ children }) => {
     const { user } = useContext(AuthContext);
 
     return (
-        <main className="dark text-foreground bg-background min-h-screen">
+        <main className="dark text-foreground bg-background min-h-screen px-5 [&>section]:lg:px-20 [&>section]:pt-10 [&>section]:lg:pt-20">
             <Navbar isBordered>
                 <NavbarContent as="div" className="items-center" justify="end">
                     <Button isIconOnly size="sm" radius="full"  color="default" variant="faded" aria-label="dark">

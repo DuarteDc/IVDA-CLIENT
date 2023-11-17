@@ -19,16 +19,19 @@ export const uiReducer = (state, { type, payload }) => {
         case 'start_screen_loading': {
             return {
                 ...state,
-                screen_loading: true,
+                screenLoading: true,
             }
         }
 
         case 'stop_screen_loading': {
             return {
                 ...state,
-                screen_loading: false,
+                screenLoading: false,
             }
         }
+
+        default:
+            return state;
 
 
     }

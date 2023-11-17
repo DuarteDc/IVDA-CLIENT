@@ -9,13 +9,8 @@ export const authReducer = (state, { type, payload }) => {
                 user: payload,
             }
         }
-
-        case 'stop_loading': {
-            return {
-                ...state,
-                loading: false,
-            }
-        }
+        default:
+            return state;
 
 
     }

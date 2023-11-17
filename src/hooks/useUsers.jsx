@@ -1,11 +1,12 @@
 import { useContext } from 'react'
-import { UsersContext } from '../context/users/UsersContext'
-import { activeUser, createUser, deleteUser, startGetUsers } from '../actions/usersAction';
 import { useNavigate } from 'react-router-dom';
-import { UIContext } from '../context/ui';
+
+import { UsersContext } from '../context/users/UsersContext'
+import { activeUser, createUser, deleteUser, getUser, startGetUsers, updateUser } from '../actions/usersAction';
+import { UIContext } from '../context/ui/UIContext';
 
 
-export const useUsers = (onOpen) => {
+export const useUsers = () => {
 
 
   const { startScreenLoading, stopScreenLoading } = useContext(UIContext);
@@ -21,27 +22,34 @@ export const useUsers = (onOpen) => {
     navigate('/auth/users');
   }
 
-  const handleUsersPaginate = async (page = 1) => {
+  const showUser = async (id) => {
+    const user = await getUser(id);
+    dispatch({ type: 'get_user', payload: user });
+  }
+
+  const handleUsersPaginate = async (page) => {
     const data = await startGetUsers(page);
     dispatch({ type: 'get_users', payload: data });
   }
 
 
   const handleChangeStatus = async () => {
-    if(createUser.status) {
-      if( await deleteUser(currentUser.id))
-        return dispatch({ type: 'delete_user', payload: currentUser})
+    if (currentUser.status) {
+      if (await deleteUser(currentUser.id)) return dispatch({ type: 'delete_user', payload: currentUser })
     }
 
-    if( await activeUser(currentUser.id))
-    return dispatch({ type: 'active_user', payload: currentUser})
-
-
+    if (await activeUser(currentUser.id))
+      return dispatch({ type: 'active_user', payload: currentUser });
   }
+
+
+  const handleUpdateUser = async (id, body) => await updateUser(id, body).then(() => navigate('/auth/users'));
 
   return {
     saveUser,
     handleUsersPaginate,
-    handleChangeStatus
+    handleChangeStatus,
+    showUser,
+    handleUpdateUser
   }
 }

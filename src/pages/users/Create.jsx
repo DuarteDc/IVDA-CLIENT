@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
+import { BreadcrumbItem, Breadcrumbs, Card, CardBody } from '@nextui-org/react';
 
 import { FormCreateUser } from '../../components/users/FormCreateUser';
 import { useSubsecretaries } from '../../hooks/useSubsecretaries';
-import { UIContext } from '../../context/ui';
 
 export const CreateUser = () => {
   const { getAllActiveSubsecretaries } = useSubsecretaries();
@@ -16,10 +15,8 @@ export const CreateUser = () => {
 
 
   return (
-    <section className="min-h-screen mt-20 lg:px-10">
-      <h1 className="text-center text-5xl font-bold mb-10">Crear usuario</h1>
-      <div className="flex justify-end px-5 lg:px-20 my-10">
-      </div>
+    <section className="min-h-screen lg:px-10">
+      <h1 className="text-center text-5xl font-bold uppercase pb-10">Crear usuario</h1>
       <div className="px-5 flex flex-col flex-wrap gap-4 mb-5">
         <Breadcrumbs radius="lg" variant="bordered" color="primary">
           <BreadcrumbItem>
@@ -36,8 +33,12 @@ export const CreateUser = () => {
         </Breadcrumbs>
       </div>
       <div className="flex justify-center items-center">
-        <div className="w-11/12 lg:w-6/12 [&>form>*]:mb-5">
-          <FormCreateUser subsecretaries={subsecretaries} />
+        <div className="w-11/12 lg:w-8/12 xl:w-6/12 [&>div>div>form>*]:mb-5">
+          <Card>
+            <CardBody>
+              <FormCreateUser subsecretaries={subsecretaries} />
+            </CardBody>
+          </Card>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
-import { useContext } from 'react';
 import * as Yup from 'yup';
+
 import { useFormik } from 'formik';
+
 import { Avatar, Button, Input, Select, SelectItem, Skeleton } from '@nextui-org/react';
 import { newUserValidations } from '../../validations/usersValidations';
 import { useUsers } from '../../hooks/useUsers';
@@ -32,9 +33,9 @@ export const FormCreateUser = ({ subsecretaries = [] }) => {
             <div className="mb-5">
                 {
                     formik.values.name && formik.values.last_name ? (
-                        <Avatar src={`https://ui-avatars.com/api/?background=random&name=${formik.values?.name} ${formik.values?.last_name}`} className="w-28 h-28 text-large" />
+                        <Avatar src={`https://ui-avatars.com/api/?background=random&name=${formik.values?.name} ${formik.values?.last_name}`} className="w-48 h-48 text-large" />
                     ) : (
-                        <Skeleton className="flex rounded-full w-28 h-28" />
+                        <Skeleton className="flex rounded-full w-48 h-48" />
                     )
                 }
             </div>

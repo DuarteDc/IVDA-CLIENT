@@ -1,12 +1,12 @@
 import { useEffect, useContext, useReducer } from 'react';
 import { AuthContext } from './AuthContext';
 import { authReducer } from './authReducer';
-import { UIContext } from '../ui';
+import { UIContext } from '../ui/UIContext';
 import { useAuth } from '../../hooks/useAuth';
 
 const initialState = {
     user: {},
-    logged: true,
+    logged: false,
 }
 
 export const AuthProvider = ({ children }) => {
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
             try {
                 const user = await revalidateToken();
                 dispatch({ type: 'login', payload: user });
+                stopLoading();
             } catch (error) {
                 stopLoading();
             }finally {

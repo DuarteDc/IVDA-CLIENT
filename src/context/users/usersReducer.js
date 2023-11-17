@@ -10,17 +10,24 @@ export const usersReducer = (state, { type, payload }) => {
             }
         }
 
-        case 'set_users': {
+        case 'set_user': {
             return {
                 ...state,
                 currentUser: state.users.find(user => user.id === payload),
             }
         }
 
+        case 'get_user': {
+            return {
+                ...state,
+                user: payload,
+            }
+        }
+
         case 'delete_user': {
             return {
                 ...state,
-                users: state.users.map(user => user.id === payload.id ? { ...user, status: user.status = false } : user)
+                users: state.users.map(user => user.id === payload.id ? { ...user, status: user.status = !user.status } : user)
             }
         }
 
@@ -28,9 +35,12 @@ export const usersReducer = (state, { type, payload }) => {
         case 'active_user': {
             return {
                 ...state,
-                users: state.users.map(user => user.id === payload.id ? { ...user, status: user.status = true } : user)
+                users: state.users.map(user => user.id === payload.id ? { ...user, status: user.status = !user.status } : user)
             }
         }
+
+        default:
+            return state;
 
     }
 

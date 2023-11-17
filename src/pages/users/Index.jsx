@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { BreadcrumbItem, Breadcrumbs, Button, useDisclosure } from '@nextui-org/react';
 
 import { UsersContext } from '../../context/users/UsersContext'
@@ -8,25 +8,36 @@ import { UsersTable } from '../../components/users/UsersTable';
 import { AlertCircleIcon, PlusIcon } from '../../components/icons';
 import { AlertModal } from '../../components/ui/AlertModal';
 import { useUsers } from '../../hooks/useUsers';
+import { UIContext } from '../../context/ui/UIContext';
 
 export const Users = () => {
 
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { users, totalPages, setCurrentUser, currentUser } = useContext(UsersContext);
+    const screenLoading = useContext(UIContext);
+    const [searchParams, setSearchParams] = useSearchParams(1);
 
+    const { users, totalPages, setCurrentUser, currentUser, getUsers } = useContext(UsersContext);
     const { handleChangeStatus } = useUsers();
 
+    console.log(screenLoading);
+
+    useEffect(() => {
+        getUsers(searchParams);
+    }, [searchParams])
+
+
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
     return (
-        <section className="min-h-screen mt-20 px-5">
-            <h1 className="text-center text-5xl font-bold mb-10">Lista de usuarios</h1>
-            <div className="flex justify-end px-5 lg:px-20 my-10">
+        <section className="min-h-screen pt-20 overflow-hidden">
+            <h1 className="text-center text-5xl font-bold pb-10 uppercase">Lista de usuarios</h1>
+            <div className="flex justify-end py-10">
                 <Button color="primary" startContent={<PlusIcon />}>
                     <Link to="/auth/users/create">
                         Crear Usuario
                     </Link>
                 </Button>
             </div>
-            <div className="px-5 flex flex-col flex-wrap gap-4 mb-5">
+            <div className="flex flex-col flex-wrap gap-4 mb-5">
                 <Breadcrumbs radius="lg" variant="bordered" color="primary">
                     <BreadcrumbItem>
                         <Link to="/">
@@ -36,7 +47,7 @@ export const Users = () => {
                     <BreadcrumbItem>Usuarios</BreadcrumbItem>
                 </Breadcrumbs>
             </div>
-            <UsersTable users={users} totalPages={totalPages} openAlert={onOpen} setCurrentUser={setCurrentUser} />
+            <UsersTable users={users} totalPages={totalPages} openAlert={onOpen} setCurrentUser={setCurrentUser} setSearchParams={setSearchParams} />
             {
                 isOpen && (
                     <AlertModal

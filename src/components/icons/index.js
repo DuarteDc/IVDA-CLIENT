@@ -6,3 +6,4 @@ export { EyeIcon } from "./EyeIcon";
 export { MoonIcon } from "./MoonIcon";
 export { PlusIcon } from "./PlusIcon";
 export { TrashIcon } from "./TrashIcon";
+export { BuildingComunity } from "./BuildingComunity";

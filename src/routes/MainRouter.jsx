@@ -4,6 +4,7 @@ import { PublicRoutes, PrivateRoutes } from './';
 import LoginPage from '../pages/auth/LoginPage';
 import { Layout } from '../components/ui/Layout';
 import { UsersRoutes } from './';
+import { SubsecretariesRoutes } from './SubsecretariesRoutes';
 
 
 export const MainRouter = () => {
@@ -17,15 +18,16 @@ export const MainRouter = () => {
                 </PublicRoutes>
             } />
             <Route path="/auth/*" element={
-                <Layout>
-                    <PrivateRoutes>
+                <PrivateRoutes>
+                    <Layout>
                         <Routes>
                             <Route path="/" element={<h1>Hola mundo</h1>} />
                             <Route path="/users/*" element={<UsersRoutes />} />
+                            <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                             <Route path="/*" element={<h1>esta no existe master xD</h1>} />
                         </Routes>
-                    </PrivateRoutes>
-                </Layout>
+                    </Layout>
+                </PrivateRoutes>
             }
             />
         </Routes>
