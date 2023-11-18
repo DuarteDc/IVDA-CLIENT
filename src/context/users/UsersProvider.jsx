@@ -1,4 +1,6 @@
-import { useEffect, useContext, useReducer } from 'react';
+import { useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { usersReducer } from './usersReducer';
 import { UsersContext } from './UsersContext';
 
@@ -12,7 +14,10 @@ const initialState = {
 }
 
 export const UsersProvider = ({ children }) => {
+
     const [state, dispatch] = useReducer(usersReducer, initialState);
+
+    const navigate = useNavigate();
 
     const getUsers = async (params = '') => {
         const data = await startGetUsers(params);
@@ -25,7 +30,7 @@ export const UsersProvider = ({ children }) => {
 
     const getUserById = async (id) => {
         const user = await getUser(id);
-        dispatch({ type: 'get_user', payload: user });
+        if(user) return dispatch({ type: 'get_user', payload: user });
     }
 
     return (

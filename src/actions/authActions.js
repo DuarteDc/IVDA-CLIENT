@@ -21,6 +21,6 @@ export const startRevalidateToken = async () => {
         const res = await apiInstance.get('/me');
         return res.data;
     } catch (error) {
-        console.log(error);
+        throw error;
     }
 }

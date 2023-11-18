@@ -2,7 +2,7 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, 
 import { DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
 import { Link } from 'react-router-dom';
 
-export const UsersTable = ({ users = [], totalPages = 10, openAlert, setCurrentUser, setSearchParams }) => {
+export const UsersTable = ({ users = [], totalPages = 0, openAlert, setCurrentUser, setSearchParams }) => {
 
     return (
         <>
@@ -84,9 +84,13 @@ export const UsersTable = ({ users = [], totalPages = 10, openAlert, setCurrentU
                     }
                 </TableBody>
             </Table>
-            <div className="flex justify-end py-5 lg:pt-10">
-                <Pagination showControls total={totalPages} initialPage={1} onChange={(page) => {  setSearchParams(`?page=${page}`)}} />
-            </div>
+            {
+                totalPages > 0 && (
+                    <div className="flex justify-end py-5 lg:pt-10">
+                        <Pagination showControls total={totalPages} initialPage={1} onChange={(page) => { setSearchParams(`?page=${page}`) }} />
+                    </div>
+                )
+            }
         </>
     )
 }

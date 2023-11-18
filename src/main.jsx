@@ -12,13 +12,13 @@ import { Toaster } from 'react-hot-toast';
 ReactDOM.createRoot(document.getElementById('root')).render(
 
   <NextUIProvider>
-    <BrowserRouter>
-      <Toaster />
-      <UIProvider>
+    <UIProvider>
+      <BrowserRouter>
+        <Toaster />
         <AuthProvider>
           <App />
         </AuthProvider>
-      </UIProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </UIProvider>
   </NextUIProvider>
 )

@@ -10,6 +10,7 @@ export const authReducer = (state, { type, payload }) => {
             }
         }
         default:
+            
             return state;
 
 

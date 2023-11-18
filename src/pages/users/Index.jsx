@@ -5,27 +5,24 @@ import { BreadcrumbItem, Breadcrumbs, Button, useDisclosure } from '@nextui-org/
 import { UsersContext } from '../../context/users/UsersContext'
 import { UsersTable } from '../../components/users/UsersTable';
 
-import { AlertCircleIcon, PlusIcon } from '../../components/icons';
+import { AlertCircleIcon, HomeIcon, PlusIcon } from '../../components/icons';
 import { AlertModal } from '../../components/ui/AlertModal';
 import { useUsers } from '../../hooks/useUsers';
 import { UIContext } from '../../context/ui/UIContext';
 
 export const Users = () => {
-
-    const screenLoading = useContext(UIContext);
+    
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [searchParams, setSearchParams] = useSearchParams(1);
-
+    
     const { users, totalPages, setCurrentUser, currentUser, getUsers } = useContext(UsersContext);
     const { handleChangeStatus } = useUsers();
-
-    console.log(screenLoading);
 
     useEffect(() => {
         getUsers(searchParams);
     }, [searchParams])
 
 
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     return (
         <section className="min-h-screen pt-20 overflow-hidden">
@@ -38,9 +35,11 @@ export const Users = () => {
                 </Button>
             </div>
             <div className="flex flex-col flex-wrap gap-4 mb-5">
-                <Breadcrumbs radius="lg" variant="bordered" color="primary">
+                <Breadcrumbs radius="lg" variant="solid" color="foreground">
+                    <HomeIcon />
                     <BreadcrumbItem>
-                        <Link to="/">
+                        <Link to="/auth" className="flex items-center [&>:first-child]:mr-2">
+                            <HomeIcon width={20} height={20} />
                             Inicio
                         </Link>
                     </BreadcrumbItem>

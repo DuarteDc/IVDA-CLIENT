@@ -24,6 +24,7 @@ export const useUsers = () => {
 
   const showUser = async (id) => {
     const user = await getUser(id);
+    if (!user) return navigate('/not-found');
     dispatch({ type: 'get_user', payload: user });
   }
 

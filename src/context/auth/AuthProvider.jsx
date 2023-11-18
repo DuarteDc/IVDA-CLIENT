@@ -10,24 +10,16 @@ const initialState = {
 }
 
 export const AuthProvider = ({ children }) => {
+    
     const [state, dispatch] = useReducer(authReducer, initialState);
-    const { stopLoading } = useContext(UIContext);
+    const { stopScreenLoading } = useContext(UIContext);
     const { revalidateToken } = useAuth();
 
     useEffect(() => {
-        setTimeout(async () => {
-            try {
-                const user = await revalidateToken();
-                dispatch({ type: 'login', payload: user });
-                stopLoading();
-            } catch (error) {
-                stopLoading();
-            }finally {
-                stopLoading();
-            }
+        setTimeout(() => {
+            revalidateToken().then((user) => dispatch({ type: 'login', payload: user })).finally(() => stopScreenLoading());
         }, 500)
     }, []);
-
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>
