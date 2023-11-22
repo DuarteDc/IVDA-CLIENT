@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAllSubsecretaries, deleteSubsecretary, activeSubsecretary, createSubsecretary } from '../actions/subsecretariesActions'
+import { getAllSubsecretaries, deleteSubsecretary, activeSubsecretary, createSubsecretary, updateSubsecretary } from '../actions/subsecretariesActions'
 
 import { SubsecretaryContext } from '../context/subsecretary/SubsecretaryContext';
 import { UIContext } from '../context/ui/UIContext';
@@ -35,9 +35,20 @@ export const useSubsecretaries = () => {
     }
 
 
+    const handleEditSubsecretary = async (id, data) => {
+        startLoading();
+        if (await updateSubsecretary(id, data)) {
+            navigate('/auth/subsecretaries');
+            return stopLoading();
+        }
+        stopLoading();
+    }
+
+
     return {
         getAllActiveSubsecretaries,
         handleChangeStatus,
-        handleCreateSubsecretary
+        handleCreateSubsecretary,
+        handleEditSubsecretary
     }
 }

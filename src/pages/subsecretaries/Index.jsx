@@ -1,6 +1,6 @@
 import { BreadcrumbItem, Breadcrumbs, Button, useDisclosure } from '@nextui-org/react'
 import React, { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { AlertCircleIcon, HomeIcon, PlusIcon } from '../../components/icons'
 import { SubsecretaryContext } from '../../context/subsecretary/SubsecretaryContext'
 import { SubsecretariesTable } from '../../components/subsecretaries/SubsecretariesTable'
@@ -10,16 +10,21 @@ import { useSubsecretaries } from '../../hooks/useSubsecretaries'
 const Subsecretaries = () => {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { startGetSubsecretaries, subsecretaries, subsecretary, getCurrentSubsecretary } = useContext(SubsecretaryContext);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const { startGetSubsecretaries, totalPages, subsecretaries, subsecretary, getCurrentSubsecretary } = useContext(SubsecretaryContext);
     const { handleChangeStatus } = useSubsecretaries();
 
     useEffect(() => {
-        startGetSubsecretaries();
-    }, []);
+        startGetSubsecretaries(searchParams);
+    }, [searchParams]);
+
+
+    console.log({searchParams});
 
     return (
         <section>
-            <h1 className="text-center text-4xl md:text-5xl font-bold pb-10 uppercase">Lista de subsecretarias</h1>
+            <h1 className="text-center text-4xl md:text-5xl font-bold pb-10 uppercase">Subsecretarias</h1>
             <div className="flex justify-end py-10">
                 <Button color="primary" startContent={<PlusIcon />}>
                     <Link to="/auth/subsecretaries/create">
@@ -38,7 +43,7 @@ const Subsecretaries = () => {
                     <BreadcrumbItem>Subsecretarias</BreadcrumbItem>
                 </Breadcrumbs>
             </div>
-            <SubsecretariesTable subsecretaries={subsecretaries} openAlert={onOpen} getCurrentSubsecretary={getCurrentSubsecretary} />
+            <SubsecretariesTable subsecretaries={subsecretaries} totalPages={totalPages} openAlert={onOpen} getCurrentSubsecretary={getCurrentSubsecretary} setSearchParams={setSearchParams} />
             {
                 isOpen && (
                     <AlertModal

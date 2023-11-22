@@ -2,28 +2,27 @@ import { useContext, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react';
 
-import { UsersContext } from '../../context/users/UsersContext'
-import { UsersTable } from '../../components/users/UsersTable';
-
 import { HomeIcon, PlusIcon } from '../../components/icons';
+import { AdministrativeUnitContext } from '../../context/administrative-unit/AdministrativeUnitContext';
+import AdministrativeUnitsTable from '../../components/administrative-units/AdministrativeUnitsTable';
 
-export const Users = () => {
-    
+export const AdministrativeUnits = () => {
+
     const [searchParams, setSearchParams] = useSearchParams(1);
-
-    const { users, totalPages, getUsers } = useContext(UsersContext);
+    const { administrativeUnits, totalPages, startGetAdministrativeUnits } = useContext(AdministrativeUnitContext);
 
     useEffect(() => {
-        getUsers(searchParams);
+        startGetAdministrativeUnits(searchParams);
     }, [searchParams])
+
 
     return (
         <section className="min-h-screen pt-20 overflow-hidden">
-            <h1 className="text-center text-5xl font-bold pb-10 uppercase">Usuarios</h1>
+            <h1 className="text-center text-5xl font-bold pb-10 uppercase">Unidades Administrativas</h1>
             <div className="flex justify-end py-10">
                 <Button color="primary" startContent={<PlusIcon />}>
-                    <Link to="/auth/users/create">
-                        Crear Usuario
+                    <Link to="/auth/administrative-units/create">
+                        Crear unidad Administrativa
                     </Link>
                 </Button>
             </div>
@@ -36,13 +35,15 @@ export const Users = () => {
                             Inicio
                         </Link>
                     </BreadcrumbItem>
-                    <BreadcrumbItem>Usuarios</BreadcrumbItem>
+                    <BreadcrumbItem>Unidades Administrativas</BreadcrumbItem>
                 </Breadcrumbs>
             </div>
-            <UsersTable users={users} totalPages={totalPages} setSearchParams={setSearchParams} />
+            <AdministrativeUnitsTable
+                administrativeUnits={administrativeUnits}
+                totalPages={totalPages}
+                setSearchParams={setSearchParams}
+                currentPage={searchParams.get('page') || 1}
+            />
         </section>
     )
 }
-
-
-

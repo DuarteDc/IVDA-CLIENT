@@ -35,7 +35,7 @@ export const useUsers = () => {
 
 
   const handleChangeStatus = async () => {
-    if (currentUser.status) {
+    if (currentUser?.status) {
       if (await deleteUser(currentUser.id)) return dispatch({ type: 'delete_user', payload: currentUser })
     }
 

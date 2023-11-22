@@ -1,8 +1,18 @@
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination } from '@nextui-org/react';
-import { DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-export const UsersTable = ({ users = [], totalPages = 0, openAlert, setCurrentUser, setSearchParams }) => {
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination, useDisclosure } from '@nextui-org/react';
+import { AlertCircleIcon, DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
+import { AlertModal } from '../ui/AlertModal';
+import { UsersContext } from '../../context/users/UsersContext';
+import { useUsers } from '../../hooks/useUsers';
+
+export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    
+    const { setCurrentUser, currentUser } = useContext(UsersContext);
+
+    const { handleChangeStatus } = useUsers();
 
     return (
         <>
@@ -65,13 +75,13 @@ export const UsersTable = ({ users = [], totalPages = 0, openAlert, setCurrentUs
                                         {
                                             status ? (
                                                 <Tooltip color="danger" content="Eliminar">
-                                                    <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { openAlert(); setCurrentUser(id) }}>
+                                                    <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { onOpen(); setCurrentUser(id); }}>
                                                         <TrashIcon />
                                                     </span>
                                                 </Tooltip>
                                             ) : (
                                                 <Tooltip color="primary" content="Activar">
-                                                    <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { openAlert(); setCurrentUser(id) }}>
+                                                    <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { onOpen(); setCurrentUser(id); }}>
                                                         <DoneIcon />
                                                     </span>
                                                 </Tooltip>
@@ -89,6 +99,35 @@ export const UsersTable = ({ users = [], totalPages = 0, openAlert, setCurrentUs
                     <div className="flex justify-end py-5 lg:pt-10">
                         <Pagination showControls total={totalPages} initialPage={1} onChange={(page) => { setSearchParams(`?page=${page}`) }} />
                     </div>
+                )
+            }
+
+            {
+                isOpen && (
+                    <AlertModal
+                        isOpen={isOpen}
+                        onOpen={onOpen}
+                        onOpenChange={onOpenChange}
+                        callback={handleChangeStatus}
+                    >
+                        <div className="flex flex-col items-center font-bold text-center">
+                            {
+                                currentUser?.status ? (
+                                    <span className="text-red-600">
+                                        <AlertCircleIcon width={50} height={50} />
+                                    </span>
+                                ) : (
+                                    <span className="text-blue-600">
+                                        <AlertCircleIcon width={50} height={50} />
+                                    </span>
+                                )
+                            }
+                            <p>Antest de continuar.</p>
+                            {
+                                currentUser?.status ? <p>¿Esta seguro que sea eliminar el usuario <b>{`${currentUser.name} ${currentUser.last_name}`}</b>?</p> : <p>¿Esta seguro que sea activar el usuario <b>{`${currentUser.name} ${currentUser.last_name}`}</b>?</p>
+                            }
+                        </div>
+                    </AlertModal>
                 )
             }
         </>

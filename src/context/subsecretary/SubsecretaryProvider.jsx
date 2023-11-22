@@ -1,8 +1,9 @@
-import { useReducer } from 'react';
+import { useContext, useReducer } from 'react';
 
 import { getSubsecretaries, getSubsecretary } from '../../actions/subsecretariesActions';
 import { SubsecretaryContext } from './SubsecretaryContext';
 import { subsecretaryReducer } from './subsecretaryReducer';
+import { UsersContext } from '../users/UsersContext';
 
 const initialState = {
     subsecretaries: [],
@@ -10,15 +11,16 @@ const initialState = {
     totalPages: 0,
     enable_administrative_units: [],
     disable_administrative_units: [],
-    users: [],
 }
 
 export const SubsecretaryProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(subsecretaryReducer, initialState);
 
-    const startGetSubsecretaries = async () => {
-        const data = await getSubsecretaries();
+    const { dispatch: userDispatch } = useContext(UsersContext);
+
+    const startGetSubsecretaries = async (params = '') => {
+        const data = await getSubsecretaries(params);
         dispatch({ type: 'start_get_subsecretaries', payload: data });
     }
 
@@ -26,9 +28,10 @@ export const SubsecretaryProvider = ({ children }) => {
         dispatch({ type: 'get_current_subsecretary', payload: id })
     }
 
-    const startGetSubsecretary = async(id) => {
-        const data = await getSubsecretary(id);
-        dispatch({ type: 'start_get_subsecretary', payload: data });
+    const startGetSubsecretary = async (id) => {
+        const { users, ...rest } = await getSubsecretary(id);
+        dispatch({ type: 'start_get_subsecretary', payload: rest });
+        userDispatch({ type: 'get_users', payload: { users: [...users], totalPages: 0 } })
     }
 
     return (

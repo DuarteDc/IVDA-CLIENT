@@ -1,28 +1,33 @@
-import * as Yup from 'yup';
+import { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { Button, Card, CardBody, Input } from '@nextui-org/react';
+import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { Button, Card, CardBody, Input } from '@nextui-org/react';
+
 import { createSubsecretaryValidations } from '../../validations/subsecretaryValidations';
 import { useSubsecretaries } from '../../hooks/useSubsecretaries';
+import { SubsecretaryContext } from '../../context/subsecretary/SubsecretaryContext';
 
-const initialValues = {
-    name: ''
-}
 
-export const FormCreateSubsecretary = () => {
+export const FormEditSubsecretary = ({ subsecretary }) => {
+    const { handleEditSubsecretary } = useSubsecretaries();
 
-    const { handleCreateSubsecretary } = useSubsecretaries();
+
+    const initialValues = {
+        name: subsecretary?.name
+    }
 
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(createSubsecretaryValidations()),
-        onSubmit: (data) => handleCreateSubsecretary(data),
+        onSubmit: (data) => handleEditSubsecretary(subsecretary.id, data),
     })
 
     return (
         <Card>
             <CardBody>
-                <h2 className="text-center text-4xl py-4 font-bold">Nueva Subsecretaria</h2>
+                <h2 className="text-center text-4xl py-4 font-bold">Editar Subsecretaria</h2>
                 <form onSubmit={formik.handleSubmit}>
                     <Input
                         name="name"
@@ -37,7 +42,7 @@ export const FormCreateSubsecretary = () => {
                         size="lg"
                     />
                     <Button color="primary" type="submit" className="w-full font-bold py-8">
-                        Crear Subsecretaria
+                        Editar Subsecretaria
                     </Button>
                 </form>
             </CardBody>

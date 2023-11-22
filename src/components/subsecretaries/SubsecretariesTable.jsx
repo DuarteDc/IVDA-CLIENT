@@ -3,7 +3,7 @@ import { DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
 import { Link } from 'react-router-dom';
 import { BuildingComunity } from '../icons/';
 
-export const SubsecretariesTable = ({ subsecretaries = {}, openAlert, getCurrentSubsecretary }) => {
+export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openAlert, getCurrentSubsecretary, setSearchParams }) => {
   return (
     <>
       <Table aria-label="Ususarios">
@@ -45,7 +45,7 @@ export const SubsecretariesTable = ({ subsecretaries = {}, openAlert, getCurrent
                       </Link>
                     </Tooltip>
                     <Tooltip content="Editar">
-                      <Link to={`/auth/users/edit/${id}`}>
+                      <Link to={`/auth/subsecretaries/edit/${id}`}>
                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                           <EditIcon />
                         </span>
@@ -74,7 +74,7 @@ export const SubsecretariesTable = ({ subsecretaries = {}, openAlert, getCurrent
         </TableBody>
       </Table>
       <div className="flex justify-end py-5 lg:pt-10">
-        {/* <Pagination showControls total={totalPages} initialPage={1} onChange={(page) => { setSearchParams(`?page=${page}`) }} /> */}
+        <Pagination showControls total={totalPages} initialPage={1} onChange={(page) => { setSearchParams(`?page=${page}`) }} />
       </div>
     </>
   )

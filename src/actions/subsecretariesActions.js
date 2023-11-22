@@ -4,16 +4,16 @@ import apiInstance from '../config/api';
 
 export const getAllSubsecretaries = async () => {
     try {
-        const { data } = await apiInstance.get('/auth/subsecretaries/all');
+        const { data } = await apiInstance.get('/auth/subsecretaries-all');
         return data?.subsecretaries;
     } catch (error) {
         console.log(error);
     }
 }
 
-export const getSubsecretaries = async () => {
+export const getSubsecretaries = async (params) => {
     try {
-        const { data } = await apiInstance.get('/auth/subsecretaries');
+        const { data } = await apiInstance.get(`/auth/subsecretaries?${params}`);
         return data;
     } catch (error) {
         console.log(error);
@@ -61,6 +61,21 @@ export const activeSubsecretary = async (id) => {
 export const createSubsecretary = async (body) => {
     try {
         const { data } = await apiInstance.post(`/auth/subsecretaries`, body);
+        successNotification(data.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
+        errorNotification('Parece que hubo un error - Intenta más tarde');
+    }
+}
+
+
+export const updateSubsecretary = async (id, body) => {
+    try {
+        const { data } = await apiInstance.patch(`/auth/subsecretaries/${id}`, body);
         successNotification(data.message);
         return true;
     } catch (error) {

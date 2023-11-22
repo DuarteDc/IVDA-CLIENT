@@ -2,6 +2,12 @@ export const uiReducer = (state, { type, payload }) => {
 
     switch(type) {
 
+        case 'change_theme': 
+            return {
+                ...state,
+                theme: payload
+            }
+
         case 'start_loading': {
             return {
                 ...state,

@@ -1,0 +1,2 @@
+export { CreateInventory } from './Create';
+

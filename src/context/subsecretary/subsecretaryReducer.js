@@ -23,7 +23,6 @@ export const subsecretaryReducer = (state, { type, payload }) => {
                 subsecretary: payload.subsecretary,
                 enable_administrative_units: payload.enable_administrative_units,
                 disable_administrative_units: payload.disable_administrative_units,
-                users: payload.users
             }
 
         case 'disable_subsecretary': {
