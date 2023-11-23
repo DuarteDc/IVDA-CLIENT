@@ -44,6 +44,7 @@ export const FormCreateAdministrativeUnit = ({ subsecretaries }) => {
                         required={true}
                         onChange={formik.handleChange}
                         name="subsecretary_id"
+                        size="lg"
                     >
                         {
                             subsecretaries?.map(({ id, name }) => (

@@ -4,18 +4,15 @@ import { AuthContext } from '../../context/auth/AuthContext'
 
 import { MoonIcon, SunIcon } from '../icons';
 import { UIContext } from '../../context/ui/UIContext';
-import { LoadingScreen } from './LoadingScreen';
+
 
 export const Layout = ({ children }) => {
 
-    const { loading, theme, handleChangeTheme } = useContext(UIContext);
+    const { theme, handleChangeTheme } = useContext(UIContext);
     const { user } = useContext(AuthContext);
 
     return (
         <main className={`${theme} text-foreground bg-background min-h-screen [&>section]:lg:px-20 px-2 [&>section]:pt-10 [&>section]:lg:pt-20 [&>section]:overflow-hidden`}>
-            {
-                loading && <LoadingScreen />
-            }
             <Navbar isBordered>
                 <NavbarContent as="div" className="items-center" justify="end">
                     {

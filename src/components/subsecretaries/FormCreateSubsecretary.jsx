@@ -1,9 +1,11 @@
 import * as Yup from 'yup';
 
-import { Button, Card, CardBody, Input } from '@nextui-org/react';
+import { Button, Card, CardBody, Input, Spinner } from '@nextui-org/react';
 import { useFormik } from 'formik';
 import { createSubsecretaryValidations } from '../../validations/subsecretaryValidations';
 import { useSubsecretaries } from '../../hooks/useSubsecretaries';
+import { useContext } from 'react';
+import { UIContext } from '../../context/ui/UIContext';
 
 const initialValues = {
     name: ''
@@ -11,6 +13,7 @@ const initialValues = {
 
 export const FormCreateSubsecretary = () => {
 
+    const { loading } = useContext(UIContext);
     const { handleCreateSubsecretary } = useSubsecretaries();
 
     const formik = useFormik({
@@ -36,7 +39,7 @@ export const FormCreateSubsecretary = () => {
                         onChange={formik.handleChange}
                         size="lg"
                     />
-                    <Button color="primary" type="submit" className="w-full font-bold py-8">
+                    <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
                         Crear Subsecretaria
                     </Button>
                 </form>

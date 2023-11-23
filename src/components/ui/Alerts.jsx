@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import { DoneIcon, ErrorIcon } from '../icons';
 
-const errorNotification = (message) => {
+const errorNotification = (message = 'Parece que hubo un error - Intenta mas tarde') => {
   toast.custom(( { visible, id } ) => (
     <div
       className={`${visible ? 'animate-enter' : 'animate-leave'

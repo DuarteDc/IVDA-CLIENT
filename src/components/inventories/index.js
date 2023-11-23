@@ -1,0 +1,2 @@
+export { FormCreateInventory } from './FormCreateInventory';
+

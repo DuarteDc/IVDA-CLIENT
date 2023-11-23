@@ -20,7 +20,7 @@ const initialValues = {
 export const FormCreateUser = ({ subsecretaries = [] }) => {
 
     const { saveUser, screen_loading } = useUsers();
-    const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useAdministrativeUnits();    
+    const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useAdministrativeUnits();
 
     const formik = useFormik({
         initialValues,

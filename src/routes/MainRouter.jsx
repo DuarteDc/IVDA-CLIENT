@@ -8,7 +8,7 @@ import { SubsecretariesRoutes } from './SubsecretariesRoutes';
 import { UsersProvider } from '../context/users/UsersProvider';
 import { SubsecretaryProvider } from '../context/subsecretary/SubsecretaryProvider';
 import { AdministrativeUnitProvider } from '../context/administrative-unit/AdministrativeUnitProvider';
-
+import { InventoryProvider } from '../context/inventory/InventoryProvider';
 
 export const MainRouter = () => {
     return (
@@ -26,14 +26,16 @@ export const MainRouter = () => {
                         <UsersProvider>
                             <SubsecretaryProvider>
                                 <AdministrativeUnitProvider>
-                                    <Routes>
-                                        <Route path="/" element={<h1>Hola mundo</h1>} />
-                                        <Route path="/users/*" element={<UsersRoutes />} />
-                                        <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
-                                        <Route path="/inventories/*" element={<InventoriestRoutes />} />
-                                        <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
-                                        <Route path="/*" element={<h1>esta no existe master xD</h1>} />
-                                    </Routes>
+                                    <InventoryProvider>
+                                        <Routes>
+                                            <Route path="/" element={<h1>Hola mundo</h1>} />
+                                            <Route path="/users/*" element={<UsersRoutes />} />
+                                            <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
+                                            <Route path="/inventories/*" element={<InventoriestRoutes />} />
+                                            <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
+                                            <Route path="/*" element={<h1>esta no existe master xD</h1>} />
+                                        </Routes>
+                                    </InventoryProvider>
                                 </AdministrativeUnitProvider>
                             </SubsecretaryProvider>
                         </UsersProvider>

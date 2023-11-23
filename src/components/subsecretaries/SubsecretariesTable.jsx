@@ -1,9 +1,17 @@
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination, Avatar } from '@nextui-org/react';
-import { DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination, Spinner } from '@nextui-org/react';
+
+import { DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
 import { BuildingComunity } from '../icons/';
+import { UIContext } from '../../context/ui/UIContext';
+import { SubsecretaryContext } from '../../context/subsecretary/SubsecretaryContext';
 
 export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openAlert, getCurrentSubsecretary, setSearchParams }) => {
+
+  const { loading } = useContext(UIContext);
+  const { subsecretary } = useContext(SubsecretaryContext)
+
   return (
     <>
       <Table aria-label="Ususarios">
@@ -35,38 +43,49 @@ export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openA
                   </Chip>
 
                 </TableCell>
+                {
+
+                }
                 <TableCell>
-                  <div className="relative flex items-center gap-2">
-                    <Tooltip content="Detalles">
-                      <Link to={`/auth/subsecretaries/${id}`}>
-                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                          <EyeIcon />
-                        </span>
-                      </Link>
-                    </Tooltip>
-                    <Tooltip content="Editar">
-                      <Link to={`/auth/subsecretaries/edit/${id}`}>
-                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                          <EditIcon />
-                        </span>
-                      </Link>
-                    </Tooltip>
-                    {
-                      status ? (
-                        <Tooltip color="danger" content="Eliminar">
-                          <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
-                            <TrashIcon />
-                          </span>
+                  {
+                    loading && subsecretary.id === id ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <Spinner />
+                      </div>
+                    ) : (
+                      <div className="relative flex items-center justify-center gap-2">
+                        <Tooltip content="Detalles">
+                          <Link to={`/auth/subsecretaries/${id}`}>
+                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                              <EyeIcon />
+                            </span>
+                          </Link>
                         </Tooltip>
-                      ) : (
-                        <Tooltip color="primary" content="Activar">
-                          <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
-                            <DoneIcon />
-                          </span>
+                        <Tooltip content="Editar">
+                          <Link to={`/auth/subsecretaries/edit/${id}`}>
+                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                              <EditIcon />
+                            </span>
+                          </Link>
                         </Tooltip>
-                      )
-                    }
-                  </div>
+                        {
+                          status ? (
+                            <Tooltip color="danger" content="Eliminar">
+                              <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
+                                <TrashIcon />
+                              </span>
+                            </Tooltip>
+                          ) : (
+                            <Tooltip color="primary" content="Activar">
+                              <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
+                                <DoneIcon />
+                              </span>
+                            </Tooltip>
+                          )
+                        }
+                      </div>
+                    )
+                  }
                 </TableCell>
               </TableRow>
             ))

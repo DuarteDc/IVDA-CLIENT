@@ -13,9 +13,10 @@ export const useAuth = () => {
     }
 
     const revalidateToken = async () => {
-        const { user, session } = await startRevalidateToken();
-        localStorage.setItem('session', JSON.stringify(session));
-        return user;
+        const data = await startRevalidateToken();
+        if( !data?.user ) return localStorage.removeItem('session')
+        localStorage.setItem('session', JSON.stringify(data?.session));
+        return data?.user;
     }
 
     return {

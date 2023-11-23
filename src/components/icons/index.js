@@ -9,6 +9,7 @@ export { FileIcon } from './FileIcon';
 export { HomeCog } from './HomeCog';
 export { HomeIcon } from './HomeIcon';
 export { MoonIcon } from './MoonIcon';
+export { PDFIcon } from './PDFIcon';
 export { PlusIcon } from './PlusIcon';
 export { SunIcon } from './SunIcon';
 export { TrashIcon } from './TrashIcon';

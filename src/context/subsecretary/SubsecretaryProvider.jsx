@@ -31,7 +31,7 @@ export const SubsecretaryProvider = ({ children }) => {
     const startGetSubsecretary = async (id) => {
         const { users, ...rest } = await getSubsecretary(id);
         dispatch({ type: 'start_get_subsecretary', payload: rest });
-        userDispatch({ type: 'get_users', payload: { users: [...users], totalPages: 0 } })
+        userDispatch({ type: 'get_users', payload: { users, totalPages: 0 } })
     }
 
     return (
