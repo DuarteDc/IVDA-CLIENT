@@ -9,16 +9,16 @@ import { UIContext } from '../context/ui/UIContext';
 export const useUsers = () => {
 
 
-  const { startScreenLoading, stopScreenLoading } = useContext(UIContext);
+  const { startLoading, stopLoading, loading } = useContext(UIContext);
   const { dispatch, currentUser } = useContext(UsersContext);
   const navigate = useNavigate();
 
   const saveUser = async data => {
-    startScreenLoading();
+    startLoading();
     const response = await createUser(data);
 
     if (!response) return stopScreenLoading();
-    stopScreenLoading();
+    stopLoading();
     navigate('/auth/users');
   }
 
@@ -35,12 +35,14 @@ export const useUsers = () => {
 
 
   const handleChangeStatus = async () => {
+    startLoading();
     if (currentUser?.status) {
-      if (await deleteUser(currentUser.id)) return dispatch({ type: 'delete_user', payload: currentUser })
+      if (await deleteUser(currentUser.id)) dispatch({ type: 'delete_user', payload: currentUser });
+      return stopLoading();
     }
 
-    if (await activeUser(currentUser.id))
-      return dispatch({ type: 'active_user', payload: currentUser });
+    if (await activeUser(currentUser.id)) dispatch({ type: 'active_user', payload: currentUser });
+    stopLoading();
   }
 
 

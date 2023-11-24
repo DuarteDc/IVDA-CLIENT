@@ -1,16 +1,18 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination, useDisclosure } from '@nextui-org/react';
+import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, User, Chip, Tooltip, Pagination, useDisclosure, Spinner } from '@nextui-org/react';
 import { AlertCircleIcon, DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
 import { AlertModal } from '../ui/AlertModal';
 import { UsersContext } from '../../context/users/UsersContext';
 import { useUsers } from '../../hooks/useUsers';
+import { UIContext } from '../../context/ui/UIContext';
 
 export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    
+
     const { setCurrentUser, currentUser } = useContext(UsersContext);
+    const { loading } = useContext(UIContext);
 
     const { handleChangeStatus } = useUsers();
 
@@ -25,7 +27,10 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
                     <TableColumn> Estatus </TableColumn>
                     <TableColumn></TableColumn>
                 </TableHeader>
-                <TableBody>
+                <TableBody
+                    isLoading={loading}
+                    loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+                >
                     {
                         users?.map(({ id, name, last_name, email, status, role }) => (
                             <TableRow key={id}>

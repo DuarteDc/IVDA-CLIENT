@@ -53,6 +53,17 @@ export const createAdministrativeUnit = async (body) => {
     }
 }
 
+export const updateAdministrativeUnit = async (id, body) => {
+    try {
+        const { data } = await apiInstance.patch(`/auth/administrative-units/${id}`, body);
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) return errorNotification(error.response.data?.message);
+        errorNotification('Parece que hubo un error - Intenta más tarde');
+    }
+}
+
 export const deleteAdministrativeUnit = async (id) => {
     try {
         const { data } = await apiInstance.delete(`/auth/administrative-units/${id}`,);

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { activeAdministrativeUnit, createAdministrativeUnit, deleteAdministrativeUnit, getBySubsecretary, getOneAdministrativeUnit } from '../actions/administrativeUnitsActions'
+import { activeAdministrativeUnit, createAdministrativeUnit, deleteAdministrativeUnit, getBySubsecretary, getOneAdministrativeUnit, updateAdministrativeUnit } from '../actions/administrativeUnitsActions'
 import { UIContext } from '../context/ui/UIContext';
 import { AdministrativeUnitContext } from '../context/administrative-unit/AdministrativeUnitContext';
 
@@ -25,15 +25,25 @@ export const useAdministrativeUnits = () => {
         stopLoading();
     }
 
+    const handleUpdateAdministrativeUnit = async (id, data) => {
+        startLoading();
+        if (await updateAdministrativeUnit(id, data)) {
+            navigate('../..', { relative: "path" });
+            return stopLoading();
+        }
+        stopLoading();
+    }
 
     const handleChangeStatus = async () => {
+        startLoading();
         if (currentAdministrativeUnit?.status) {
-            if (await deleteAdministrativeUnit(currentAdministrativeUnit.id)) return dispatch({ type: 'change_status_administrative_unit', payload: currentAdministrativeUnit.id })
-            return;
+            if (await deleteAdministrativeUnit(currentAdministrativeUnit.id)) dispatch({ type: 'change_status_administrative_unit', payload: currentAdministrativeUnit.id })
+            return stopLoading();
         }
 
-        if (await activeAdministrativeUnit(currentAdministrativeUnit.id))
-            return dispatch({ type: 'change_status_administrative_unit', payload: currentAdministrativeUnit.id });
+        if (await activeAdministrativeUnit(currentAdministrativeUnit.id)) dispatch({ type: 'change_status_administrative_unit', payload: currentAdministrativeUnit.id });
+
+        stopLoading();
     }
 
 
@@ -48,6 +58,7 @@ export const useAdministrativeUnits = () => {
         administrativeUnits,
         handleCreateAdministrativeUnit,
         handleChangeStatus,
-        startGetAdministrativeUnit
+        startGetAdministrativeUnit,
+        handleUpdateAdministrativeUnit
     }
 }

@@ -3,15 +3,17 @@ import { InventoryContext } from '../../context/inventory/InventoryContext';
 import { InventoriesTable } from '../../components/inventories/InventoriesTable';
 import { HomeIcon, PlusIcon } from '../../components/icons';
 import { BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export const Inventories = () => {
 
-  const { startGetInventories, inventories } = useContext(InventoryContext);
+  const [searchParams, setSearchParams] = useSearchParams(1);
+  const { startGetInventories, inventories, totalPages } = useContext(InventoryContext);
 
   useEffect(() => {
-    startGetInventories();
-  }, []);
+    startGetInventories(searchParams);
+  }, [searchParams]);
+
   return (
     <section>
       <h1 className="text-center text-4xl md:text-5xl font-bold pb-10 uppercase">Inventarios</h1>
@@ -33,9 +35,9 @@ export const Inventories = () => {
           <BreadcrumbItem>Inventarios</BreadcrumbItem>
         </Breadcrumbs>
       </div>
-      <InventoriesTable
-
+      <InventoriesTable    
         inventories={inventories}
+        totalPages={totalPages} setSearchParams={setSearchParams}
       />
     </section>
   )

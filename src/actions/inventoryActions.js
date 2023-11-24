@@ -38,3 +38,65 @@ export const createInventory = async (body) => {
         return false;
     }
 }
+
+export const updateInventory = async (id, body) => {
+    try {
+        const { data } = await apiInstance.patch(`/auth/inventories/${id}`, body)
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
+        errorNotification();
+        return false;
+    }
+}
+
+
+export const addFile = async (inventoryId, body) => {
+    try {
+        const { data } = await apiInstance.post(`/auth/inventories/add-file/${inventoryId}`, body);
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
+        errorNotification();
+        return false;
+    }
+}
+
+
+export const deleteFile = async (inventoryId, noFile) => {
+    try {
+        const { data } = await apiInstance.delete(`/auth/inventories/remove-file/${inventoryId}/${noFile}`);
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
+        errorNotification();
+        return false;
+    }
+}
+
+export const finalizeInventory = async (id) => {
+    try {
+        const { data } = await apiInstance.post(`/auth/inventories/finalize/${id}`);
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
+        errorNotification();
+        return false;
+    }
+}

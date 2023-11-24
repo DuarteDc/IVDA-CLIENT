@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Chip, Pagination, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, User, useDisclosure } from '@nextui-org/react';
+import { Chip, Pagination, Spinner, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, User, useDisclosure } from '@nextui-org/react';
 
 import { AlertCircleIcon, BuildingComunity, DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
 import { AdministrativeUnitContext } from '../../context/administrative-unit/AdministrativeUnitContext';
 import { AlertModal } from '../ui/AlertModal';
 import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
+import { UIContext } from '../../context/ui/UIContext';
 
 const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, setSearchParams, currentPage = 1 }) => {
 
@@ -13,6 +14,7 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
 
   const { handleChangeStatus } = useAdministrativeUnits();
   const { getCurrentAdministrativeUnit, currentAdministrativeUnit } = useContext(AdministrativeUnitContext);
+  const { loading } = useContext(UIContext);
 
   return (
     <>
@@ -23,7 +25,10 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
           <TableColumn> Estatus </TableColumn>
           <TableColumn></TableColumn>
         </TableHeader>
-        <TableBody>
+        <TableBody
+          isLoading={loading}
+          loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+        >
           {
             administrativeUnits?.map(({ id, name, subsecretary_id, status }) => (
               <TableRow key={id}>
@@ -53,13 +58,6 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
                 </TableCell>
                 <TableCell>
                   <div className="relative flex items-center gap-2">
-                    {/* <Tooltip content="Detalles">
-                      <Link to={`/auth/subsecretaries/${id}`}>
-                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                          <EyeIcon />
-                        </span>
-                      </Link>
-                    </Tooltip> */}
                     <Tooltip content="Editar">
                       <Link to={`/auth/administrative-units/edit/${id}`}>
                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">

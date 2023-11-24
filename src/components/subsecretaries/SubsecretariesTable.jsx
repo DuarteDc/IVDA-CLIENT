@@ -20,7 +20,10 @@ export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openA
           <TableColumn> Estatus </TableColumn>
           <TableColumn></TableColumn>
         </TableHeader>
-        <TableBody>
+        <TableBody
+          isLoading={loading}
+          loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+        >
           {
             subsecretaries?.map(({ id, name, status }) => (
               <TableRow key={id}>
@@ -47,45 +50,37 @@ export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openA
 
                 }
                 <TableCell>
-                  {
-                    loading && subsecretary.id === id ? (
-                      <div className="flex items-center justify-center gap-2">
-                        <Spinner />
-                      </div>
-                    ) : (
-                      <div className="relative flex items-center justify-center gap-2">
-                        <Tooltip content="Detalles">
-                          <Link to={`/auth/subsecretaries/${id}`}>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                              <EyeIcon />
-                            </span>
-                          </Link>
+                  <div className="relative flex items-center justify-center gap-2">
+                    <Tooltip content="Detalles">
+                      <Link to={`/auth/subsecretaries/${id}`}>
+                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                          <EyeIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                    <Tooltip content="Editar">
+                      <Link to={`/auth/subsecretaries/edit/${id}`}>
+                        <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                          <EditIcon />
+                        </span>
+                      </Link>
+                    </Tooltip>
+                    {
+                      status ? (
+                        <Tooltip color="danger" content="Eliminar">
+                          <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
+                            <TrashIcon />
+                          </span>
                         </Tooltip>
-                        <Tooltip content="Editar">
-                          <Link to={`/auth/subsecretaries/edit/${id}`}>
-                            <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                              <EditIcon />
-                            </span>
-                          </Link>
+                      ) : (
+                        <Tooltip color="primary" content="Activar">
+                          <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
+                            <DoneIcon />
+                          </span>
                         </Tooltip>
-                        {
-                          status ? (
-                            <Tooltip color="danger" content="Eliminar">
-                              <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
-                                <TrashIcon />
-                              </span>
-                            </Tooltip>
-                          ) : (
-                            <Tooltip color="primary" content="Activar">
-                              <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { openAlert(); getCurrentSubsecretary(id); }}>
-                                <DoneIcon />
-                              </span>
-                            </Tooltip>
-                          )
-                        }
-                      </div>
-                    )
-                  }
+                      )
+                    }
+                  </div>
                 </TableCell>
               </TableRow>
             ))

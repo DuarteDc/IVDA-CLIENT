@@ -9,6 +9,8 @@ const initialState = {
     inventories: [],
     totalPages: 0,
     inventory: {},
+    files: [],
+    file: {}
 }
 
 export const InventoryProvider = ({ children }) => {
@@ -25,8 +27,17 @@ export const InventoryProvider = ({ children }) => {
         dispatch({ type: 'start_get_inventory', payload: data });
     }
 
+    const getCurrentFile = (no) => {
+        dispatch({ type: 'get_current_file', payload: no });
+    }
+
+    const getCurrentInventory = (id) => {
+        dispatch({ type: 'get_current_inventory', payload: id });
+    }
+
+
     return (
-        <InventoryContext.Provider value={{ ...state, dispatch, startGetInventories, startGetInventory }}>
+        <InventoryContext.Provider value={{ ...state, dispatch, startGetInventories, startGetInventory, getCurrentFile, getCurrentInventory }}>
             {children}
         </InventoryContext.Provider>
     )

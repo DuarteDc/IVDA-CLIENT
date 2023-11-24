@@ -1,2 +1,4 @@
-export { FormCreateInventory } from './FormCreateInventory';
 
+export { FilesInventoryTable } from './FilesInventoryTable';
+export { FormCreateFile } from './FormCreateFile';
+export { FormCreateInventory } from './FormCreateInventory';

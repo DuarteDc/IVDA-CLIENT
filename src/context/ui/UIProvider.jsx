@@ -20,9 +20,13 @@ export const UIProvider = ({ children }) => {
     const stopScreenLoading = () => dispatch({ type: 'stop_screen_loading' });
 
     const handleSetTheme = () => {
-        const theme = JSON.parse(localStorage.getItem('theme')) || '';
-        if (theme !== 'dark' && theme !== 'light') return dispatch({ type: 'change_theme', payload: 'light' });
-        dispatch({ type: 'change_theme', payload: theme });
+        try {
+            const theme = JSON.parse(localStorage.getItem('theme')) || '';
+            if (theme !== 'dark' && theme !== 'light') return dispatch({ type: 'change_theme', payload: 'light' });
+            dispatch({ type: 'change_theme', payload: theme });
+        } catch (error) {
+            handleChangeTheme('light');
+        }
     }
 
     const handleChangeTheme = (theme) => {

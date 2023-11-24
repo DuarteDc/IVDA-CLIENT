@@ -1,8 +1,10 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { Button, Card, CardBody, Input, Select, SelectItem } from '@nextui-org/react';
+import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
 import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
 import { createAdministrativeUnitValidation } from '../../validations/administrativeUnitsValidations';
+import { UIContext } from '../../context/ui/UIContext';
+import { useContext } from 'react';
 
 export const FormEditAdministrativeUnit = ({ subsecretaries, administrativeUnit }) => {
 
@@ -11,12 +13,13 @@ export const FormEditAdministrativeUnit = ({ subsecretaries, administrativeUnit 
         subsecretary_id: administrativeUnit?.subsecretary_id
     }
 
-    const { handleCreateAdministrativeUnit } = useAdministrativeUnits();
+    const { loading } = useContext(UIContext);
+    const { handleUpdateAdministrativeUnit } = useAdministrativeUnits();
 
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(createAdministrativeUnitValidation()),
-        onSubmit: (data) => handleCreateAdministrativeUnit(data),
+        onSubmit: (data) => handleUpdateAdministrativeUnit(administrativeUnit.id, data),
     })
 
     return (
@@ -54,8 +57,8 @@ export const FormEditAdministrativeUnit = ({ subsecretaries, administrativeUnit 
                             ))
                         }
                     </Select>
-                    <Button color="primary" type="submit" className="w-full font-bold py-8">
-                        Crear Subsecretaria
+                    <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
+                        Actualizar Subsecretaria
                     </Button>
                 </form>
             </CardBody>

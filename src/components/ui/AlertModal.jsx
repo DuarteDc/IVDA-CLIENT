@@ -1,14 +1,16 @@
 import React from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react";
 
-export const AlertModal = ({ title, isOpen, onOpen, onOpenChange, callback, children }) => {
+export const AlertModal = ({ title, isOpen, onOpen, onOpenChange, callback, children, size = "xl", showControls = true }) => {
 
     return (
         <Modal
-            backdrop="blur"
+            backdrop="opaque"
             isOpen={isOpen}
             onOpenChange={onOpenChange}
             placement="auto"
+            size={size}
+            
         >
             <ModalContent>
                 {(onClose) => (
@@ -17,14 +19,18 @@ export const AlertModal = ({ title, isOpen, onOpen, onOpenChange, callback, chil
                         <ModalBody>
                             {children}
                         </ModalBody>
-                        <ModalFooter>
-                            <Button color="danger" variant="light" onPress={onClose}>
-                                Cancelar
-                            </Button>
-                            <Button color="primary" onPress={() => { onClose(); callback() }}>
-                                Aceptar
-                            </Button>
-                        </ModalFooter>
+                        {
+                            showControls && (
+                                <ModalFooter>
+                                    <Button color="danger" variant="light" onPress={onClose}>
+                                        Cancelar
+                                    </Button>
+                                    <Button color="primary" onPress={() => { onClose(); callback() }}>
+                                        Aceptar
+                                    </Button>
+                                </ModalFooter>
+                            )
+                        }
                     </>
                 )}
             </ModalContent>
