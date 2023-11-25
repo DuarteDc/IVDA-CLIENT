@@ -24,9 +24,9 @@ export const MainRouter = () => {
                 <PrivateRoutes>
                     <Layout>
                         <UsersProvider>
-                            <SubsecretaryProvider>
-                                <AdministrativeUnitProvider>
-                                    <InventoryProvider>
+                            <AdministrativeUnitProvider>
+                                <InventoryProvider>
+                                    <SubsecretaryProvider>
                                         <Routes>
                                             <Route path="/" element={<h1>Hola mundo</h1>} />
                                             <Route path="/users/*" element={<UsersRoutes />} />
@@ -35,9 +35,9 @@ export const MainRouter = () => {
                                             <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
                                             <Route path="/*" element={<h1>esta no existe master xD</h1>} />
                                         </Routes>
-                                    </InventoryProvider>
-                                </AdministrativeUnitProvider>
-                            </SubsecretaryProvider>
+                                    </SubsecretaryProvider>
+                                </InventoryProvider>
+                            </AdministrativeUnitProvider>
                         </UsersProvider>
                     </Layout>
                 </PrivateRoutes>

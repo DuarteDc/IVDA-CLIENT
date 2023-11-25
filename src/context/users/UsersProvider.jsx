@@ -1,10 +1,11 @@
-import { useReducer } from 'react';
+import { useContext, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { usersReducer } from './usersReducer';
 import { UsersContext } from './UsersContext';
 
 import { startGetUsers, getUser } from '../../actions/usersAction';
+import { UIContext } from '../ui/UIContext';
 
 const initialState = {
     users: [],
@@ -16,12 +17,13 @@ const initialState = {
 export const UsersProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(usersReducer, initialState);
-
-    const navigate = useNavigate();
+    const { startLoading, stopLoading } = useContext(UIContext);
 
     const getUsers = async (params = '') => {
+        startLoading();
         const data = await startGetUsers(params);
         dispatch({ type: 'get_users', payload: data });
+        stopLoading();
     }
 
     const setCurrentUser = (id) => {
@@ -30,7 +32,7 @@ export const UsersProvider = ({ children }) => {
 
     const getUserById = async (id) => {
         const user = await getUser(id);
-        if(user) return dispatch({ type: 'get_user', payload: user });
+        if (user) return dispatch({ type: 'get_user', payload: user });
     }
 
     return (

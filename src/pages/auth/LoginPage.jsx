@@ -20,7 +20,7 @@ const LoginPage = () => {
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(loginValidations()),
-        onSubmit: async (data) => await login(data),
+        onSubmit: (data) => login(data),
     });
     
     return (

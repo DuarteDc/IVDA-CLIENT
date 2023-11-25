@@ -18,10 +18,6 @@ const Subsecretaries = () => {
     useEffect(() => {
         startGetSubsecretaries(searchParams);
     }, [searchParams]);
-
-
-    console.log({searchParams});
-
     return (
         <section>
             <h1 className="text-center text-4xl md:text-5xl font-bold pb-10 uppercase">Subsecretarias</h1>

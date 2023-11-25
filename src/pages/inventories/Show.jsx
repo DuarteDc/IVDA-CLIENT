@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { InventoryContext } from '../../context/inventory/InventoryContext';
 import { BreadcrumbItem, Breadcrumbs, Button, Card, CardBody, useDisclosure } from '@nextui-org/react';
-import { HomeIcon, PlusIcon, UsersIcon } from '../../components/icons';
+import { FileIcon, HomeIcon, PlusIcon, UsersIcon } from '../../components/icons';
 import { FilesInventoryTable, FormCreateFile } from '../../components/inventories';
 import { AlertModal } from '../../components/ui/AlertModal';
 
@@ -29,7 +29,7 @@ export const Inventory = () => {
                     </BreadcrumbItem>
                     <BreadcrumbItem>
                         <Link to="/auth/inventories" className="flex items-center [&>:first-child]:mr-2">
-                            <UsersIcon width={20} height={20} />
+                            <FileIcon width={20} height={20} />
                             Inventarios
                         </Link>
                     </BreadcrumbItem>

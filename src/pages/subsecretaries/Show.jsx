@@ -6,13 +6,17 @@ import { BuildingComunity, FileIcon, HomeIcon, UsersIcon } from '../../component
 import { SubsecretaryContext } from '../../context/subsecretary/SubsecretaryContext';
 import { UsersContext } from '../../context/users/UsersContext';
 import { TabsOptions } from '../../components/subsecretaries/TabsOptions';
+import { AdministrativeUnitContext } from '../../context/administrative-unit/AdministrativeUnitContext';
+import { InventoryContext } from '../../context/inventory/InventoryContext';
 
 export const Subsecretary = () => {
 
   const { id } = useParams();
 
   const { users } = useContext(UsersContext);
-  const { startGetSubsecretary, subsecretary, enable_administrative_units, disable_administrative_units } = useContext(SubsecretaryContext);
+  const { administrativeUnits } = useContext(AdministrativeUnitContext)
+  const { startGetSubsecretary, subsecretary } = useContext(SubsecretaryContext);
+  const { inventories } = useContext(InventoryContext)
 
   useEffect(() => {
     startGetSubsecretary(id)
@@ -43,7 +47,7 @@ export const Subsecretary = () => {
           <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-start lg:justify-between font-bold">
             <span className="text-4xl lg:text-5xl">
               <h3 className="text-xs font-semibold">Unidades Administrativas</h3>
-              {enable_administrative_units.length}
+              {administrativeUnits.length}
             </span>
             <span className="p-5 bg-blue-500 rounded-lg hidden lg:block">
               <BuildingComunity width={60} height={60} />
@@ -55,7 +59,7 @@ export const Subsecretary = () => {
           <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-start lg:justify-between font-bold">
             <span className="text-4xl lg:text-5xl">
               <h3 className="text-xs font-semibold">Inventarios</h3>
-              {disable_administrative_units.length}
+              {inventories.length}
             </span>
             <span className="p-5 bg-blue-500 rounded-lg hidden lg:block">
               <FileIcon width={60} height={60} />
@@ -76,7 +80,7 @@ export const Subsecretary = () => {
         </Card>
       </div>
 
-      <TabsOptions users={users} administrativeUnits={enable_administrative_units}/>
+      <TabsOptions users={users} administrativeUnits={administrativeUnits} inventories={inventories} />
 
     </section>
   )

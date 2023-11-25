@@ -9,16 +9,18 @@ const apiInstance = axios.create({
 });
 
 apiInstance.interceptors.request.use(
-    async config => {
-        const token = localStorage.getItem('session') || '';
-        if (token) {
-            config.headers.session = JSON.parse(token);
-        }
-        return config
-    },
-    error => {
-        return Promise.reject(error)
+  async config => {
+    try {
+      const session = localStorage.getItem('session');
+      if (session) config.headers.session = JSON.parse(session);
+      return config;
+    } catch (error) {
+      localStorage.removeItem('session');
     }
+  },
+  error => {
+    return Promise.reject(error)
+  }
 )
 
 export default apiInstance;

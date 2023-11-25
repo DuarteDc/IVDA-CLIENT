@@ -9,17 +9,14 @@ import { UIContext } from '../context/ui/UIContext';
 export const useUsers = () => {
 
 
-  const { startLoading, stopLoading, loading } = useContext(UIContext);
+  const { startLoading, stopLoading } = useContext(UIContext);
   const { dispatch, currentUser } = useContext(UsersContext);
   const navigate = useNavigate();
 
-  const saveUser = async data => {
+  const handleCreateUser = async data => {
     startLoading();
-    const response = await createUser(data);
-
-    if (!response) return stopScreenLoading();
+    if (await createUser(data)) return navigate('/auth/users');
     stopLoading();
-    navigate('/auth/users');
   }
 
   const showUser = async (id) => {
@@ -46,10 +43,14 @@ export const useUsers = () => {
   }
 
 
-  const handleUpdateUser = async (id, body) => await updateUser(id, body).then(() => navigate('/auth/users'));
+  const handleUpdateUser = async (id, body) => {
+    startLoading();
+    if (await updateUser(id, body)) navigate('/auth/users');
+    stopLoading();
+  }
 
   return {
-    saveUser,
+    handleCreateUser,
     handleUsersPaginate,
     handleChangeStatus,
     showUser,

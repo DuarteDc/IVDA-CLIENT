@@ -4,14 +4,14 @@ import apiInstance from '../config/api';
 
 import { errorNotification } from '../components/ui/Alerts';
 
-export const startLogin = async (data) => {
+export const startLogin = async (body) => {
     try {
-        const res = await apiInstance.post('/signin', data);
-        return res.data;
+        const { data } = await apiInstance.post('/signin', body);
+        return data;
     } catch (error) {
-        if (isAxiosError(error)) {
-            return errorNotification(error.response.data?.message || 'xd');
-        }
+        if (isAxiosError(error))
+            return errorNotification(error?.response?.data?.message);
+
         errorNotification('Parece que hubo un error - Intenta más tarde');
     }
 }

@@ -38,20 +38,24 @@ export const Edit = () => {
                     <BreadcrumbItem>Editar</BreadcrumbItem>
                 </Breadcrumbs>
             </div>
-            <div className="flex justify-center items-center">
-                <div className="w-11/12 lg:w-6/12 [&>div>div>form>*]:mb-5">
-                    <Card>
-                        <CardBody>
-                            {
-                                (Object.keys(user).length > 0 && user.id === id) && (
-                                    <FormEditUser
-                                        subsecretaries={subsecretaries}
-                                        user={user}
-                                    />
-                                )
-                            }
-                        </CardBody>
-                    </Card>
+            <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full mt-10 lg:mt-20">
+                <div className="mt-10 [&>div>div>form>*]:my-2 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5">
+                    {
+                        (Object.keys(user).length > 0 && user.id === id) && (
+                            <FormEditUser
+                                subsecretaries={subsecretaries}
+                                user={user}
+                            />
+                        )
+                    }
+                </div>
+                <div className="hidden lg:flex justify-center items-center w-full">
+                    <img
+                        src="/assets/add-user.svg"
+                        width={700}
+                        height={600}
+                        alt="Build"
+                    />
                 </div>
             </div>
         </section>

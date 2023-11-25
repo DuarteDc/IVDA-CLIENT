@@ -1,8 +1,8 @@
-import { Suspense, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BreadcrumbItem, Breadcrumbs, Button, Card, CardBody, Spinner, useDisclosure } from '@nextui-org/react';
 
-import { BuildingComunity, HomeIcon, PlusIcon } from '../../components/icons';
+import { FileIcon, HomeIcon, PlusIcon } from '../../components/icons';
 import { InventoryContext } from '../../context/inventory/InventoryContext';
 import { FilesInventoryTable, FormCreateFile } from '../../components/inventories';
 import { FormEditInventory } from '../../components/inventories/FormEditInventory';
@@ -30,7 +30,7 @@ export const EditInventory = () => {
     }, [inventory])
 
     return (
-        <section className="min-h-screen overflow-hidden">
+        <section className="min-h-screen overflow-hidden">  
 
             {
                 !inventory?.inventory_id ? (
@@ -50,7 +50,7 @@ export const EditInventory = () => {
                                 </BreadcrumbItem>
                                 <BreadcrumbItem>
                                     <Link to="/auth/subsecretaries" className="flex items-center [&>:first-child]:mr-2">
-                                        <BuildingComunity width={20} height={20} />
+                                        <FileIcon width={20} height={20} />
                                         Inventarios
                                     </Link>
                                 </BreadcrumbItem>

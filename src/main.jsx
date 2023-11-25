@@ -11,14 +11,14 @@ import { Toaster } from 'react-hot-toast';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  <NextUIProvider>
-    <UIProvider>
+  <UIProvider>
+    <AuthProvider>
       <BrowserRouter>
         <Toaster />
-        <AuthProvider>
+        <NextUIProvider>
           <App />
-        </AuthProvider>
+        </NextUIProvider>
       </BrowserRouter>
-    </UIProvider>
-  </NextUIProvider>
+    </AuthProvider>
+  </UIProvider>
 )

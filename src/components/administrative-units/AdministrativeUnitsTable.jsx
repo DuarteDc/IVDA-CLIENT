@@ -8,7 +8,7 @@ import { AlertModal } from '../ui/AlertModal';
 import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
 import { UIContext } from '../../context/ui/UIContext';
 
-const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, setSearchParams, currentPage = 1 }) => {
+const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, setSearchParams, currentPage = 1  }) => {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

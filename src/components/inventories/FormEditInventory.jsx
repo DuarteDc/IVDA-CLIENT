@@ -10,10 +10,10 @@ import { UIContext } from '../../context/ui/UIContext';
 import { createInventoryValidations } from '../../validations/inventoryValidation';
 
 export const FormEditInventory = ({ inventory, subsecretaries }) => {
+
     const { loading } = useContext(UIContext);
     const { handleUpdateInventory } = useInventory();
     const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useAdministrativeUnits();
-
 
     const initialValues = {
         subsecretary_id: inventory?.subsecretary_id?.id,
@@ -47,7 +47,7 @@ export const FormEditInventory = ({ inventory, subsecretaries }) => {
                         isInvalid={formik.touched.subsecretary_id && formik.errors.subsecretary_id ? true : false}
                         errorMessage={formik.touched.subsecretary_id && formik.errors.subsecretary_id && formik.errors.subsecretary_id}
                         required={true}
-                        selectedKeys={formik.values.subsecretary_id}
+                        defaultSelectedKeys={[formik.values.subsecretary_id]}
                         onChange={(event) => { formik.handleChange(event); getAdministrativeUnitsBySubsecretary(event.target.value) }}
                         name="subsecretary_id"
                     >
@@ -68,7 +68,7 @@ export const FormEditInventory = ({ inventory, subsecretaries }) => {
                                 isInvalid={formik.touched.administrative_unit_id && formik.errors.administrative_unit_id ? true : false}
                                 errorMessage={formik.touched.administrative_unit_id && formik.errors.administrative_unit_id && formik.errors.administrative_unit_id}
                                 required={true}
-                                selectedKeys={formik.values.administrative_unit_id}
+                                defaultSelectedKeys={[formik.values.administrative_unit_id]}
                                 onChange={formik.handleChange}
                                 name="administrative_unit_id"
                             >

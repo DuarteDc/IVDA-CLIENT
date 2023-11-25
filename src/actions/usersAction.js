@@ -16,9 +16,14 @@ export const createUser = async (data) => {
     try {
         const res = await apiInstance.post('/auth/users/save', data);
         successNotification(res.data?.message);
+        return true;
     } catch (error) {
-        if (isAxiosError(error)) return errorNotification(error.response.data?.message);
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
         errorNotification('Parece que hubo un error - Intenta más tarde');
+        return false;
     }
 }
 
@@ -62,8 +67,12 @@ export const updateUser = async (id, body) => {
         successNotification(res.data?.message);
         return true;
     } catch (error) {
-        if (isAxiosError(error)) return errorNotification(error.response.data?.message);
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
         errorNotification('Parece que hubo un error - Intenta más tarde');
+        return false;
     }
 }
 

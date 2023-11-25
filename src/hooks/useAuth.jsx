@@ -6,15 +6,16 @@ export const useAuth = () => {
 
     const { dispatch } = useContext(AuthContext);
 
-    const login = async data => {
-        const { user, session } = await startLogin(data);
-        localStorage.setItem('session', JSON.stringify(session));
-        dispatch({ type: 'login', payload: user });
+    const login = async body => {
+        const data = await startLogin(body);
+        if (!data?.user) return;
+        localStorage.setItem('session', JSON.stringify(data?.session));
+        dispatch({ type: 'login', payload: data?.user });
     }
 
     const revalidateToken = async () => {
         const data = await startRevalidateToken();
-        if( !data?.user ) return localStorage.removeItem('session')
+        if (!data?.user) return localStorage.removeItem('session')
         localStorage.setItem('session', JSON.stringify(data?.session));
         return data?.user;
     }

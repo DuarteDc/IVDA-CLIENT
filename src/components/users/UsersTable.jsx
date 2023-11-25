@@ -46,7 +46,7 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
                                 <TableCell>{last_name}</TableCell>
                                 <TableCell>{email}</TableCell>
                                 <TableCell>
-                                    <Chip className="capitalize" color={`${role === '0' ? 'primary' : 'secondary'}`} size="sm" variant="shadow">
+                                    <Chip className="capitalize" color={`${role === '0' ? 'primary' : 'secondary'}`} size="sm" variant="flat">
                                         {
                                             role === '0' ? 'Usuario' : 'Administrador'
                                         }
