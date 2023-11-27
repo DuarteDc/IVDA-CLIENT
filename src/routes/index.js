@@ -1,3 +1,6 @@
+export { UserRoutes } from './UserRoutes';
+
+export { AdminRoutes } from './AdminRoutes';
 
 export { AdministrativeUnitsRoutes } from './AdministrativeUnitsRoutes';
 export { InventoriestRoutes } from './InventoriestRoutes';

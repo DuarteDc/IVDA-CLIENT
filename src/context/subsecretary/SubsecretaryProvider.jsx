@@ -35,7 +35,7 @@ export const SubsecretaryProvider = ({ children }) => {
         dispatch({ type: 'start_get_subsecretary', payload: rest });
         userDispatch({ type: 'get_users', payload: { users, totalPages: 0 } })
         dispatchAdministrativeUnit({ type: 'start_get_administrative_units', payload: { administrative_units, totalPages: 0 } })
-        dispatchAdministrativeUnit({ type: 'start_get_inventories', payload: { inventories, totalPages: 0 } })   
+        dispatchInventory({ type: 'start_get_inventories', payload: { inventories, totalPages: 0 } })   
     }
 
     return (

@@ -100,3 +100,12 @@ export const finalizeInventory = async (id) => {
         return false;
     }
 }
+
+export const getInventoryByUser = async () => {
+    try {
+        const { data } = await apiInstance.get(`/auth/inventories/user`);
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}

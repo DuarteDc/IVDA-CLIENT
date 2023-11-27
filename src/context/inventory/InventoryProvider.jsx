@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { InventoryContext } from './InventoryContext';
 import { inventoryReducer } from './inventoryReducer';
-import { getInventories, getInventory } from '../../actions/inventoryActions';
+import { getInventories, getInventory, getInventoryByUser } from '../../actions/inventoryActions';
 
 
 
@@ -35,9 +35,14 @@ export const InventoryProvider = ({ children }) => {
         dispatch({ type: 'get_current_inventory', payload: id });
     }
 
+    const startGetInventoryByUser = async () => {
+        const data = await getInventoryByUser();
+        dispatch({ type: 'get_inventory_by_user', payload: data });
+    }
+
 
     return (
-        <InventoryContext.Provider value={{ ...state, dispatch, startGetInventories, startGetInventory, getCurrentFile, getCurrentInventory }}>
+        <InventoryContext.Provider value={{ ...state, dispatch, startGetInventories, startGetInventory, getCurrentFile, getCurrentInventory, startGetInventoryByUser }}>
             {children}
         </InventoryContext.Provider>
     )

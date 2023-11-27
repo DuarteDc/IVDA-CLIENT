@@ -10,7 +10,7 @@ const initialState = {
 }
 
 export const AuthProvider = ({ children }) => {
-    
+
     const [state, dispatch] = useReducer(authReducer, initialState);
     const { stopScreenLoading } = useContext(UIContext);
     const { revalidateToken } = useAuth();
@@ -21,8 +21,14 @@ export const AuthProvider = ({ children }) => {
         }, 500)
     }, []);
 
+
+    const handleLogout = () => {
+        localStorage.removeItem('session');
+        dispatch({ type: 'logout' });
+    }
+
     return (
-        <AuthContext.Provider value={{ ...state, dispatch }}>
+        <AuthContext.Provider value={{ ...state, dispatch, handleLogout }}>
             {children}
         </AuthContext.Provider>
     )

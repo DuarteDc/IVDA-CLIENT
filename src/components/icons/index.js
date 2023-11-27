@@ -1,5 +1,6 @@
 
 export { AlertCircleIcon } from './AlertCircleIcon';
+export { ArrowIcon } from './ArrowIcon';
 export { BuildingComunity } from './BuildingComunity';
 export { DoneIcon } from './DoneIcon';
 export { EditIcon } from './EditIcon';

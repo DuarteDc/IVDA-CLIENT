@@ -14,7 +14,7 @@ export const Layout = ({ children }) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const { pathname } = useLocation();
-    const { user } = useContext(AuthContext);
+    const { user, handleLogout } = useContext(AuthContext);
     const { theme, handleChangeTheme } = useContext(UIContext);
 
     const toggleDrawer = () => setIsOpen((prevState) => !prevState)
@@ -60,8 +60,8 @@ export const Layout = ({ children }) => {
                                 <p className="font-semibold">{user?.email}</p>
                             </DropdownItem>
                             <DropdownItem key="settings">Mi Perfil</DropdownItem>
-                            <DropdownItem key="logout" color="danger">
-                                Log Out
+                            <DropdownItem key="logout" color="danger" onClick={handleLogout}>
+                                Cerrar Sesión
                             </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
@@ -78,36 +78,51 @@ export const Layout = ({ children }) => {
                     zIndex={20}
                 >
                     <ul className="mt-[5rem] [&>*]:my-5 [&>li>a>svg]:mr-2 [&>li>a]:py-4 [&>li>a]:rounded-lg [&>li>a]:pl-5">
-                        <li onClick={toggleDrawer}>
-                            <Link to="/auth" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth' ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                <HomeIcon width={28} height={24} />
-                                Inicio
-                            </Link>
-                        </li>
-                        <li onClick={toggleDrawer}>
-                            <Link to="/auth/users" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/users') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                <UsersIcon width={28} height={24} />
-                                Usuarios
-                            </Link>
-                        </li>
-                        <li onClick={toggleDrawer}>
-                            <Link to="/auth/subsecretaries" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/subsecretaries') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                <BuildingComunity width={28} height={24} />
-                                Subsecretarias
-                            </Link>
-                        </li>
-                        <li onClick={toggleDrawer}>
-                            <Link to="/auth/administrative-units" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                <HomeCog width={28} height={24} />
-                                Unidades Administrativas
-                            </Link>
-                        </li>
-                        <li onClick={toggleDrawer}>
-                            <Link to="/auth/inventories" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/inventories') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                <FileIcon width={28} height={24} />
-                                Inventarios
-                            </Link>
-                        </li>
+                        {
+                            user?.role === "1" ? (
+                                <>
+                                    <li onClick={toggleDrawer}>
+                                        <Link to="/auth" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth' ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                            <HomeIcon width={28} height={24} />
+                                            Inicio
+                                        </Link>
+                                    </li>
+                                    <li onClick={toggleDrawer}>
+                                        <Link to="/auth/users" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/users') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                            <UsersIcon width={28} height={24} />
+                                            Usuarios
+                                        </Link>
+                                    </li>
+                                    <li onClick={toggleDrawer}>
+                                        <Link to="/auth/subsecretaries" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/subsecretaries') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                            <BuildingComunity width={28} height={24} />
+                                            Subsecretarias
+                                        </Link>
+                                    </li>
+                                    <li onClick={toggleDrawer}>
+                                        <Link to="/auth/administrative-units" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                            <HomeCog width={28} height={24} />
+                                            Unidades Administrativas
+                                        </Link>
+                                    </li>
+                                    <li onClick={toggleDrawer}>
+                                        <Link to="/auth/inventories" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/inventories') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                            <FileIcon width={28} height={24} />
+                                            Inventarios
+                                        </Link>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li onClick={toggleDrawer}>
+                                        <Link to="/auth/user" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth/user' ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                            <HomeIcon width={28} height={24} />
+                                            Inicio
+                                        </Link>
+                                    </li>
+                                </>
+                            )
+                        }
                     </ul>
                 </Drawer>
                 {children}
