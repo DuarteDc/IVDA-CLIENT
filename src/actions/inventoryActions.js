@@ -104,7 +104,7 @@ export const finalizeInventory = async (id) => {
 export const getInventoryByUser = async () => {
     try {
         const { data } = await apiInstance.get(`/auth/inventories/user`);
-        return data;
+        return data.inventory;
     } catch (error) {
         console.log(error);
     }

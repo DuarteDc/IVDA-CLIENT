@@ -38,10 +38,10 @@ export const FilesInventoryTable = ({ files, showControls = true }) => {
                     loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
                 >
                     {
-                        files?.map(({ no, secction, serie, no_ex, formule, name, total_legajos, total_files, files_date, observations }) => (
+                        files?.map(({ no, section, serie, no_ex, formule, name, total_legajos, total_files, files_date, observations }) => (
                             <TableRow key={no}>
                                 <TableCell>{no}</TableCell>
-                                <TableCell>{secction}</TableCell>
+                                <TableCell>{section}</TableCell>
                                 <TableCell>{serie}</TableCell>
                                 <TableCell>{no_ex}</TableCell>
                                 <TableCell>{formule}</TableCell>

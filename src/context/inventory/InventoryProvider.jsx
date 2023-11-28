@@ -37,7 +37,7 @@ export const InventoryProvider = ({ children }) => {
 
     const startGetInventoryByUser = async () => {
         const data = await getInventoryByUser();
-        dispatch({ type: 'get_inventory_by_user', payload: data });
+        if (data) dispatch({ type: 'get_inventory_by_user', payload: data });
     }
 
 

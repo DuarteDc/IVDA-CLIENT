@@ -28,31 +28,32 @@ export const MainRouter = () => {
                             <AdministrativeUnitProvider>
                                 <InventoryProvider>
                                     <SubsecretaryProvider>
-                                        <AdminRoutes>
-                                            <Routes>
-                                                <Route path="/" element={<h1>Hola mundo</h1>} />
-                                                <Route path="/users/*" element={<UsersRoutes />} />
-                                                <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
-                                                <Route path="/inventories/*" element={<InventoriestRoutes />} />
-                                                <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
-                                            </Routes>
-                                        </AdminRoutes>
+                                        <Routes>
+                                            <Route path="/*" element={
+                                                <AdminRoutes>
+                                                    <Routes>
+                                                        <Route path="/" element={<h1>Hola mundo</h1>} />
+                                                        <Route path="/users/*" element={<UsersRoutes />} />
+                                                        <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
+                                                        <Route path="/inventories/*" element={<InventoriestRoutes />} />
+                                                        <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
+                                                    </Routes>
+                                                </AdminRoutes>
+                                            } />
+                                            <Route path="/user/*" element={
+                                                <UserRoutes>
+                                                    <Routes>
+                                                        <Route path="/" element={<User />} />
+                                                        <Route path="/inventory/:id" element={<CompleteInventory />} />
+                                                    </Routes>
+                                                </UserRoutes>
+                                            } />
+                                        </Routes>
                                     </SubsecretaryProvider>
                                 </InventoryProvider>
                             </AdministrativeUnitProvider>
                         </UsersProvider>
-                        <UserRoutes>
-                            <InventoryProvider>
-                                <Routes>
-                                    <Route path="/user/*" element={
-                                        <Routes>
-                                            <Route path="/" element={<User />} />
-                                            <Route path="/:id" element={<CompleteInventory />} />
-                                        </Routes>
-                                    } />
-                                </Routes>
-                            </InventoryProvider>
-                        </UserRoutes>
+
                         <Routes>
                             <Route path="/auth/*" element={<h1>esta no existe master xD</h1>} />
                         </Routes>

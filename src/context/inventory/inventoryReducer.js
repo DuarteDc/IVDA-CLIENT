@@ -55,9 +55,12 @@ export const inventoryReducer = (state, { type, payload }) => {
             }
 
         case 'get_inventory_by_user':
+            const { body, ...res } = payload;
+
             return {
                 ...state,
-                inventory: payload,
+                inventory: res,
+                files: body || []
             }
 
         default: state;

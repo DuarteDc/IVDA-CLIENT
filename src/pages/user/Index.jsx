@@ -15,13 +15,14 @@ export const User = () => {
     }, []);
 
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
+        <section className="flex items-center min-h-screen justify-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full">
             <div className="mt-10 [&>div>div>form>*]:my-5 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5 text-center lg:text-left">
-                <h1 className="text-6xl lg:text-8xl mb-10 font-bold text-blue-600">Bienvenido</h1>
-                <h2 className="text-4xl lg:text-6xl font-bold">{user?.name} {user?.last_name}</h2>
+                <h1 className="text-6xl lg:text-8xl xl:text-9xl mb-10 font-bold text-blue-600">Bienvenido</h1>
+                <h2 className="text-4xl lg:text-6xl xl:text-8xl font-bold">{user?.name} {user?.last_name}</h2>
                 <div>
                     {
-                        inventory ? (
+                        Object.keys(inventory).length > 0 ? (
                             <div className="mt-20 flex flex-col">
                                 <img
                                     src="/assets/inventories.svg"
@@ -33,7 +34,7 @@ export const User = () => {
                                 <span className="my-5 text-gray-500 text-lg">
                                     Parece que hay un inventario en proceso, haz clic para ver
                                 </span>
-                                <Button color="primary" size="lg" className="py-7 font-bold" onClick={()=> navigate(`/auth/inventory/${inventory}`)}>
+                                <Button color="primary" size="lg" className="py-7 lg:py-9 font-bold" onClick={()=> navigate(`/auth/user/inventory/${inventory.inventory_id?.id}`)}>
                                     Ver
                                 </Button>
                             </div>
@@ -61,6 +62,7 @@ export const User = () => {
                     height={600}
                     alt="Build"
                 />
+            </div>
             </div>
         </section>
     )

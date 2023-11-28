@@ -46,10 +46,14 @@ export const Inventory = () => {
                         </div>
                         <div className="flex items-end flex-col justify-end lg:text-lg [&>*]:my-2">
                             <span><b className="text-sm lg:text-xl mr-1">Fecha de elaboración:</b> {inventory?.created_at}</span>
-                            <Button color="primary" onClick={onOpen}>
-                                <PlusIcon />
-                                Agregar Archivo
-                            </Button>
+                            {
+                                !inventory?.inventory_id?.status && (
+                                    <Button color="primary" onClick={onOpen}>
+                                        <PlusIcon />
+                                        Agregar Archivo
+                                    </Button>
+                                )
+                            }
                         </div>
                     </div>
 
