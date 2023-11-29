@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { addFile, createInventory, deleteFile, finalizeInventory, updateInventory } from '../actions/inventoryActions';
+import { addFile, createInventory, deleteFile, downloadReport, finalizeInventory, updateInventory } from '../actions/inventoryActions';
 import { useContext } from 'react';
 import { UIContext } from '../context/ui/UIContext';
 import { InventoryContext } from '../context/inventory/InventoryContext';
@@ -43,11 +43,18 @@ export const useInventory = () => {
 
     }
 
+    const handleGenerateReport = async (id) => {
+        startLoading();
+        await downloadReport(id);
+        stopLoading();
+    }
+
     return {
         handleCreateInventory,
         handleUpdateInventory,
         handleDeleteFile,
         handleCreateFile,
-        handleFinalizeInventory
+        handleFinalizeInventory,
+        handleGenerateReport
     }
 }

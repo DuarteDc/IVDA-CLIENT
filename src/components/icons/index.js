@@ -6,6 +6,7 @@ export { DoneIcon } from './DoneIcon';
 export { EditIcon } from './EditIcon';
 export { ErrorIcon } from './ErrorIcon';
 export { EyeIcon } from './EyeIcon';
+export { EyeOffIcon } from './EyeOffIcon';
 export { FileIcon } from './FileIcon';
 export { HomeCog } from './HomeCog';
 export { HomeIcon } from './HomeIcon';

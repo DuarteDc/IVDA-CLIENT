@@ -16,7 +16,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
     const { loading } = useContext(UIContext);
     const { user } = useContext(AuthContext)
     const { getCurrentInventory } = useContext(InventoryContext);
-    const { handleFinalizeInventory } = useInventory();
+    const { handleFinalizeInventory, handleGenerateReport } = useInventory();
 
     return (
         <>
@@ -38,7 +38,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                 <TableCell>
                                     {id}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell className="min-w-[300px]">
                                     <User
                                         avatarProps={{
                                             icon: <FileIcon />
@@ -85,7 +85,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                                 {
                                                     status ? (
                                                         <Tooltip color="danger" content="Generar reporte">
-                                                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { getCurrentInventory(id); }}>
+                                                            <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { handleGenerateReport(id); }}>
                                                                 <PDFIcon />
                                                             </span>
                                                         </Tooltip>

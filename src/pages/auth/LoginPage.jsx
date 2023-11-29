@@ -1,16 +1,22 @@
-import { useContext } from 'react';
-import { Button, Input } from '@nextui-org/react'
+import { useContext, useState } from 'react';
+import { Button, Input, Spinner } from '@nextui-org/react'
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
 import { UIContext } from '../../context/ui/UIContext';
 import { loginValidations } from '../../validations/authValidations';
 import { useAuth } from '../../hooks/useAuth';
+import { EyeIcon, EyeOffIcon } from '../../components/icons';
 
 const LoginPage = () => {
 
-    const { theme } = useContext(UIContext);
+    const { loading } = useContext(UIContext);
+
     const { login } = useAuth();
+
+    const [isVisible, setIsVisible] = useState(false);
+
+    const toggleVisibility = () => setIsVisible(!isVisible);
 
     const initialValues = {
         email: '',
@@ -22,9 +28,9 @@ const LoginPage = () => {
         validationSchema: Yup.object(loginValidations()),
         onSubmit: (data) => login(data),
     });
-    
+
     return (
-        <section className={`${theme}  text-foreground bg-background min-h-screen flex flex-col items-center w-full justify-center relative overflow-hidden px-5`}>
+        <section className={`min-h-screen flex flex-col items-center w-full justify-center relative overflow-hidden px-5`}>
             <span className="w-[200px] h-[100px] lg:w-[400px] lg:h-[200px] rounded-3xl -rotate-45 bg-blue-600/10 shadow-[0_10px_150px_20px_rgba(30,64,175,0.5)] absolute bottom-0 -left-20 lg:-left-24"></span>
             <span className="w-[50px] h-[50px] lg:w-[100px] lg:h-[100px] rounded-md rotate-45 bg-blue-600/80  absolute lg:bottom-48 lg:left-40 bottom-20 left-16"></span>
 
@@ -51,8 +57,7 @@ const LoginPage = () => {
 
                     <Input
                         name="password"
-                        
-                        type="password"
+                        type={isVisible ? "text" : "password"}
                         label="Contraseña"
                         variant="bordered"
                         value={formik.values.password}
@@ -60,9 +65,18 @@ const LoginPage = () => {
                         errorMessage={formik.touched.password && formik.errors.password && formik.errors.password}
                         required={true}
                         onChange={formik.handleChange}
+                        endContent={
+                            <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+                                {isVisible ? (
+                                    <EyeOffIcon />
+                                ) : (
+                                    <EyeIcon />
+                                )}
+                            </button>
+                        }
                         size="lg"
                     />
-                    <Button color="primary" type="submit" className="w-full font-bold py-8 mt-5">
+                    <Button color="primary" type="submit" className="w-full font-bold py-8 mt-5" isLoading={loading} spinner={<Spinner color="default" />}>
                         Iniciar Sesión
                     </Button>
                 </form>

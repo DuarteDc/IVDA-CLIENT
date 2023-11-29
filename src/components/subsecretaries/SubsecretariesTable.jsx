@@ -10,7 +10,6 @@ import { SubsecretaryContext } from '../../context/subsecretary/SubsecretaryCont
 export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openAlert, getCurrentSubsecretary, setSearchParams }) => {
 
   const { loading } = useContext(UIContext);
-  const { subsecretary } = useContext(SubsecretaryContext)
 
   return (
     <>
@@ -27,13 +26,14 @@ export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openA
           {
             subsecretaries?.map(({ id, name, status }) => (
               <TableRow key={id}>
-                <TableCell>
+                <TableCell className="min-w-[30px]">
                   <User
                     avatarProps={{
                       icon: <BuildingComunity />
                     }}
                     name={name}
                     description="Subsecretaria"
+                    className="truncate"
                   >
                     {name}
                   </User>

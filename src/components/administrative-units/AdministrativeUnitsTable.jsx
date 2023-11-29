@@ -32,13 +32,14 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
           {
             administrativeUnits?.map(({ id, name, subsecretary_id, status }) => (
               <TableRow key={id}>
-                <TableCell>
+                <TableCell className="min-w-[30px]">
                   <User
                     avatarProps={{
                       icon: <BuildingComunity />
                     }}
                     name={name}
                     description="Subsecretaria"
+                    className="truncate"
                   >
                     {name}
                   </User>

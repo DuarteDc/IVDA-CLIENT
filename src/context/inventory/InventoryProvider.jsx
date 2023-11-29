@@ -1,7 +1,8 @@
-import { useReducer } from 'react';
+import { useContext, useReducer } from 'react';
 import { InventoryContext } from './InventoryContext';
 import { inventoryReducer } from './inventoryReducer';
 import { getInventories, getInventory, getInventoryByUser } from '../../actions/inventoryActions';
+import { UIContext } from '../ui/UIContext';
 
 
 
@@ -16,10 +17,13 @@ const initialState = {
 export const InventoryProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(inventoryReducer, initialState);
+    const { startLoading, stopLoading } = useContext(UIContext);
 
     const startGetInventories = async (params = '') => {
+        startLoading()
         const data = await getInventories(params);
         dispatch({ type: 'start_get_inventories', payload: data });
+        stopLoading()
     }
 
     const startGetInventory = async (id) => {

@@ -20,7 +20,7 @@ export const FormEditUser = ({ subsecretaries, user }) => {
     }, [])
 
     const initialValues = {
-        name: user?.name,
+        name: user.name,
         last_name: user?.last_name,
         email: user?.email,
         password: '',

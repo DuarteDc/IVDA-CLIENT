@@ -27,9 +27,17 @@ export const Layout = ({ children }) => {
                 onMenuOpenChange={setIsOpen}
                 maxWidth="full"
             >
-                <NavbarContent justify="start">
-                    <NavbarMenuToggle aria-label={isOpen ? "Close menu" : "Open menu"} />
-                </NavbarContent>
+                {
+                    user?.role === "1" ? (
+                        <NavbarContent justify="start">
+                            <NavbarMenuToggle aria-label={isOpen ? "Close menu" : "Open menu"} />
+                        </NavbarContent>
+                    ) : (
+                        <NavbarContent justify="start">
+
+                        </NavbarContent>
+                    )
+                }
 
                 <NavbarContent as="div" className="items-center" justify="center">
                     {
@@ -68,63 +76,53 @@ export const Layout = ({ children }) => {
                 </NavbarContent>
             </Navbar>
             <main className={`min-h-screen [&>section]:lg:px-20 [&>section]:pt-10 [&>section]:lg:pt-20 px-2 [&>section]:overflow-hidden`}>
-                <Drawer
-                    open={isOpen}
-                    onClose={toggleDrawer}
-                    direction="left"
-                    size={350}
-                    className="px-2"
-                    style={{ backgroundColor: `${theme === 'dark' ? 'black' : 'white'}` }}
-                    zIndex={20}
-                >
-                    <ul className="mt-[5rem] [&>*]:my-5 [&>li>a>svg]:mr-2 [&>li>a]:py-4 [&>li>a]:rounded-lg [&>li>a]:pl-5">
-                        {
-                            user?.role === "1" ? (
-                                <>
-                                    <li onClick={toggleDrawer}>
-                                        <Link to="/auth" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth' ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                            <HomeIcon width={28} height={24} />
-                                            Inicio
-                                        </Link>
-                                    </li>
-                                    <li onClick={toggleDrawer}>
-                                        <Link to="/auth/users" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/users') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                            <UsersIcon width={28} height={24} />
-                                            Usuarios
-                                        </Link>
-                                    </li>
-                                    <li onClick={toggleDrawer}>
-                                        <Link to="/auth/subsecretaries" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/subsecretaries') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                            <BuildingComunity width={28} height={24} />
-                                            Subsecretarias
-                                        </Link>
-                                    </li>
-                                    <li onClick={toggleDrawer}>
-                                        <Link to="/auth/administrative-units" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                            <HomeCog width={28} height={24} />
-                                            Unidades Administrativas
-                                        </Link>
-                                    </li>
-                                    <li onClick={toggleDrawer}>
-                                        <Link to="/auth/inventories" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/inventories') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                            <FileIcon width={28} height={24} />
-                                            Inventarios
-                                        </Link>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li onClick={toggleDrawer}>
-                                        <Link to="/auth/user" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth/user' ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
-                                            <HomeIcon width={28} height={24} />
-                                            Inicio
-                                        </Link>
-                                    </li>
-                                </>
-                            )
-                        }
-                    </ul>
-                </Drawer>
+                {
+                    user?.role === "1" && (
+                        <Drawer
+                            open={isOpen}
+                            onClose={toggleDrawer}
+                            direction="left"
+                            size={350}
+                            className="px-2"
+                            style={{ backgroundColor: `${theme === 'dark' ? 'black' : 'white'}` }}
+                            zIndex={20}
+                        >
+                            <ul className="mt-[5rem] [&>*]:my-5 [&>li>a>svg]:mr-2 [&>li>a]:py-4 [&>li>a]:rounded-lg [&>li>a]:pl-5">
+
+                                <li onClick={toggleDrawer}>
+                                    <Link to="/auth" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth' ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                        <HomeIcon width={28} height={24} />
+                                        Inicio
+                                    </Link>
+                                </li>
+                                <li onClick={toggleDrawer}>
+                                    <Link to="/auth/users" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/users') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                        <UsersIcon width={28} height={24} />
+                                        Usuarios
+                                    </Link>
+                                </li>
+                                <li onClick={toggleDrawer}>
+                                    <Link to="/auth/subsecretaries" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/subsecretaries') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                        <BuildingComunity width={28} height={24} />
+                                        Subsecretarias
+                                    </Link>
+                                </li>
+                                <li onClick={toggleDrawer}>
+                                    <Link to="/auth/administrative-units" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                        <HomeCog width={28} height={24} />
+                                        Unidades Administrativas
+                                    </Link>
+                                </li>
+                                <li onClick={toggleDrawer}>
+                                    <Link to="/auth/inventories" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/inventories') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                        <FileIcon width={28} height={24} />
+                                        Inventarios
+                                    </Link>
+                                </li>
+                            </ul>
+                        </Drawer>
+                    )
+                }
                 {children}
             </main>
         </>

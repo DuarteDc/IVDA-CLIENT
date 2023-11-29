@@ -1,7 +1,8 @@
-import { useReducer } from 'react';
+import { useContext, useReducer } from 'react';
 import { administrativeUnitReducer } from './administrativeUnitReducer';
 import { AdministrativeUnitContext } from './AdministrativeUnitContext';
 import { getAdministrativeUnits } from '../../actions/administrativeUnitsActions';
+import { UIContext } from '../ui/UIContext';
 
 const initialState = {
     administrativeUnits: [],
@@ -11,10 +12,14 @@ const initialState = {
 
 export const AdministrativeUnitProvider = ({ children }) => {
     const [state, dispatch] = useReducer(administrativeUnitReducer, initialState);
+    const { startLoading, stopLoading } = useContext(UIContext);
+
 
     const startGetAdministrativeUnits = async (params = '') => {
+        startLoading();
         const data = await getAdministrativeUnits(params);
         dispatch({ type: 'start_get_administrative_units', payload: data });
+        stopLoading();
     }
 
     const getCurrentAdministrativeUnit = (id) => {

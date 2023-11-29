@@ -34,11 +34,11 @@ export const CreateUser = () => {
           <BreadcrumbItem>Crear</BreadcrumbItem>
         </Breadcrumbs>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full mt-10 lg:mt-20">
-        <div className="mt-10 [&>div>div>form>*]:my-2 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5">
+      <div className="grid grid-cols-1 lg:grid-cols-7 w-full h-full mt-10 lg:mt-20 mb-20">
+        <div className="mt-10 [&>div>div>form>*]:my-2 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5 col-span-4">
           <FormCreateUser subsecretaries={subsecretaries} />
         </div>
-        <div className="hidden lg:flex justify-center items-center w-full">
+        <div className="hidden lg:flex justify-center items-center w-full col-span-3">
           <img
             src="/assets/add-user.svg"
             width={700}

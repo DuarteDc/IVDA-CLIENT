@@ -1,6 +1,6 @@
-import { isAxiosError } from 'axios';
+import axios, { isAxiosError } from 'axios';
 
-import apiInstance from '../config/api';
+import apiInstance, { apiDownload } from '../config/api';
 
 import { errorNotification, successNotification } from '../components/ui/Alerts';
 
@@ -107,5 +107,20 @@ export const getInventoryByUser = async () => {
         return data.inventory;
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const downloadReport = async (id) => {
+    try {
+        const res = await apiDownload.get(`/auth/report/generate/${id}`);
+        const downloadUrl = window.URL.createObjectURL(res.data)
+        window.open(downloadUrl, '__blank')
+    } catch (error) {
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
+        errorNotification();
+        return false;
     }
 }

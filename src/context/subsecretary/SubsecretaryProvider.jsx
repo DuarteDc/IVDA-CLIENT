@@ -6,6 +6,7 @@ import { subsecretaryReducer } from './subsecretaryReducer';
 import { UsersContext } from '../users/UsersContext';
 import { AdministrativeUnitContext } from '../administrative-unit/AdministrativeUnitContext';
 import { InventoryContext } from '../inventory/InventoryContext';
+import { UIContext } from '../ui/UIContext';
 
 const initialState = {
     subsecretaries: [],
@@ -16,14 +17,16 @@ const initialState = {
 export const SubsecretaryProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(subsecretaryReducer, initialState);
-
+    const { startLoading, stopLoading } = useContext(UIContext);
     const { dispatch: userDispatch } = useContext(UsersContext);
     const { dispatch: dispatchAdministrativeUnit } = useContext(AdministrativeUnitContext);
     const { dispatch: dispatchInventory } = useContext(InventoryContext);
 
     const startGetSubsecretaries = async (params = '') => {
+        startLoading();
         const data = await getSubsecretaries(params);
         dispatch({ type: 'start_get_subsecretaries', payload: data });
+        stopLoading();
     }
 
     const getCurrentSubsecretary = (id) => {

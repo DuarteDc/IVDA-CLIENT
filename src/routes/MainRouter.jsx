@@ -9,6 +9,8 @@ import { SubsecretaryProvider } from '../context/subsecretary/SubsecretaryProvid
 import { AdministrativeUnitProvider } from '../context/administrative-unit/AdministrativeUnitProvider';
 import { InventoryProvider } from '../context/inventory/InventoryProvider';
 import { User, CompleteInventory } from '../pages/user/';
+import { Dashboard } from '../pages/dashboard/Index';
+import { NotFound } from '../pages/404/Index';
 
 export const MainRouter = () => {
 
@@ -32,11 +34,12 @@ export const MainRouter = () => {
                                             <Route path="/*" element={
                                                 <AdminRoutes>
                                                     <Routes>
-                                                        <Route path="/" element={<h1>Hola mundo</h1>} />
+                                                        <Route path="/" element={<Dashboard />} />
                                                         <Route path="/users/*" element={<UsersRoutes />} />
                                                         <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                                                         <Route path="/inventories/*" element={<InventoriestRoutes />} />
                                                         <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
+                                                        <Route path="/*" element={<NotFound />} />
                                                     </Routes>
                                                 </AdminRoutes>
                                             } />
@@ -53,14 +56,11 @@ export const MainRouter = () => {
                                 </InventoryProvider>
                             </AdministrativeUnitProvider>
                         </UsersProvider>
-
-                        <Routes>
-                            <Route path="/auth/*" element={<h1>esta no existe master xD</h1>} />
-                        </Routes>
                     </Layout>
                 </PrivateRoutes>
             }
             />
+            <Route path="*" element={<NotFound />} />
         </Routes >
     )
 }

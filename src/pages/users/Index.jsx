@@ -22,7 +22,7 @@ export const Users = () => {
             <h1 className="text-center text-5xl font-bold pb-10 uppercase">Usuarios</h1>
             <div className="flex justify-end py-10">
                 <Button color="primary" startContent={<PlusIcon />}>
-                    <Link to="/auth/users/create">
+                    <Link to="/auth/users/create" className="h-full w-full flex items-center">
                         Crear Usuario
                     </Link>
                 </Button>
