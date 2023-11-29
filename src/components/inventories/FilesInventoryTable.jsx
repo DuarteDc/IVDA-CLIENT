@@ -6,7 +6,7 @@ import { AlertModal } from '../ui/AlertModal';
 import { useInventory } from '../../hooks/useInventory';
 import { UIContext } from '../../context/ui/UIContext';
 
-export const FilesInventoryTable = ({ files, showControls = true }) => {
+export const FilesInventoryTable = ({ files, showControls = true, status }) => {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { getCurrentFile, file } = useContext(InventoryContext);
@@ -52,18 +52,22 @@ export const FilesInventoryTable = ({ files, showControls = true }) => {
                                 <TableCell>{observations}</TableCell>
                                 {showControls && (
                                     <TableCell>
-                                        <span className="flex">
-                                            {/* <Tooltip content="Editar">
+                                        {
+                                            !status && (
+                                                <span className="flex">
+                                                    {/* <Tooltip content="Editar">
                                                 <span className="text-lg cursor-pointer active:opacity-50" onClick={() => getCurrentFile(no)}>
                                                     <EditIcon />
                                                 </span>
                                             </Tooltip> */}
-                                            <Tooltip color="danger" content="Eliminar">
-                                                <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(no); onOpen(); }}>
-                                                    <TrashIcon />
+                                                    <Tooltip color="danger" content="Eliminar">
+                                                        <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(no); onOpen(); }}>
+                                                            <TrashIcon />
+                                                        </span>
+                                                    </Tooltip>
                                                 </span>
-                                            </Tooltip>
-                                        </span>
+                                            )
+                                        }
                                     </TableCell>
                                 )}
                             </TableRow>

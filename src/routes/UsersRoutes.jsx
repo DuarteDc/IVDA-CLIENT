@@ -12,8 +12,8 @@ export const UsersRoutes = () => {
             <Route path="/*" element={
                 <Routes>
                     <Route path="/" element={<Users />} />
-                    <Route path="/edit/:id" element={<Edit />} />
                     {/* <Route path=":id" element={<Show />} /> */}
+                    <Route path="/edit/:id" element={<Edit />} />
                     <Route path="/create" element={<CreateUser />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>

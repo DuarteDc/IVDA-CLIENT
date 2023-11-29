@@ -24,7 +24,7 @@ export const Edit = () => {
             <div className="px-5 flex flex-col flex-wrap gap-4 mb-5">
                 <Breadcrumbs radius="lg" variant="solid" color="foreground">
                     <BreadcrumbItem>
-                        <Link to="/auth" className="flex items-center [&>:first-child]:mr-2">
+                        <Link to="/auth" className="flex items-center [&>:first-child]:mr-2">#
                             <HomeIcon width={20} height={20} />
                             Inicio
                         </Link>

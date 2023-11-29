@@ -64,7 +64,7 @@ export const Inventory = () => {
                         <Card className="w-full"><CardBody className="w-full py-6 text-xs lg:text-base">{inventory?.administrative_unit_id?.name}</CardBody></Card>
                     </div>
 
-                    <FilesInventoryTable files={files} />
+                    <FilesInventoryTable files={files} status={inventory?.inventory_id?.status}/>
                 </CardBody>
             </Card>
 

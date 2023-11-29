@@ -49,7 +49,7 @@ export const useAdministrativeUnits = () => {
 
     const startGetAdministrativeUnit = async (id) => {
         const administrativeUnit = await getOneAdministrativeUnit(id)
-        if (!administrativeUnit) return;
+        if (!administrativeUnit) return navigate('/auth/not-found');
         dispatch({ type: 'get_one_administrative_unit', payload: administrativeUnit });
     }
 

@@ -3,6 +3,7 @@ import { InventoryContext } from './InventoryContext';
 import { inventoryReducer } from './inventoryReducer';
 import { getInventories, getInventory, getInventoryByUser } from '../../actions/inventoryActions';
 import { UIContext } from '../ui/UIContext';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -19,6 +20,8 @@ export const InventoryProvider = ({ children }) => {
     const [state, dispatch] = useReducer(inventoryReducer, initialState);
     const { startLoading, stopLoading } = useContext(UIContext);
 
+    const navigate = useNavigate();
+
     const startGetInventories = async (params = '') => {
         startLoading()
         const data = await getInventories(params);
@@ -27,8 +30,13 @@ export const InventoryProvider = ({ children }) => {
     }
 
     const startGetInventory = async (id) => {
-        const data = await getInventory(id);
-        dispatch({ type: 'start_get_inventory', payload: data });
+        try {
+            const data = await getInventory(id);
+            if (!data) return navigate('/auth/not-found');
+            dispatch({ type: 'start_get_inventory', payload: data });
+        } catch (error) {
+            navigate('/auth/not-found');
+        }
     }
 
     const getCurrentFile = (no) => {

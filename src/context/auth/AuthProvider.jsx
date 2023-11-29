@@ -12,19 +12,26 @@ const initialState = {
 export const AuthProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(authReducer, initialState);
-    const { stopScreenLoading } = useContext(UIContext);
+    const { startScreenLoading, stopScreenLoading } = useContext(UIContext);
     const { revalidateToken } = useAuth();
 
     useEffect(() => {
         setTimeout(() => {
-            revalidateToken().then((user) => dispatch({ type: 'login', payload: user })).finally(() => stopScreenLoading());
+            revalidateToken()
+                .then((user) => dispatch({ type: 'login', payload: user }))
+                .catch(() => localStorage.removeItem('session'))
+                .finally(() => stopScreenLoading());
         }, 500)
     }, []);
 
 
     const handleLogout = () => {
-        localStorage.removeItem('session');
-        dispatch({ type: 'logout' });
+        startScreenLoading();
+        setTimeout(() => {
+            localStorage.removeItem('session');
+            dispatch({ type: 'logout' });
+            stopScreenLoading();
+        }, 300)
     }
 
     return (

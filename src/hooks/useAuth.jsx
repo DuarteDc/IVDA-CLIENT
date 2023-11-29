@@ -14,7 +14,7 @@ export const useAuth = () => {
         if (!data?.user) return stopLoading();
         localStorage.setItem('session', JSON.stringify(data?.session));
         dispatch({ type: 'login', payload: data?.user });
-        startLoading();
+        stopLoading();
     }
 
     const revalidateToken = async () => {

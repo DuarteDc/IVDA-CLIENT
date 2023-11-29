@@ -7,6 +7,7 @@ import { UsersContext } from '../users/UsersContext';
 import { AdministrativeUnitContext } from '../administrative-unit/AdministrativeUnitContext';
 import { InventoryContext } from '../inventory/InventoryContext';
 import { UIContext } from '../ui/UIContext';
+import { useNavigate } from 'react-router-dom';
 
 const initialState = {
     subsecretaries: [],
@@ -22,6 +23,8 @@ export const SubsecretaryProvider = ({ children }) => {
     const { dispatch: dispatchAdministrativeUnit } = useContext(AdministrativeUnitContext);
     const { dispatch: dispatchInventory } = useContext(InventoryContext);
 
+    const navigate = useNavigate();
+
     const startGetSubsecretaries = async (params = '') => {
         startLoading();
         const data = await getSubsecretaries(params);
@@ -34,11 +37,15 @@ export const SubsecretaryProvider = ({ children }) => {
     }
 
     const startGetSubsecretary = async (id) => {
-        const { users, administrative_units, inventories, ...rest } = await getSubsecretary(id);
-        dispatch({ type: 'start_get_subsecretary', payload: rest });
-        userDispatch({ type: 'get_users', payload: { users, totalPages: 0 } })
-        dispatchAdministrativeUnit({ type: 'start_get_administrative_units', payload: { administrative_units, totalPages: 0 } })
-        dispatchInventory({ type: 'start_get_inventories', payload: { inventories, totalPages: 0 } })   
+        try {
+            const { users, administrative_units, inventories, ...rest } = await getSubsecretary(id);
+            dispatch({ type: 'start_get_subsecretary', payload: rest });
+            userDispatch({ type: 'get_users', payload: { users, totalPages: 0 } })
+            dispatchAdministrativeUnit({ type: 'start_get_administrative_units', payload: { administrative_units, totalPages: 0 } })
+            dispatchInventory({ type: 'start_get_inventories', payload: { inventories, totalPages: 0 } })   
+        } catch (error) {
+            navigate('/auth/not-found');
+        }
     }
 
     return (

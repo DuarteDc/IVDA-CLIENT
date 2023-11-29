@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
@@ -14,6 +14,7 @@ export const Layout = ({ children }) => {
     const [isOpen, setIsOpen] = useState(true);
 
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     const { user, handleLogout } = useContext(AuthContext);
     const { theme, handleChangeTheme } = useContext(UIContext);
 
@@ -64,10 +65,10 @@ export const Layout = ({ children }) => {
                             />
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Profile Actions" variant="flat">
-                            <DropdownItem key="profile" className="h-14 gap-2">
+                            <DropdownItem key="email" className="h-14 gap-2">
                                 <p className="font-semibold">{user?.email}</p>
                             </DropdownItem>
-                            <DropdownItem key="settings">Mi Perfil</DropdownItem>
+                            <DropdownItem key="profile" onClick={() => navigate('/auth/profile')}>Mi Perfil</DropdownItem>
                             <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                                 Cerrar Sesión
                             </DropdownItem>

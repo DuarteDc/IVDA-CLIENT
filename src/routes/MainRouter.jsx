@@ -11,6 +11,7 @@ import { InventoryProvider } from '../context/inventory/InventoryProvider';
 import { User, CompleteInventory } from '../pages/user/';
 import { Dashboard } from '../pages/dashboard/Index';
 import { NotFound } from '../pages/404/Index';
+import { Profile } from '../pages/profile';
 
 export const MainRouter = () => {
 
@@ -39,6 +40,7 @@ export const MainRouter = () => {
                                                         <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                                                         <Route path="/inventories/*" element={<InventoriestRoutes />} />
                                                         <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
+                                                        {/* <Route path="/profile/*" element={<Profile />} /> */}
                                                         <Route path="/*" element={<NotFound />} />
                                                     </Routes>
                                                 </AdminRoutes>

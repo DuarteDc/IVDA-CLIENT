@@ -63,13 +63,13 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
                                 </TableCell>
                                 <TableCell>
                                     <div className="relative flex items-center gap-2">
-                                        <Tooltip content="Detalles">
+                                        {/* <Tooltip content="Detalles">
                                             <Link to={`/auth/users/${id}`}>
                                                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                                     <EyeIcon />
                                                 </span>
                                             </Link>
-                                        </Tooltip>
+                                        </Tooltip> */}
                                         <Tooltip content="Editar">
                                             <Link to={`/auth/users/edit/${id}`}>
                                                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">

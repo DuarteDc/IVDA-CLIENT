@@ -19,6 +19,8 @@ export const UsersProvider = ({ children }) => {
     const [state, dispatch] = useReducer(usersReducer, initialState);
     const { startLoading, stopLoading } = useContext(UIContext);
 
+    const navigate = useNavigate();
+
     const getUsers = async (params = '') => {
         startLoading();
         const data = await startGetUsers(params);
@@ -32,7 +34,8 @@ export const UsersProvider = ({ children }) => {
 
     const getUserById = async (id) => {
         const user = await getUser(id);
-        if (user) return dispatch({ type: 'get_user', payload: user });
+        if (!user) return navigate('/auth/not-found');
+        return dispatch({ type: 'get_user', payload: user });
     }
 
     return (

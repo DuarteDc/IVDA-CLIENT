@@ -5,6 +5,7 @@ import { SubsecretaryProvider } from '../context/subsecretary/SubsecretaryProvid
 import { Subsecretary } from '../pages/subsecretaries/Show'
 import { CreateSubsecretary } from '../pages/subsecretaries/Create'
 import { EditSubsecretary } from '../pages/subsecretaries/Edit'
+import { NotFound } from '../pages/404/Index'
 
 export const SubsecretariesRoutes = () => {
     return (
@@ -15,6 +16,7 @@ export const SubsecretariesRoutes = () => {
                     <Route path="/:id" element={<Subsecretary />} />
                     <Route path="/edit/:id" element={<EditSubsecretary />} />
                     <Route path="/create" element={<CreateSubsecretary />} />
+                    <Route path="/*" element={<NotFound />} />
                 </Routes>
             }
             />
