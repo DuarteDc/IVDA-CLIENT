@@ -6,7 +6,6 @@ import { InventoriesTable } from '../../components/inventories/InventoriesTable'
 import { useDashboard } from '../../hooks/useDashboard';
 import { useNavigate } from 'react-router-dom';
 
-
 export const Dashboard = () => {
 
     const { user } = useContext(AuthContext);
@@ -16,9 +15,9 @@ export const Dashboard = () => {
 
     return (
         <section className="min-h-screen">
-            <div className="w-full rounded-md bg-blue-600/60 p-20 grid grid-cols-1 md:grid-cols-2 shadow-2xl">
+            <div className="w-full rounded-md bg-blue-600/60 p-10 md:p-10 lg:p-20 grid grid-cols-1 md:grid-cols-2 shadow-2xl">
                 <div>
-                    <h1 className="text-3xl lg:text-7xl xl:text-8xl 2xl:text-9xl mb-5 font-bold dark:text-blue-400 text-blue-600">Bienvenido</h1>
+                    <h1 className="text-5xl lg:text-7xl xl:text-8xl 2xl:text-9xl mb-5 font-bold dark:text-blue-400 text-blue-600">Bienvenido</h1>
                     <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold">{user?.name} {user?.last_name}</h2>
                 </div>
                 <div className="hidden relative w-full md:block">
@@ -31,7 +30,7 @@ export const Dashboard = () => {
                     />
                 </div>
             </div>
-            <Card className=" my-40">
+            <Card className="my-20 md:my-40">
                 <CardBody>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
                         <Card shadow="sm" isPressable onPress={() => navigate('/auth/inventories')} className="bg-purple-500/50">
