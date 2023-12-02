@@ -17,7 +17,7 @@ export const MainRouter = () => {
 
     return (
         <Routes>
-            <Route path="/" element={
+            <Route path="*" element={
                 <PublicRoutes>
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
@@ -32,10 +32,10 @@ export const MainRouter = () => {
                                 <InventoryProvider>
                                     <SubsecretaryProvider>
                                         <Routes>
-                                            <Route path="/*" element={
+                                            <Route path="*" element={
                                                 <AdminRoutes>
                                                     <Routes>
-                                                        <Route path="/" element={<Dashboard />} />
+                                                        <Route path="*" element={<Dashboard />} />
                                                         <Route path="/users/*" element={<UsersRoutes />} />
                                                         <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                                                         <Route path="/inventories/*" element={<InventoriestRoutes />} />

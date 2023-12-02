@@ -46,7 +46,7 @@ export const FormEditAdministrativeUnit = ({ subsecretaries, administrativeUnit 
                         errorMessage={formik.touched.subsecretary_id && formik.errors.subsecretary_id && formik.errors.subsecretary_id}
                         required={true}
                         onChange={formik.handleChange}
-                        selectedKeys={formik.values.subsecretary_id}
+                        selectedKeys={[formik.values.subsecretary_id]}
                         name="subsecretary_id"
                     >
                         {

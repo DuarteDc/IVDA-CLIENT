@@ -21,7 +21,7 @@ export const SubsecretariesTable = ({ subsecretaries = [], totalPages = 0, openA
         </TableHeader>
         <TableBody
           isLoading={loading}
-          loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+          loadingContent={<span className="bg-slate-200/60 dark:bg-black/80 sticky inset-0 flex items-center justify-center w-full h-full"><Spinner label="Espere..." /></span>}
         >
           {
             subsecretaries?.map(({ id, name, status }) => (
