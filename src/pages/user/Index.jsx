@@ -34,7 +34,7 @@ export const User = () => {
                                 <span className="my-5 text-gray-500 text-lg">
                                     Parece que hay un inventario en proceso, haz clic para ver
                                 </span>
-                                <Button color="primary" size="lg" className="py-7 lg:py-9 font-bold" onClick={()=> navigate(`/auth/user/inventory/${inventory.inventory_id?.id}`)}>
+                                <Button color="primary" size="lg" className="py-7 lg:py-9 font-bold" onClick={()=> navigate(`/auth/user/inventory`)}>
                                     Ver
                                 </Button>
                             </div>

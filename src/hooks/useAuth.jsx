@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { startLogin, startRevalidateToken } from '../actions/authActions';
+import { startLogin } from '../actions/authActions';
 import { AuthContext } from '../context/auth/AuthContext';
 import { UIContext } from '../context/ui/UIContext';
 
@@ -16,17 +16,8 @@ export const useAuth = () => {
         dispatch({ type: 'login', payload: data?.user });
         stopLoading();
     }
-
-    const revalidateToken = async () => {
-        const data = await startRevalidateToken();
-        if (!data?.user) return localStorage.removeItem('session')
-        localStorage.setItem('session', JSON.stringify(data?.session));
-        return data?.user;
-    }
-
     return {
-        login,
-        revalidateToken
+        login
     }
 
 }

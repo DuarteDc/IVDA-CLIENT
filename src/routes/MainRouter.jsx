@@ -32,16 +32,16 @@ export const MainRouter = () => {
                                 <InventoryProvider>
                                     <SubsecretaryProvider>
                                         <Routes>
-                                            <Route path="*" element={
+                                            <Route path="/*" element={
                                                 <AdminRoutes>
                                                     <Routes>
-                                                        <Route path="*" element={<Dashboard />} />
+                                                        <Route path="/" element={<Dashboard />} />
                                                         <Route path="/users/*" element={<UsersRoutes />} />
                                                         <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                                                         <Route path="/inventories/*" element={<InventoriestRoutes />} />
                                                         <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
                                                         {/* <Route path="/profile/*" element={<Profile />} /> */}
-                                                        <Route path="/*" element={<NotFound />} />
+                                                        <Route path="*" element={<NotFound />} />
                                                     </Routes>
                                                 </AdminRoutes>
                                             } />
@@ -49,7 +49,7 @@ export const MainRouter = () => {
                                                 <UserRoutes>
                                                     <Routes>
                                                         <Route path="/" element={<User />} />
-                                                        <Route path="/inventory/:id" element={<CompleteInventory />} />
+                                                        <Route path="/inventory" element={<CompleteInventory />} />
                                                     </Routes>
                                                 </UserRoutes>
                                             } />
