@@ -6,6 +6,6 @@ export const AdminRoutes = ({ children }) => {
 
     const { user } = useContext(AuthContext);
 
-    return  user?.role == "1" ?  children : (<Navigate to="/auth/user/" replace />)
+    return  user && user?.role == "1" ?  children : (<Navigate to="/auth/user/" replace />)
 
 }

@@ -5,9 +5,7 @@ import { AuthContext } from '../../context/auth/AuthContext'
 
 export const NotFound = () => {
 
-
     const { logged } = useContext(AuthContext);
-
 
     return (
         <section className="container mx-auto text-center flex items-center flex-col justify-center min-h-screen font-Poppins">

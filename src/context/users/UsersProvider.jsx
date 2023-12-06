@@ -35,7 +35,7 @@ export const UsersProvider = ({ children }) => {
     const getUserById = async (id) => {
         const user = await getUser(id);
         if (!user) return navigate('/auth/not-found');
-        return dispatch({ type: 'get_user', payload: user });
+        dispatch({ type: 'get_user', payload: user });
     }
 
     return (
