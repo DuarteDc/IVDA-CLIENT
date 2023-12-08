@@ -28,14 +28,8 @@ export const useAuth = () => {
         navigate('/');
     }
 
-    const startVerifyTokenToResetPassword = async (key, email) => {
-        startLoading();
-        const response = await getPasswordToken(`key=${key}&email=${email}`);
-        stopLoading();
-        return response;
-    }
-
-
+    const startVerifyTokenToResetPassword = async (key, email) => await getPasswordToken(`key=${key}&email=${email}`);    
+    
     const startChangePassword = async (body) => {
         startLoading();
         if(await changePassword(body)) navigate('/');
