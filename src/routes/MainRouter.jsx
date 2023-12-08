@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { PublicRoutes, PrivateRoutes, InventoriestRoutes, AdministrativeUnitsRoutes, AdminRoutes, UsersRoutes, UserRoutes } from './';
 
-import LoginPage from '../pages/auth/LoginPage';
+import { LoginPage, ForgotPassword, ResetPassword } from '../pages/auth/';
 import { Layout } from '../components/ui/Layout';
 import { SubsecretariesRoutes } from './SubsecretariesRoutes';
 import { UsersProvider } from '../context/users/UsersProvider';
@@ -12,15 +12,22 @@ import { User, CompleteInventory } from '../pages/user/';
 import { Dashboard } from '../pages/dashboard/Index';
 import { NotFound } from '../pages/404/Index';
 import { Profile } from '../pages/profile';
+import { ResetPasswordMiddleware } from '../middlewares/ResetPasswordMiddleware';
 
 export const MainRouter = () => {
 
     return (
         <Routes>
-            <Route path="*" element={
+            <Route path="/*" element={
                 <PublicRoutes>
                     <Routes>
                         <Route path="/" element={<LoginPage />} />
+                        <Route path="/forgot-password" element={<ForgotPassword />} />
+                        <Route path="/reset-password" element={
+                            <ResetPasswordMiddleware>
+                                <ResetPassword />
+                            </ResetPasswordMiddleware>} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </PublicRoutes>
             } />

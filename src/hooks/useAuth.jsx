@@ -1,12 +1,14 @@
 import { useContext } from 'react';
-import { startLogin } from '../actions/authActions';
+import { recoverPassword, startLogin, getPasswordToken, changePassword } from '../actions/authActions';
 import { AuthContext } from '../context/auth/AuthContext';
 import { UIContext } from '../context/ui/UIContext';
+import { useNavigate } from 'react-router-dom';
 
 export const useAuth = () => {
 
     const { dispatch } = useContext(AuthContext);
     const { startLoading, stopLoading } = useContext(UIContext);
+    const navigate = useNavigate();
 
     const login = async body => {
         startLoading();
@@ -16,8 +18,35 @@ export const useAuth = () => {
         dispatch({ type: 'login', payload: data?.user });
         stopLoading();
     }
+
+
+    const startRecoverPassword = async body => {
+        startLoading();
+        const response = await recoverPassword(body);
+        if (!response) return stopLoading();
+        stopLoading()
+        navigate('/');
+    }
+
+    const startVerifyTokenToResetPassword = async (key, email) => {
+        startLoading();
+        const response = await getPasswordToken(`key=${key}&email=${email}`);
+        stopLoading();
+        return response;
+    }
+
+
+    const startChangePassword = async (body) => {
+        startLoading();
+        if(await changePassword(body)) navigate('/');
+        stopLoading();
+    }
+
     return {
-        login
+        login,
+        startRecoverPassword,
+        startVerifyTokenToResetPassword,
+        startChangePassword
     }
 
 }

@@ -2,7 +2,7 @@ import { isAxiosError } from 'axios';
 
 import apiInstance from '../config/api';
 
-import { errorNotification } from '../components/ui/Alerts';
+import { errorNotification, successNotification } from '../components/ui/Alerts';
 
 export const startLogin = async (body) => {
     try {
@@ -22,5 +22,42 @@ export const startRevalidateToken = async () => {
         return res.data;
     } catch (error) {
         throw error;
+    }
+}
+
+export const recoverPassword = async (body) => {
+    try {
+        const { data } = await apiInstance.post('/recover-password', body);
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) return errorNotification(error.response.data?.message);
+        errorNotification();
+    }
+}
+
+export const getPasswordToken = async (params) => {
+    try {
+        const res = await apiInstance.get(`/get-password-token?${params}`);
+        return {
+            status: res.status,
+            message: ''
+        }
+    } catch (error) {
+        if (isAxiosError(error)) return {
+            status: error.response.status,
+            message: error.response.data?.message,
+        }
+    }
+}
+
+export const changePassword = async (body) => {
+    try {
+        const { data } = await apiInstance.post(`/change-password`, body);
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) return errorNotification(error.response?.data?.message);
+        errorNotification();
     }
 }

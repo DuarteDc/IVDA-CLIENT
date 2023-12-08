@@ -7,8 +7,9 @@ import { UIContext } from '../../context/ui/UIContext';
 import { loginValidations } from '../../validations/authValidations';
 import { useAuth } from '../../hooks/useAuth';
 import { EyeIcon, EyeOffIcon } from '../../components/icons';
+import { Link } from 'react-router-dom';
 
-const LoginPage = () => {
+export const LoginPage = () => {
 
     const { loading } = useContext(UIContext);
 
@@ -76,6 +77,11 @@ const LoginPage = () => {
                         }
                         size="lg"
                     />
+                    <span className="text-right w-full block text-sm text-gray-600 font-semibold">
+                        <Link to="/forgot-password">
+                            <p className="hover:text-blue-600 ease-out transition-all duration-400 cursor-pointer">Olvide mi contraseña</p>
+                        </Link>
+                    </span>
                     <Button color="primary" type="submit" className="w-full font-bold py-8 mt-5" isLoading={loading} spinner={<Spinner color="default" />}>
                         Iniciar Sesión
                     </Button>
@@ -85,4 +91,3 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
