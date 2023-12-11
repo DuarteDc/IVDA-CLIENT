@@ -21,7 +21,7 @@ export const startRevalidateToken = async () => {
         const res = await apiInstance.get('/me');
         return res.data;
     } catch (error) {
-        throw error;
+        if(isAxiosError(error))  localStorage.removeItem('session');
     }
 }
 

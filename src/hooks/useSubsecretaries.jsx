@@ -16,7 +16,7 @@ export const useSubsecretaries = () => {
     const handleChangeStatus = async () => {
         startLoading();
         if (subsecretary.status) {
-            if (!await deleteSubsecretary(subsecretary.id)) return startLoading();
+            if (!await deleteSubsecretary(subsecretary.id)) return stopLoading();
             stopLoading();
             return dispatch({ type: 'disable_subsecretary', payload: subsecretary.id });
         }
