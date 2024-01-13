@@ -1,15 +1,15 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { activeAdministrativeUnit, createAdministrativeUnit, deleteAdministrativeUnit, getBySubsecretary, getOneAdministrativeUnit, updateAdministrativeUnit } from '../actions/administrativeUnitsActions'
+import { activeAdministrativeUnit, createAdministrativeUnit, deleteAdministrativeUnit, getBySubsecretary, getOneAdministrativeUnit, updateAdministrativeUnit } from '../actions/dependencyActions'
 import { UIContext } from '../context/ui/UIContext';
-import { AdministrativeUnitContext } from '../context/administrative-unit/AdministrativeUnitContext';
+import { DependencyContext } from '../context/dependency';
 
 
-export const useAdministrativeUnits = () => {
+export const useDependency = () => {
 
     const navigate = useNavigate();
 
-    const { dispatch, currentAdministrativeUnit } = useContext(AdministrativeUnitContext);
+    const { dispatch, currentAdministrativeUnit } = useContext(DependencyContext);
     const { startLoading, stopLoading } = useContext(UIContext);
 
     const [administrativeUnits, setAdministrativeUnits] = useState([]);

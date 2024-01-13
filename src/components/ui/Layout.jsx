@@ -102,16 +102,16 @@ export const Layout = ({ children }) => {
                                         Usuarios
                                     </Link>
                                 </li>
-                                <li onClick={toggleDrawer}>
+                                {/* <li onClick={toggleDrawer}>
                                     <Link to="/auth/subsecretaries" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/subsecretaries') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
                                         <BuildingComunity width={28} height={24} />
                                         Subsecretarias
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li onClick={toggleDrawer}>
                                     <Link to="/auth/administrative-units" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
                                         <HomeCog width={28} height={24} />
-                                        Unidades Administrativas
+                                        Dependencias
                                     </Link>
                                 </li>
                                 <li onClick={toggleDrawer}>

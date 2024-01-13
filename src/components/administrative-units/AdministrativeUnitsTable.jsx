@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import { Chip, Pagination, Spinner, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, User, useDisclosure } from '@nextui-org/react';
 
 import { AlertCircleIcon, BuildingComunity, DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
-import { AdministrativeUnitContext } from '../../context/administrative-unit/AdministrativeUnitContext';
+import { DependencyContext } from '../../context/dependency';
 import { AlertModal } from '../ui/AlertModal';
-import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
+import { useDependency } from '../../hooks/useDependency';
 import { UIContext } from '../../context/ui/UIContext';
 
-const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, setSearchParams, currentPage = 1  }) => {
+const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearchParams, currentPage = 1  }) => {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const { handleChangeStatus } = useAdministrativeUnits();
-  const { getCurrentAdministrativeUnit, currentAdministrativeUnit } = useContext(AdministrativeUnitContext);
+  const { handleChangeStatus } = useDependency();
+  const { getCurrentDependency, currentAdministrativeUnit } = useContext(DependencyContext);
   const { loading } = useContext(UIContext);
 
   return (
@@ -21,7 +21,7 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
       <Table aria-label="Unidades Administrativas">
         <TableHeader>
           <TableColumn> Nombre </TableColumn>
-          <TableColumn> Subsecretaría </TableColumn>
+          {/* <TableColumn> Subsecretaría </TableColumn> */}
           <TableColumn> Estatus </TableColumn>
           <TableColumn></TableColumn>
         </TableHeader>
@@ -30,7 +30,7 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
           loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
         >
           {
-            administrativeUnits?.map(({ id, name, subsecretary_id, status }) => (
+            dependencies?.map(({ id, name, status }) => (
               <TableRow key={id}>
                 <TableCell className="min-w-[30px]">
                   <User
@@ -44,11 +44,11 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
                     {name}
                   </User>
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                   <Chip color="secondary" variant="dot">
                     {subsecretary_id}
                   </Chip>
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   <Chip className="capitalize" color={`${status ? 'success' : 'warning'}`} size="sm" variant="flat">
                     {
@@ -69,13 +69,13 @@ const AdministrativeUnitsTable = ({ administrativeUnits = [], totalPages = 0, se
                     {
                       status ? (
                         <Tooltip color="danger" content="Eliminar">
-                          <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentAdministrativeUnit(id); }}>
+                          <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentDependency(id); }}>
                             <TrashIcon />
                           </span>
                         </Tooltip>
                       ) : (
                         <Tooltip color="primary" content="Activar">
-                          <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentAdministrativeUnit(id); }}>
+                          <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentDependency(id); }}>
                             <DoneIcon />
                           </span>
                         </Tooltip>

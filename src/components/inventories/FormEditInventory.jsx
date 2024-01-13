@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
 
 import { useInventory } from '../../hooks/useInventory';
-import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
+import { useAdministrativeUnits } from '../../hooks/useDependency';
 import { UIContext } from '../../context/ui/UIContext';
 
 import { createInventoryValidations } from '../../validations/inventoryValidation';

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../context/auth/AuthContext';
 import { Card, CardBody } from '@nextui-org/react';
 import { BuildingComunity, FileIcon, HomeCog, UsersIcon } from '../../components/icons';

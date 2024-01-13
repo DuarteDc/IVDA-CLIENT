@@ -6,14 +6,14 @@ import { HomeCog, HomeIcon } from '../../components/icons';
 import { FormEditAdministrativeUnit } from '../../components/administrative-units/FormEditAdministrativeUnit';
 
 import { useSubsecretaries } from '../../hooks/useSubsecretaries';
-import { AdministrativeUnitContext } from '../../context/administrative-unit/AdministrativeUnitContext';
-import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
+import { DependencyContext } from '../../context/dependency';
+import { useAdministrativeUnits } from '../../hooks/useDependency';
 
-export const EditAdministrativeUnit = () => {
+export const EditDependency = () => {
 
     const { id } = useParams();
     const { startGetAdministrativeUnit } = useAdministrativeUnits();
-    const { currentAdministrativeUnit } = useContext(AdministrativeUnitContext);
+    const { currentAdministrativeUnit } = useContext(DependencyContext);
 
     const { getAllActiveSubsecretaries } = useSubsecretaries();
 

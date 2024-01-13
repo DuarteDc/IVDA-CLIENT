@@ -4,7 +4,7 @@ import { getSubsecretaries, getSubsecretary } from '../../actions/subsecretaries
 import { SubsecretaryContext } from './SubsecretaryContext';
 import { subsecretaryReducer } from './subsecretaryReducer';
 import { UsersContext } from '../users/UsersContext';
-import { AdministrativeUnitContext } from '../administrative-unit/AdministrativeUnitContext';
+import { DependencyContext } from '../dependency/';
 import { InventoryContext } from '../inventory/InventoryContext';
 import { UIContext } from '../ui/UIContext';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ export const SubsecretaryProvider = ({ children }) => {
     const [state, dispatch] = useReducer(subsecretaryReducer, initialState);
     const { startLoading, stopLoading } = useContext(UIContext);
     const { dispatch: userDispatch } = useContext(UsersContext);
-    const { dispatch: dispatchAdministrativeUnit } = useContext(AdministrativeUnitContext);
+    const { dispatch: dispatchAdministrativeUnit } = useContext(DependencyContext);
     const { dispatch: dispatchInventory } = useContext(InventoryContext);
 
     const navigate = useNavigate();

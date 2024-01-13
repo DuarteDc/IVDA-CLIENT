@@ -5,7 +5,7 @@ import { HomeCog, HomeIcon } from '../../components/icons';
 import { FormCreateAdministrativeUnit } from '../../components/administrative-units/FormCreateAdministrativeUnit';
 import { useSubsecretaries } from '../../hooks/useSubsecretaries';
 
-export const CreateAdministrativeUnit = () => {
+export const CreateDependency = () => {
 
     const { getAllActiveSubsecretaries } = useSubsecretaries();
 

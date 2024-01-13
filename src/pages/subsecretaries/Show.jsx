@@ -6,7 +6,7 @@ import { BuildingComunity, FileIcon, HomeIcon, UsersIcon } from '../../component
 import { SubsecretaryContext } from '../../context/subsecretary/SubsecretaryContext';
 import { UsersContext } from '../../context/users/UsersContext';
 import { TabsOptions } from '../../components/subsecretaries/TabsOptions';
-import { AdministrativeUnitContext } from '../../context/administrative-unit/AdministrativeUnitContext';
+import { DependencyContext } from '../../context/dependency/';
 import { InventoryContext } from '../../context/inventory/InventoryContext';
 
 export const Subsecretary = () => {
@@ -14,7 +14,7 @@ export const Subsecretary = () => {
   const { id } = useParams();
 
   const { users } = useContext(UsersContext);
-  const { administrativeUnits } = useContext(AdministrativeUnitContext)
+  const { administrativeUnits } = useContext(DependencyContext)
   const { startGetSubsecretary, subsecretary } = useContext(SubsecretaryContext);
   const { inventories } = useContext(InventoryContext)
 

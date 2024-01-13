@@ -2,9 +2,9 @@ import { isAxiosError } from 'axios';
 import { errorNotification, successNotification } from '../components/ui/Alerts';
 import apiInstance from '../config/api';
 
-export const getAllAdministrativeUnits = async () => {
+export const getAllDependencies = async () => {
     try {
-        const res = await apiInstance.get('/auth/administrative-units/all');
+        const res = await apiInstance.get('/auth/dependencies/all');
         return res.data;
     } catch (error) {
         console.log(error);
@@ -32,9 +32,9 @@ export const getOneAdministrativeUnit = async (id) => {
 
 
 
-export const getAdministrativeUnits = async (params = '') => {
+export const getDependencies = async (params = '') => {
     try {
-        const { data } = await apiInstance.get(`/auth/administrative-units?${params}`);
+        const { data } = await apiInstance.get(`/auth/dependencies?${params}`);
         return data;
     } catch (error) {
         console.log(error);

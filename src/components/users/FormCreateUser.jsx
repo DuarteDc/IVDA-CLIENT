@@ -5,7 +5,7 @@ import { Avatar, Button, Card, CardBody, Input, Select, SelectItem, Skeleton, Sp
 
 import { newUserValidations } from '../../validations/usersValidations';
 import { useUsers } from '../../hooks/useUsers';
-import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
+import { useAdministrativeUnits } from '../../hooks/useDependency';
 import { UIContext } from '../../context/ui/UIContext';
 
 const initialValues = {

@@ -3,13 +3,13 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react';
 
 import { HomeIcon, PlusIcon } from '../../components/icons';
-import { AdministrativeUnitContext } from '../../context/administrative-unit/AdministrativeUnitContext';
+import { DependencyContext } from '../../context/dependency';
 import AdministrativeUnitsTable from '../../components/administrative-units/AdministrativeUnitsTable';
 
-export const AdministrativeUnits = () => {
+export const Dependencies = () => {
 
     const [searchParams, setSearchParams] = useSearchParams(1);
-    const { administrativeUnits, totalPages, startGetAdministrativeUnits } = useContext(AdministrativeUnitContext);
+    const { dependencies, totalPages, startGetDependencies } = useContext(DependencyContext);
 
     useEffect(() => {
         startGetAdministrativeUnits(searchParams);
@@ -18,7 +18,7 @@ export const AdministrativeUnits = () => {
 
     return (
         <section className="min-h-screen pt-20 overflow-hidden">
-            <h1 className="text-center text-5xl font-bold pb-10 uppercase">Unidades Administrativas</h1>
+            <h1 className="text-center text-5xl font-bold pb-10 uppercase">Dependencias</h1>
             <div className="flex justify-end py-10">
                 <Button color="primary" startContent={<PlusIcon />}>
                     <Link to="/auth/administrative-units/create">
@@ -39,7 +39,7 @@ export const AdministrativeUnits = () => {
                 </Breadcrumbs>
             </div>
             <AdministrativeUnitsTable
-                administrativeUnits={administrativeUnits}
+                dependencies={dependencies}
                 totalPages={totalPages}
                 setSearchParams={setSearchParams}
                 currentPage={searchParams.get('page') || 1}

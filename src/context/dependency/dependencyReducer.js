@@ -1,9 +1,9 @@
 
 
-export const administrativeUnitReducer = (state, { type, payload }) => {
+export const dependencyReducer = (state, { type, payload }) => {
     switch (type) {
 
-        case 'start_get_administrative_units':
+        case 'start_get_dependencies':
             return {
                 ...state,
                 administrativeUnits: payload.administrative_units,

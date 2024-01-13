@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { createInventoryValidations } from '../../validations/inventoryValidation';
 import { useInventory } from '../../hooks/useInventory';
 import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
-import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
+import { useAdministrativeUnits } from '../../hooks/useDependency';
 import { useContext } from 'react';
 import { UIContext } from '../../context/ui/UIContext';
 

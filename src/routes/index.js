@@ -2,7 +2,7 @@ export { UserRoutes } from './UserRoutes';
 
 export { AdminRoutes } from './AdminRoutes';
 
-export { AdministrativeUnitsRoutes } from './AdministrativeUnitsRoutes';
+export { DependencyRoutes } from './DependencyRoutes';
 export { InventoriestRoutes } from './InventoriestRoutes';
 export { MainRouter } from './MainRouter';
 export { PrivateRoutes } from './PrivateRoutes';

@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
-import { useAdministrativeUnits } from '../../hooks/useAdministrativeUnits';
+import { useAdministrativeUnits } from '../../hooks/useDependency';
 import { createAdministrativeUnitValidation } from '../../validations/administrativeUnitsValidations';
 import { UIContext } from '../../context/ui/UIContext';
 import { useContext } from 'react';

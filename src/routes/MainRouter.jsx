@@ -1,18 +1,18 @@
 import { Route, Routes } from 'react-router-dom';
-import { PublicRoutes, PrivateRoutes, InventoriestRoutes, AdministrativeUnitsRoutes, AdminRoutes, UsersRoutes, UserRoutes } from './';
+import { PublicRoutes, PrivateRoutes, InventoriestRoutes, DependencyRoutes, AdminRoutes, UsersRoutes, UserRoutes } from './';
 
 import { LoginPage, ForgotPassword, ResetPassword } from '../pages/auth/';
 import { Layout } from '../components/ui/Layout';
 import { SubsecretariesRoutes } from './SubsecretariesRoutes';
 import { UsersProvider } from '../context/users/UsersProvider';
 import { SubsecretaryProvider } from '../context/subsecretary/SubsecretaryProvider';
-import { AdministrativeUnitProvider } from '../context/administrative-unit/AdministrativeUnitProvider';
 import { InventoryProvider } from '../context/inventory/InventoryProvider';
 import { User, CompleteInventory } from '../pages/user/';
 import { Dashboard } from '../pages/dashboard/Index';
 import { NotFound } from '../pages/404/Index';
 import { Profile } from '../pages/profile';
 import { ResetPasswordMiddleware } from '../middlewares/ResetPasswordMiddleware';
+import { DependencyProvider } from '../context/dependency';
 
 export const MainRouter = () => {
 
@@ -35,7 +35,7 @@ export const MainRouter = () => {
                 <PrivateRoutes>
                     <Layout>
                         <UsersProvider>
-                            <AdministrativeUnitProvider>
+                            <DependencyProvider>
                                 <InventoryProvider>
                                     <SubsecretaryProvider>
                                         <Routes>
@@ -46,8 +46,7 @@ export const MainRouter = () => {
                                                         <Route path="/users/*" element={<UsersRoutes />} />
                                                         <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                                                         <Route path="/inventories/*" element={<InventoriestRoutes />} />
-                                                        <Route path="/administrative-units/*" element={<AdministrativeUnitsRoutes />} />
-                                                        {/* <Route path="/profile/*" element={<Profile />} /> */}
+                                                        <Route path="/dependencies/*" element={<DependencyRoutes />} />
                                                         <Route path="*" element={<NotFound />} />
                                                     </Routes>
                                                 </AdminRoutes>
@@ -63,7 +62,7 @@ export const MainRouter = () => {
                                         </Routes>
                                     </SubsecretaryProvider>
                                 </InventoryProvider>
-                            </AdministrativeUnitProvider>
+                            </DependencyProvider>
                         </UsersProvider>
                     </Layout>
                 </PrivateRoutes>
