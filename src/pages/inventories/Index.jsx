@@ -18,10 +18,8 @@ export const Inventories = () => {
     <section>
       <h1 className="text-center text-4xl md:text-5xl font-bold pb-10 uppercase">Inventarios</h1>
       <div className="flex justify-end py-10">
-        <Button color="primary" startContent={<PlusIcon />}>
-          <Link to="/auth/inventories/create">
+        <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
             Crear Inventario
-          </Link>
         </Button>
       </div>
       <div className="flex flex-col flex-wrap gap-4 mb-5">
@@ -35,9 +33,10 @@ export const Inventories = () => {
           <BreadcrumbItem>Inventarios</BreadcrumbItem>
         </Breadcrumbs>
       </div>
-      <InventoriesTable    
+      <InventoriesTable
         inventories={inventories}
-        totalPages={totalPages} setSearchParams={setSearchParams}
+        totalPages={totalPages}
+        setSearchParams={setSearchParams}
       />
     </section>
   )

@@ -1,31 +1,31 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
-import { useAdministrativeUnits } from '../../hooks/useDependency';
+import { useDependency } from '../../hooks/useDependency';
 import { createAdministrativeUnitValidation } from '../../validations/administrativeUnitsValidations';
 import { useContext } from 'react';
 import { UIContext } from '../../context/ui/UIContext';
 
 const initialValues = {
     name: '',
-    subsecretary_id: ''
+    code: ''
 }
 
-export const FormCreateAdministrativeUnit = ({ subsecretaries }) => {
+export const FormCreateAdministrativeUnit = () => {
 
     const { loading } = useContext(UIContext);
-    const { handleCreateAdministrativeUnit } = useAdministrativeUnits();
+    const { handleCreateDependency } = useDependency();
 
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(createAdministrativeUnitValidation()),
-        onSubmit: (data) => handleCreateAdministrativeUnit(data),
+        onSubmit: (data) => handleCreateDependency(data),
     })
 
     return (
         <Card>
             <CardBody>
-                <h2 className="text-center text-4xl py-4 font-bold">Nueva Unidad Administrativa</h2>
+                <h2 className="text-center text-4xl py-4 font-bold">Nueva dependencia</h2>
                 <form onSubmit={formik.handleSubmit}>
                     <Input
                         name="name"
@@ -39,26 +39,20 @@ export const FormCreateAdministrativeUnit = ({ subsecretaries }) => {
                         onChange={formik.handleChange}
                         size="lg"
                     />
-                    <Select
-                        label="Subsecretarias"
-                        className="w-full"
-                        isInvalid={formik.touched.subsecretary_id && formik.errors.subsecretary_id ? true : false}
-                        errorMessage={formik.touched.subsecretary_id && formik.errors.subsecretary_id && formik.errors.subsecretary_id}
+                    <Input
+                        name="code"
+                        type="text"
+                        label="Código estructural"
+                        variant="bordered"
+                        value={formik.values.code}
+                        isInvalid={formik.touched.code && formik.errors.code ? true : false}
+                        errorMessage={formik.touched.code && formik.errors.code && formik.errors.code}
                         required={true}
                         onChange={formik.handleChange}
-                        name="subsecretary_id"
                         size="lg"
-                    >
-                        {
-                            subsecretaries?.map(({ id, name }) => (
-                                <SelectItem value={id} key={id}>
-                                    {name}
-                                </SelectItem>
-                            ))
-                        }
-                    </Select>
+                    />
                     <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
-                        Crear Subsecretaria
+                        Crear Dependencia
                     </Button>
                 </form>
             </CardBody>

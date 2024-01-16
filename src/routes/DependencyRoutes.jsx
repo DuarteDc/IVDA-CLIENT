@@ -5,14 +5,15 @@ import { NotFound } from '../pages/404/Index';
 export const DependencyRoutes = () => {
     return (
         <Routes>
-            <Route path="/*" element={
+            <Route path="*" element={
                 <Routes>
-                    <Route path="/" element={<Dependencies />} />
-                    <Route path="/create" element={<CreateDependency/>} />
-                    <Route path="/edit/:id" element={<EditDependency/>} />
+                    <Route path="/" index element={<Dependencies />} />
+                    <Route path="/create" element={<CreateDependency />} />
+                    <Route path="/edit/:id" element={<EditDependency />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
             }
+                errorElement={<NotFound />}
             />
         </Routes>
     )

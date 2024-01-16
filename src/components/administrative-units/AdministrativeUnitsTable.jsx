@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Chip, Pagination, Spinner, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, Tooltip, User, useDisclosure } from '@nextui-org/react';
 
-import { AlertCircleIcon, BuildingComunity, DoneIcon, EditIcon, EyeIcon, TrashIcon } from '../icons';
+import { AlertCircleIcon, BuildingComunity, DoneIcon, EditIcon, TrashIcon } from '../icons';
 import { DependencyContext } from '../../context/dependency';
 import { AlertModal } from '../ui/AlertModal';
 import { useDependency } from '../../hooks/useDependency';
@@ -13,7 +13,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { handleChangeStatus } = useDependency();
-  const { getCurrentDependency, currentAdministrativeUnit } = useContext(DependencyContext);
+  const { getCurrentDependency, dependency } = useContext(DependencyContext);
   const { loading } = useContext(UIContext);
 
   return (
@@ -21,7 +21,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
       <Table aria-label="Unidades Administrativas">
         <TableHeader>
           <TableColumn> Nombre </TableColumn>
-          {/* <TableColumn> Subsecretaría </TableColumn> */}
+          <TableColumn> Código estructural </TableColumn>
           <TableColumn> Estatus </TableColumn>
           <TableColumn></TableColumn>
         </TableHeader>
@@ -30,7 +30,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
           loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
         >
           {
-            dependencies?.map(({ id, name, status }) => (
+            dependencies?.map(({ id, name, code, status }) => (
               <TableRow key={id}>
                 <TableCell className="min-w-[30px]">
                   <User
@@ -44,11 +44,11 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
                     {name}
                   </User>
                 </TableCell>
-                {/* <TableCell>
+                <TableCell>
                   <Chip color="secondary" variant="dot">
-                    {subsecretary_id}
+                    {code}
                   </Chip>
-                </TableCell> */}
+                </TableCell>
                 <TableCell>
                   <Chip className="capitalize" color={`${status ? 'success' : 'warning'}`} size="sm" variant="flat">
                     {
@@ -60,7 +60,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
                 <TableCell>
                   <div className="relative flex items-center gap-2">
                     <Tooltip content="Editar">
-                      <Link to={`/auth/administrative-units/edit/${id}`}>
+                      <Link to={`/auth/dependencies/edit/${id}`}>
                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                           <EditIcon />
                         </span>
@@ -69,13 +69,13 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
                     {
                       status ? (
                         <Tooltip color="danger" content="Eliminar">
-                          <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentDependency(id); }}>
+                          <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { getCurrentDependency(id); onOpen(); }}>
                             <TrashIcon />
                           </span>
                         </Tooltip>
                       ) : (
                         <Tooltip color="primary" content="Activar">
-                          <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentDependency(id); }}>
+                          <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { getCurrentDependency(id); onOpen(); }}>
                             <DoneIcon />
                           </span>
                         </Tooltip>
@@ -106,7 +106,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
           >
             <div className="flex flex-col items-center font-bold text-center">
               {
-                currentAdministrativeUnit?.status ? (
+                dependency?.status ? (
                   <span className="text-red-600">
                     <AlertCircleIcon width={50} height={50} />
                   </span>
@@ -118,7 +118,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
               }
               <p>Antest de continuar.</p>
               {
-                currentAdministrativeUnit?.status ? <p>¿Esta seguro que sea eliminar la unidad administrativa <b>{currentAdministrativeUnit?.name}</b>?</p> : <p>¿Esta seguro que sea activar la unidad administrativa <b>{currentAdministrativeUnit?.name}</b>?</p>
+                dependency?.status ? <p>¿Esta seguro que sea eliminar la unidad administrativa <b>{dependency?.name}</b>?</p> : <p>¿Esta seguro que sea activar la unidad administrativa <b>{dependency?.name}</b>?</p>
               }
             </div>
           </AlertModal>

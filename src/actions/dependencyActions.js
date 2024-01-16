@@ -12,21 +12,23 @@ export const getAllDependencies = async () => {
 }
 
 
-export const getBySubsecretary = async (id) => {
+export const getByUser = async (id) => {
     try {
-        const res = await apiInstance.get(`/auth/administrative-units/subsecretary/${id}`);
-        return res.data.administrative_units;
+        const { data } = await apiInstance.get(`/auth/dependencies/user`);
+        return data.dependency;
     } catch (error) {
         console.log(error);
     }
 }
 
-export const getOneAdministrativeUnit = async (id) => {
+export const getDependency = async (id) => {
     try {
-        const { data } = await apiInstance.get(`/auth/administrative-units/${id}`);
-        return data.administrative_unit;
+        const { data } = await apiInstance.get(`/auth/dependencies/${id}`);
+        return data.dependency;
     } catch (error) {
-        console.log(error);
+        if (isAxiosError(error)) {
+            throw new Response(error?.response?.data?.message, { status: error?.status });
+        }
     }
 }
 
@@ -42,9 +44,9 @@ export const getDependencies = async (params = '') => {
 }
 
 
-export const createAdministrativeUnit = async (body) => {
+export const createDependency = async (body) => {
     try {
-        const { data } = await apiInstance.post(`/auth/administrative-units`, body);
+        const { data } = await apiInstance.post(`/auth/dependencies`, body);
         successNotification(data?.message);
         return true;
     } catch (error) {
@@ -55,7 +57,7 @@ export const createAdministrativeUnit = async (body) => {
 
 export const updateAdministrativeUnit = async (id, body) => {
     try {
-        const { data } = await apiInstance.patch(`/auth/administrative-units/${id}`, body);
+        const { data } = await apiInstance.patch(`/auth/dependencies/${id}`, body);
         successNotification(data?.message);
         return true;
     } catch (error) {
@@ -66,7 +68,7 @@ export const updateAdministrativeUnit = async (id, body) => {
 
 export const deleteAdministrativeUnit = async (id) => {
     try {
-        const { data } = await apiInstance.delete(`/auth/administrative-units/${id}`,);
+        const { data } = await apiInstance.delete(`/auth/dependencies/${id}`,);
         successNotification(data?.message);
         return true;
     } catch (error) {
@@ -81,7 +83,7 @@ export const deleteAdministrativeUnit = async (id) => {
 
 export const activeAdministrativeUnit = async (id) => {
     try {
-        const { data } = await apiInstance.post(`/auth/administrative-units/enable/${id}`,);
+        const { data } = await apiInstance.post(`/auth/dependencies/enable/${id}`,);
         successNotification(data?.message);
         return true;
     } catch (error) {

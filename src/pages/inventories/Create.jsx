@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 import { BreadcrumbItem, Breadcrumbs, Card, CardBody } from '@nextui-org/react';
 
 import { HomeIcon, UsersIcon } from '../../components/icons';
-import { useSubsecretaries } from '../../hooks/useSubsecretaries';
 import { FormCreateInventory } from '../../components/inventories/FormCreateInventory';
+import { useDependency } from '../../hooks/useDependency';
 
 export const CreateInventory = () => {
-  const [subsecretaries, setSubsecretaries] = useState([]);
-  const { getAllActiveSubsecretaries } = useSubsecretaries();
+  const { dependencyUser, getDependencyByUser } = useDependency();
 
   useEffect(() => {
-    getAllActiveSubsecretaries().then(setSubsecretaries);
+    getDependencyByUser();
   }, []);
 
   return (
@@ -34,9 +33,9 @@ export const CreateInventory = () => {
           <BreadcrumbItem>Crear</BreadcrumbItem>
         </Breadcrumbs>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-full mt-10 lg:mt-40">
-        <div className="mt-10 [&>div>div>form>*]:my-2 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5">
-          <FormCreateInventory subsecretaries={subsecretaries} />
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full h-full mt-10 lg:mt-40">
+        <div className="col-span-2 mt-10 [&>div>div>form>*]:my-2 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5">
+          <FormCreateInventory dependency={dependencyUser} />
         </div>
         <div className="hidden lg:flex justify-center items-center w-full">
           <img

@@ -5,7 +5,6 @@ import { Avatar, Button, Card, CardBody, Input, Select, SelectItem, Skeleton, Sp
 
 import { newUserValidations } from '../../validations/usersValidations';
 import { useUsers } from '../../hooks/useUsers';
-import { useAdministrativeUnits } from '../../hooks/useDependency';
 import { UIContext } from '../../context/ui/UIContext';
 
 const initialValues = {
@@ -22,7 +21,7 @@ export const FormCreateUser = ({ subsecretaries = [] }) => {
 
     const { handleCreateUser } = useUsers();
     const { loading } = useContext(UIContext);
-    const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useAdministrativeUnits();
+    // const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useAdministrativeUnits();
 
     const formik = useFormik({
         initialValues,
@@ -128,7 +127,7 @@ export const FormCreateUser = ({ subsecretaries = [] }) => {
                                             ))
                                         }
                                     </Select>
-                                    {
+                                    {/* {
                                         formik.values.subsecretary_id && (
                                             <Select
                                                 label="Unidad Administrativa"
@@ -148,7 +147,7 @@ export const FormCreateUser = ({ subsecretaries = [] }) => {
                                                 }
                                             </Select>
                                         )
-                                    }
+                                    } */}
                                 </>
                             )
                         }

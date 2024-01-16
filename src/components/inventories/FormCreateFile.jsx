@@ -145,6 +145,7 @@ export const FormCreateFile = ({ inventoryId, onOpen }) => {
                             inputClassName="relative w-full inline-flex tap-highlight-transparent shadow-sm px-3 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground min-h-unit-12 rounded-large flex-col items-start justify-center transition-background !duration-150 transition-colors motion-reduce:transition-none h-16 py-[2.5] gap-0 dark:text-white"
                             placeholder="Fecha de los documentos"
                             onChange={handleValueChange}
+                            i18n="es"
                         />
                         {
                             error && (

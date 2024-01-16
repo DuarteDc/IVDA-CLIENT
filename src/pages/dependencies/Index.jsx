@@ -12,7 +12,7 @@ export const Dependencies = () => {
     const { dependencies, totalPages, startGetDependencies } = useContext(DependencyContext);
 
     useEffect(() => {
-        startGetAdministrativeUnits(searchParams);
+        startGetDependencies(searchParams);
     }, [searchParams])
 
 
@@ -20,10 +20,8 @@ export const Dependencies = () => {
         <section className="min-h-screen pt-20 overflow-hidden">
             <h1 className="text-center text-5xl font-bold pb-10 uppercase">Dependencias</h1>
             <div className="flex justify-end py-10">
-                <Button color="primary" startContent={<PlusIcon />}>
-                    <Link to="/auth/administrative-units/create">
-                        Crear unidad Administrativa
-                    </Link>
+                <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
+                    Crear dependencia
                 </Button>
             </div>
             <div className="flex flex-col flex-wrap gap-4 mb-5">
@@ -35,14 +33,14 @@ export const Dependencies = () => {
                             Inicio
                         </Link>
                     </BreadcrumbItem>
-                    <BreadcrumbItem>Unidades Administrativas</BreadcrumbItem>
+                    <BreadcrumbItem>Dependencias</BreadcrumbItem>
                 </Breadcrumbs>
             </div>
             <AdministrativeUnitsTable
                 dependencies={dependencies}
                 totalPages={totalPages}
                 setSearchParams={setSearchParams}
-                currentPage={searchParams.get('page') || 1}
+                currentPage={Number(searchParams.get('page')) || 1}
             />
         </section>
     )

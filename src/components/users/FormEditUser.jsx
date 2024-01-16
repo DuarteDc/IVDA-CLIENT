@@ -2,7 +2,6 @@ import { useFormik } from 'formik';
 import { Avatar, Button, Card, CardBody, Input, Select, SelectItem, Skeleton, Spinner } from '@nextui-org/react';
 import * as Yup from 'yup';
 
-import { useAdministrativeUnits } from '../../hooks/useDependency';
 import { useContext, useEffect } from 'react';
 import { useUsers } from '../../hooks/useUsers';
 import { editUserValidations } from '../../validations/usersValidations';
@@ -12,7 +11,7 @@ export const FormEditUser = ({ subsecretaries, user }) => {
 
     const { loading } = useContext(UIContext);
     const { handleUpdateUser } = useUsers();
-    const { getAdministrativeUnitsBySubsecretary, administrativeUnits } = useAdministrativeUnits();
+    // const { getAdministrativeUnitsBySubsecretary, administrativeUnits } = useAdministrativeUnits();
 
     useEffect(() => {
         if (user.role === '0')

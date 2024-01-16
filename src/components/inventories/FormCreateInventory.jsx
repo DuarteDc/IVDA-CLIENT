@@ -3,9 +3,10 @@ import * as Yup from 'yup';
 import { createInventoryValidations } from '../../validations/inventoryValidation';
 import { useInventory } from '../../hooks/useInventory';
 import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
-import { useAdministrativeUnits } from '../../hooks/useDependency';
+import { useDependency } from '../../hooks/useDependency';
 import { useContext } from 'react';
 import { UIContext } from '../../context/ui/UIContext';
+import Datepicker from 'react-tailwindcss-datepicker';
 
 const initialValues = {
     subsecretary_id: '',
@@ -13,10 +14,10 @@ const initialValues = {
     administrative_unit_id: '',
 }
 
-export const FormCreateInventory = ({ subsecretaries }) => {
+export const FormCreateInventory = ({ dependency }) => {
 
     const { handleCreateInventory } = useInventory();
-    const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useAdministrativeUnits();
+    const { administrativeUnits = [] } = useDependency();
 
     const { loading } = useContext(UIContext);
 
@@ -35,47 +36,35 @@ export const FormCreateInventory = ({ subsecretaries }) => {
                     <span>{new Date().toLocaleDateString()}</span>
                 </div>
                 <form onSubmit={formik.handleSubmit}>
-                    <Select
-                        label="Subsecretarias"
-                        className="w-full"
-                        size="lg"
-                        isInvalid={formik.touched.subsecretary_id && formik.errors.subsecretary_id ? true : false}
-                        errorMessage={formik.touched.subsecretary_id && formik.errors.subsecretary_id && formik.errors.subsecretary_id}
-                        required={true}
-                        onChange={(event) => { formik.handleChange(event); getAdministrativeUnitsBySubsecretary(event.target.value) }}
-                        name="subsecretary_id"
-                    >
-                        {
-                            subsecretaries?.map(({ id, name }) => (
-                                <SelectItem value={id} key={id}>
-                                    {name}
-                                </SelectItem>
-                            ))
-                        }
-                    </Select>
+                    <div>
+                        <span className="font-bold mr-2">Dependencia:</span>
+                        <span>Instituto de Información e Investigación Geográfica, Estadística y Catastral del Estado de México</span>
+                    </div>
+                    <div>
+                        <span className="font-bold mr-2">Unidad Administrativa:</span>
+                        <span>{dependency.name}</span>
+                    </div>
+                    <div>
+                        <span className="font-bold mr-2">Código Estructural:</span>
+                        <span>{dependency.code}</span>
+                    </div>
+                    <div>
 
-                    {
-                        formik.values.subsecretary_id ? (
-                            <Select
-                                label="Unidad Administrativa"
-                                className="w-full"
-                                size="lg"
-                                isInvalid={formik.touched.administrative_unit_id && formik.errors.administrative_unit_id ? true : false}
-                                errorMessage={formik.touched.administrative_unit_id && formik.errors.administrative_unit_id && formik.errors.administrative_unit_id}
-                                required={true}
-                                onChange={formik.handleChange}
-                                name="administrative_unit_id"
-                            >
-                                {
-                                    administrativeUnits?.map(({ id, name }) => (
-                                        <SelectItem value={id} key={id}>
-                                            {name}
-                                        </SelectItem>
-                                    ))
-                                }
-                            </Select>
-                        ) : (<span></span>)
-                    }
+                        <Datepicker
+                            inputName="files_date"
+                            // value={value}
+                            popoverDirection="up"
+                            inputClassName="relative w-full inline-flex tap-highlight-transparent shadow-sm px-3 border-medium border-default-200 data-[hover=true]:border-default-400 group-data-[focus=true]:border-default-foreground min-h-unit-12 rounded-large flex-col items-start justify-center transition-background !duration-150 transition-colors motion-reduce:transition-none h-16 py-[2.5] gap-0 dark:text-white absolute z-20"
+                            placeholder="Fecha de elaboración"
+                            // onChange={handleValueChange}
+                            i18n="es"
+                        />
+                    </div>
+                    {/* {
+                        error && (
+                            <p className="text-tiny text-danger">La fecha de los documentos es querida</p>
+                        )
+                    } */}
                     <Input
                         name="code"
                         type="text"

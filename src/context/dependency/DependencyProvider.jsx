@@ -7,7 +7,7 @@ import { UIContext } from '../ui/UIContext';
 const initialState = {
     dependencies: [],
     totalPages: 0,
-    currentAdministrativeUnit: {}
+    dependency: {}
 }
 
 export const DependencyProvider = ({ children }) => {
@@ -17,8 +17,8 @@ export const DependencyProvider = ({ children }) => {
 
     const startGetDependencies = async (params = '') => {
         startLoading();
-        const data = await getDependencies(params);
-        dispatch({ type: 'start_get_dependencies', payload: data });
+        const dependencies = await getDependencies(params);
+        dispatch({ type: 'start_get_dependencies', payload: dependencies });
         stopLoading();
     }
 

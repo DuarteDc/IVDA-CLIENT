@@ -1,25 +1,25 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
-import { useAdministrativeUnits } from '../../hooks/useDependency';
+import { useDependency } from '../../hooks/useDependency';
 import { createAdministrativeUnitValidation } from '../../validations/administrativeUnitsValidations';
 import { UIContext } from '../../context/ui/UIContext';
 import { useContext } from 'react';
 
-export const FormEditAdministrativeUnit = ({ subsecretaries, administrativeUnit }) => {
+export const FormEditAdministrativeUnit = ({ dependency }) => {
 
     const initialValues = {
-        name: administrativeUnit?.name,
-        subsecretary_id: administrativeUnit?.subsecretary_id
+        name: dependency?.name,
+        code: dependency?.code
     }
 
     const { loading } = useContext(UIContext);
-    const { handleUpdateAdministrativeUnit } = useAdministrativeUnits();
+    const { handleUpdateDependency } = useDependency();
 
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(createAdministrativeUnitValidation()),
-        onSubmit: (data) => handleUpdateAdministrativeUnit(administrativeUnit.id, data),
+        onSubmit: (data) => handleUpdateDependency(dependency.id, data),
     })
 
     return (
@@ -39,24 +39,18 @@ export const FormEditAdministrativeUnit = ({ subsecretaries, administrativeUnit 
                         onChange={formik.handleChange}
                         size="lg"
                     />
-                    <Select
-                        label="Subsecretarias"
-                        className="w-full"
-                        isInvalid={formik.touched.subsecretary_id && formik.errors.subsecretary_id ? true : false}
-                        errorMessage={formik.touched.subsecretary_id && formik.errors.subsecretary_id && formik.errors.subsecretary_id}
+                    <Input
+                        name="code"
+                        type="text"
+                        label="Código estructural"
+                        variant="bordered"
+                        value={formik.values.code}
+                        isInvalid={formik.touched.code && formik.errors.code ? true : false}
+                        errorMessage={formik.touched.code && formik.errors.code && formik.errors.code}
                         required={true}
                         onChange={formik.handleChange}
-                        selectedKeys={[formik.values.subsecretary_id]}
-                        name="subsecretary_id"
-                    >
-                        {
-                            subsecretaries?.map(({ id, name }) => (
-                                <SelectItem value={id} key={id}>
-                                    {name}
-                                </SelectItem>
-                            ))
-                        }
-                    </Select>
+                        size="lg"
+                    />
                     <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
                         Actualizar Subsecretaria
                     </Button>

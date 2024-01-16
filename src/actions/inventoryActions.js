@@ -6,7 +6,7 @@ import { errorNotification, successNotification } from '../components/ui/Alerts'
 
 export const getInventories = async (params) => {
     try {
-        const { data } = await apiInstance.get(`/auth/inventories?${params}`);
+        const { data } = await apiInstance.get(`/auth/inventories/get/user?${params}`);
         return data;
     } catch (error) {
         console.log(error);

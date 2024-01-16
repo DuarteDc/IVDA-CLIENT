@@ -109,7 +109,7 @@ export const Layout = ({ children }) => {
                                     </Link>
                                 </li> */}
                                 <li onClick={toggleDrawer}>
-                                    <Link to="/auth/administrative-units" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                    <Link to="/auth/dependencies" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
                                         <HomeCog width={28} height={24} />
                                         Dependencias
                                     </Link>

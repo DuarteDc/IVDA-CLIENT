@@ -6,26 +6,32 @@ export const dependencyReducer = (state, { type, payload }) => {
         case 'start_get_dependencies':
             return {
                 ...state,
-                administrativeUnits: payload.administrative_units,
+                dependencies: payload.dependencies,
                 totalPages: payload.totalPages,
             }
 
-        case 'get_current_administrative_unit':
+        case 'get_current_dependency':
             return {
                 ...state,
-                currentAdministrativeUnit: state.administrativeUnits.find(administrativeUnit => administrativeUnit.id === payload),
+                dependency: state.dependencies.find(dependency => dependency.id === payload),
             }
 
-        case 'get_one_administrative_unit':
+        case 'get_dependency':
             return {
                 ...state,
-                currentAdministrativeUnit: payload
+                dependency: payload
             }
 
-        case 'change_status_administrative_unit':
+        case 'clear_dependency_cache':
             return {
                 ...state,
-                administrativeUnits: state.administrativeUnits.map(unit => unit.id === payload ? { ...unit, status: unit.status = !unit.status } : unit)
+                dependency: {}
+            }
+
+        case 'change_status_dependency':
+            return {
+                ...state,
+                dependencies: state.dependencies.map(dependency => dependency.id === payload ? { ...dependency, status: dependency.status = !dependency.status } : dependency)
             }
 
         default:

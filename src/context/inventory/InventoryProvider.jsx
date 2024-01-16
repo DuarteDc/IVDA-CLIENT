@@ -24,8 +24,8 @@ export const InventoryProvider = ({ children }) => {
 
     const startGetInventories = async (params = '') => {
         startLoading()
-        const data = await getInventories(params);
-        dispatch({ type: 'start_get_inventories', payload: data });
+        const inventories = await getInventories(params);
+        dispatch({ type: 'start_get_inventories', payload: inventories });
         stopLoading()
     }
 

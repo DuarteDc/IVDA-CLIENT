@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { Button, Card, CardBody, Input, Select, SelectItem, Spinner } from '@nextui-org/react';
 
 import { useInventory } from '../../hooks/useInventory';
-import { useAdministrativeUnits } from '../../hooks/useDependency';
+import { useDependency } from '../../hooks/useDependency';
 import { UIContext } from '../../context/ui/UIContext';
 
 import { createInventoryValidations } from '../../validations/inventoryValidation';
@@ -13,7 +13,7 @@ export const FormEditInventory = ({ inventory, subsecretaries }) => {
 
     const { loading } = useContext(UIContext);
     const { handleUpdateInventory } = useInventory();
-    const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useAdministrativeUnits();
+    // const { getAdministrativeUnitsBySubsecretary, administrativeUnits = [] } = useDependency();
 
     const initialValues = {
         subsecretary_id: inventory?.subsecretary_id?.id,
@@ -27,9 +27,9 @@ export const FormEditInventory = ({ inventory, subsecretaries }) => {
         onSubmit: (data) => handleUpdateInventory(inventory.id, data),
     });
 
-    useEffect(( )=> {
-        getAdministrativeUnitsBySubsecretary(inventory?.subsecretary_id?.id,);
-    }, [])
+    // useEffect(( )=> {
+    //     getAdministrativeUnitsBySubsecretary(inventory?.subsecretary_id?.id,);
+    // }, [])
 
     return (
         <Card>
