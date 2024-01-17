@@ -146,6 +146,8 @@ export const FormCreateFile = ({ inventoryId, onOpen }) => {
                             placeholder="Fecha de los documentos"
                             onChange={handleValueChange}
                             i18n="es"
+                            displayFormat={"DD/MM/YYYY"}
+                            separator="-"
                         />
                         {
                             error && (

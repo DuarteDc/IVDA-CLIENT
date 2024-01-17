@@ -1,9 +1,20 @@
 import * as Yup from 'yup';
 
 export const createInventoryValidations = () => ({
-    subsecretary_id: Yup.string().required('La subsecretaría es requerida'),
-    code: Yup.string().required('El código estructural es requerido'),
-    administrative_unit_id: Yup.string().required('La unidad administrativa es requerida'),
+    type_file: Yup.string().required('El tipo de archivo es requerido'),
+    type_file_name: Yup.string().when('type_file', {
+        is: "0",
+        then: (schema) => schema.required('Para poder crear un nuevo tipo de archivo es necesario ingresar un nombre')
+            .min(8, 'El tipo de archivo debe contener al menos 8 caracteres')
+            .max(100, 'El tipo de archivo debe contener como máximo 100 caracteres'),
+    }),
+    location: Yup.string().required('La ubicación física es requerida'),
+    location_name: Yup.string().when('location', {
+        is: "0",
+        then: (schema) => schema.required('Para poder crear una nueva ubicación es necesario ingresar un nombre')
+        .min(8, 'La ubicación debe contener al menos 8 caracteres')
+        .max(100, 'La ubicación debe contener como máximo 100 caracteres'),
+    }),
 });
 
 

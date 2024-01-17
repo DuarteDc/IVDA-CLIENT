@@ -24,7 +24,6 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                 <TableHeader>
                     <TableColumn> # </TableColumn>
                     <TableColumn> Nombre </TableColumn>
-                    <TableColumn> Código </TableColumn>
                     <TableColumn> Estatus </TableColumn>
                     <TableColumn></TableColumn>
                 </TableHeader>
@@ -33,7 +32,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                     loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
                 >
                     {
-                        inventories?.map(({ id, name, code, status, user_id }) => (
+                        inventories?.map(({ id, status, user_id }) => (
                             <TableRow key={id}>
                                 <TableCell>
                                     {id}
@@ -43,14 +42,11 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                         avatarProps={{
                                             icon: <FileIcon />
                                         }}
-                                        name={name}
+                                        name="Inventario general de archivo"
                                         description="Inventario"
                                     >
-                                        {name}
+                                        Inventario general de archivo
                                     </User>
-                                </TableCell>
-                                <TableCell>
-                                    {code}
                                 </TableCell>
                                 <TableCell>
                                     <Chip className="capitalize" color={`${status ? 'success' : 'warning'}`} size="sm" variant="flat">
@@ -62,7 +58,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                 </TableCell>
                                 <TableCell>
                                     {
-                                        user?.id === user_id &&(
+                                        user?.id === user_id && (
                                             <div className="relative flex items-center gap-2">
                                                 <Tooltip content="Detalles">
                                                     <Link to={`/auth/inventories/${id}`}>

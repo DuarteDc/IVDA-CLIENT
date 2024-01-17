@@ -18,7 +18,8 @@ apiInstance.interceptors.request.use(
       localStorage.removeItem('session');
     }
   },
-  error => {
+  function (error)  {
+    console.log(error, "XD");
     return Promise.reject(error)
   }
 )

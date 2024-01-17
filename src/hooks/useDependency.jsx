@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { activeAdministrativeUnit, createDependency, deleteAdministrativeUnit, getByUser, getDependency, updateAdministrativeUnit } from '../actions/dependencyActions'
+import { activeAdministrativeUnit, createDependency, deleteAdministrativeUnit, getByUser, getDependency, getLocations, getTypeFiles, updateAdministrativeUnit } from '../actions/dependencyActions'
 import { UIContext } from '../context/ui/UIContext';
 import { DependencyContext } from '../context/dependency';
 
@@ -13,6 +13,8 @@ export const useDependency = () => {
     const { startLoading, stopLoading } = useContext(UIContext);
 
     const [dependencyUser, setDependencyUser] = useState([]);
+    const [locations, setLocations] = useState([]);
+    const [typeFiles, setTypeFiles] = useState([]);
 
     const getDependencyByUser = () => getByUser().then(setDependencyUser);
 
@@ -49,19 +51,25 @@ export const useDependency = () => {
 
     const startGetDependency = async (id) => {
         const dependency = await getDependency(id)
-        // if (!dependency) return navigate('/auth/not-found');
         dispatch({ type: 'get_dependency', payload: dependency });
     }
+
+    const startGetLocations = () => getLocations().then(setLocations);
+    const startGetTypeFiles = () => getTypeFiles().then(setTypeFiles);
 
     const cleanDependencyCache = () => dispatch({ type: 'clear_dependency_cache' })
 
     return {
-        getDependencyByUser,
+        locations, 
+        typeFiles,
         dependencyUser,
+        getDependencyByUser,
         handleCreateDependency,
         handleChangeStatus,
         startGetDependency,
         handleUpdateDependency,
-        cleanDependencyCache
+        cleanDependencyCache,
+        startGetLocations,
+        startGetTypeFiles,
     }
 }

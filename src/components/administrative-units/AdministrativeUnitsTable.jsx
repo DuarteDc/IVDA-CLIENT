@@ -27,7 +27,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
         </TableHeader>
         <TableBody
           isLoading={loading}
-          loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+          loadingContent={<div className="z-50 fixed bottom-0 w-full h-full bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
         >
           {
             dependencies?.map(({ id, name, code, status }) => (

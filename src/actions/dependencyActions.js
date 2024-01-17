@@ -96,3 +96,20 @@ export const activeAdministrativeUnit = async (id) => {
     }
 }
 
+export const getLocations = async () => {
+    try {
+        const { data } = await apiInstance.get('/auth/locations');
+        return data.locations;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getTypeFiles = async () => {
+    try {
+        const { data } = await apiInstance.get('/auth/type-files');
+        return data.type_files;
+    } catch (error) {
+        console.log(error);
+    }
+}
