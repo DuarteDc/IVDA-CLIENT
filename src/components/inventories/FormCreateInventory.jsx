@@ -45,19 +45,6 @@ export const FormCreateInventory = ({ dependency, typeFiles, locations }) => {
             handleCreateInventory(newData)
         }
     })
-    const handleCancelFieldValue = (key) => {
-        if (typeof key === 'string') {
-            const isValidKey = Object.keys(formik.initialValues).includes(key);
-            if (!isValidKey) throw new Error("Key is not valid inside form values");
-            return formik.setFieldValue(key, '');
-        }
-        for (const item of key) {
-            const isValidKey = Object.keys(formik.initialValues).includes(item);
-            if (!isValidKey) throw new Error("Key is not valid inside form values");
-            formik.setFieldValue(item, '');
-        }
-
-    }
 
     return (
         <Card className="overflow-visible">

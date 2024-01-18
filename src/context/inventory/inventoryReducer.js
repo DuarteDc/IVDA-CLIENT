@@ -20,6 +20,12 @@ export const inventoryReducer = (state, { type, payload }) => {
             }
         }
 
+        case 'clear_inventory_cache':
+            return {
+                ...state,
+                inventory: {}
+            }
+
         case 'get_current_inventory':
             return {
                 ...state,

@@ -44,6 +44,7 @@ export const FormCreateFile = ({ inventoryId, onOpen }) => {
         onSubmit: (data) => {
             if (!value['startDate']) return setError(true);
             const newData = ({ ...data, files_date: [value.startDate, value.endDate] });
+            return console.log(newData);
             handleCreateFile(inventoryId, newData).then(() => onOpen())
         }
     })

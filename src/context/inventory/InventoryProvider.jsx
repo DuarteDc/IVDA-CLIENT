@@ -1,4 +1,4 @@
-import { useContext, useReducer } from 'react';
+import { useContext, useReducer, useState } from 'react';
 import { InventoryContext } from './InventoryContext';
 import { inventoryReducer } from './inventoryReducer';
 import { getInventories, getInventory, getInventoryByUser } from '../../actions/inventoryActions';
@@ -19,6 +19,9 @@ export const InventoryProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(inventoryReducer, initialState);
     const { startLoading, stopLoading } = useContext(UIContext);
+    const [loading, setLoading] = useState(false);
+
+    const toggleLoading = () => setLoading(prev => !prev);
 
     const navigate = useNavigate();
 
@@ -31,17 +34,23 @@ export const InventoryProvider = ({ children }) => {
 
     const startGetInventory = async (id) => {
         try {
+            toggleLoading();
             const data = await getInventory(id);
             if (!data) return navigate('/auth/not-found');
             dispatch({ type: 'start_get_inventory', payload: data });
         } catch (error) {
             navigate('/auth/not-found');
+        } finally {
+            toggleLoading();
         }
     }
 
     const getCurrentFile = (no) => {
         dispatch({ type: 'get_current_file', payload: no });
     }
+
+
+    const clearInventoryCache = () => dispatch({ type: 'clear_inventory_cache' })
 
     const getCurrentInventory = (id) => {
         dispatch({ type: 'get_current_inventory', payload: id });
@@ -54,7 +63,7 @@ export const InventoryProvider = ({ children }) => {
 
 
     return (
-        <InventoryContext.Provider value={{ ...state, dispatch, startGetInventories, startGetInventory, getCurrentFile, getCurrentInventory, startGetInventoryByUser }}>
+        <InventoryContext.Provider value={{ ...state, dispatch, startGetInventories, startGetInventory, getCurrentFile, getCurrentInventory, startGetInventoryByUser, loading, clearInventoryCache }}>
             {children}
         </InventoryContext.Provider>
     )
