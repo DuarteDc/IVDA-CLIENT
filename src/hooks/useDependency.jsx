@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { activeAdministrativeUnit, createDependency, deleteAdministrativeUnit, getByUser, getDependency, getLocations, getTypeFiles, updateAdministrativeUnit } from '../actions/dependencyActions'
+import { activeAdministrativeUnit, createDependency, deleteAdministrativeUnit, getByUser, getDependency, getLocations, getTypeFiles, updateAdministrativeUnit, getDependenciesWithoutUsers, getDependenciesWithoutUsersAndMyDependency } from '../actions/dependencyActions'
 import { UIContext } from '../context/ui/UIContext';
 import { DependencyContext } from '../context/dependency';
 
@@ -54,6 +54,9 @@ export const useDependency = () => {
         dispatch({ type: 'get_dependency', payload: dependency });
     }
 
+    const startGetDependeciesWithoutUsers = () => getDependenciesWithoutUsers().then(setDependencyUser);
+    const startGetDependeciesWithoutUsersAndMyDependency = (id) => getDependenciesWithoutUsersAndMyDependency(id).then(setDependencyUser);
+
     const startGetLocations = () => getLocations().then(setLocations);
     const startGetTypeFiles = () => getTypeFiles().then(setTypeFiles);
 
@@ -71,5 +74,7 @@ export const useDependency = () => {
         cleanDependencyCache,
         startGetLocations,
         startGetTypeFiles,
+        startGetDependeciesWithoutUsers,
+        startGetDependeciesWithoutUsersAndMyDependency
     }
 }

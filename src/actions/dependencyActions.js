@@ -113,3 +113,21 @@ export const getTypeFiles = async () => {
         console.log(error);
     }
 }
+
+export const getDependenciesWithoutUsers = async () => {
+    try {
+        const { data } = await apiInstance.get('/auth/dependencies/without/user');
+        return data.dependencies;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getDependenciesWithoutUsersAndMyDependency = async (id) => {
+    try {
+        const { data } = await apiInstance.get(`/auth/dependencies/available/${id}`);
+        return data.dependencies;
+    } catch (error) {
+        console.log(error);
+    }
+}

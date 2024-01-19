@@ -1,17 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BreadcrumbItem, Breadcrumbs, Card, CardBody } from '@nextui-org/react';
+import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
 
 import { FormCreateUser } from '../../components/users/FormCreateUser';
-import { useSubsecretaries } from '../../hooks/useSubsecretaries';
+import { useDependency } from '../../hooks/useDependency';
 import { HomeIcon, UsersIcon } from '../../components/icons';
 
 export const CreateUser = () => {
-  const { getAllActiveSubsecretaries } = useSubsecretaries();
-  const [subsecretaries, setSubsecretaries] = useState([]);
+  const { startGetDependeciesWithoutUsers, dependencyUser: dependencies } = useDependency();
 
   useEffect(() => {
-    getAllActiveSubsecretaries().then(setSubsecretaries);
+    startGetDependeciesWithoutUsers()
   }, []);
 
   return (
@@ -36,7 +35,7 @@ export const CreateUser = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-7 w-full h-full mt-10 lg:mt-20 mb-20">
         <div className="mt-10 [&>div>div>form>*]:my-2 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5 col-span-4">
-          <FormCreateUser subsecretaries={subsecretaries} />
+          <FormCreateUser dependencies={dependencies} />
         </div>
         <div className="hidden lg:flex justify-center items-center w-full col-span-3">
           <img

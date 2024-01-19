@@ -15,7 +15,7 @@ export const FilesInventoryTable = ({ files, showControls = true, status }) => {
 
     return (
         <>
-            <Table aria-label="Archivos">
+            <Table aria-label="Archivos" className="max-h-[900px] [&>div>table>thead>tr>th]:h-16" isHeaderSticky>
                 <TableHeader>
                     <TableColumn> Número progresivo </TableColumn>
                     <TableColumn> Seccion </TableColumn>

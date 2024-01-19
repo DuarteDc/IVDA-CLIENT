@@ -1,21 +1,18 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { BreadcrumbItem, Breadcrumbs, Card, CardBody } from '@nextui-org/react';
+import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react';
 import { FormEditUser } from '../../components/users/FormEditUser';
-import { useSubsecretaries } from '../../hooks/useSubsecretaries';
 import { UsersContext } from '../../context/users/UsersContext';
 import { HomeIcon, UsersIcon } from '../../components/icons';
+import { useDependency } from '../../hooks/useDependency';
 
 export const Edit = () => {
     const { id } = useParams();
     const { getUserById, user } = useContext(UsersContext);
-    const { getAllActiveSubsecretaries } = useSubsecretaries();
-
-    const [subsecretaries, setSubsecretaries] = useState([]);
+    const { startGetDependeciesWithoutUsersAndMyDependency, dependencyUser: dependencies } = useDependency();
 
     useEffect(() => {
-        getUserById(id);
-        getAllActiveSubsecretaries().then(setSubsecretaries);
+        Promise.all([getUserById(id), startGetDependeciesWithoutUsersAndMyDependency(id)]);
     }, []);
 
     return (
@@ -43,7 +40,7 @@ export const Edit = () => {
                     {
                         (Object.keys(user).length > 0 && user.id === id) && (
                             <FormEditUser
-                                subsecretaries={subsecretaries}
+                                dependencies={dependencies}
                                 user={user}
                             />
                         )

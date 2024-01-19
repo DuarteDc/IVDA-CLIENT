@@ -20,7 +20,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
 
     return (
         <>
-            <Table aria-label="Inventarios">
+            <Table aria-label="Inventarios" className="[&>div>table>thead>tr>th]:h-16">
                 <TableHeader>
                     <TableColumn> # </TableColumn>
                     <TableColumn> Nombre </TableColumn>

@@ -8,7 +8,7 @@ import { UsersContext } from '../../context/users/UsersContext';
 import { useUsers } from '../../hooks/useUsers';
 import { UIContext } from '../../context/ui/UIContext';
 
-export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
+export const UsersTable = ({ users = [], totalPages = 0, setSearchParams, currentPage }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const { setCurrentUser, currentUser } = useContext(UsersContext);
@@ -23,7 +23,7 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
                     <TableColumn> Nombre </TableColumn>
                     <TableColumn> Apellido </TableColumn>
                     <TableColumn> Correo </TableColumn>
-                    <TableColumn> Rol </TableColumn>
+                    <TableColumn> Dependencia </TableColumn>
                     <TableColumn> Estatus </TableColumn>
                     <TableColumn></TableColumn>
                 </TableHeader>
@@ -32,7 +32,7 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
                     loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
                 >
                     {
-                        users?.map(({ id, name, last_name, email, status, role }) => (
+                        users?.map(({ id, name, last_name, email, status, dependency_id }) => (
                             <TableRow key={id}>
                                 <TableCell>
                                     <User
@@ -46,10 +46,8 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
                                 <TableCell>{last_name}</TableCell>
                                 <TableCell>{email}</TableCell>
                                 <TableCell>
-                                    <Chip className="capitalize" color={`${role === '0' ? 'primary' : 'secondary'}`} size="sm" variant="flat">
-                                        {
-                                            role === '0' ? 'Usuario' : 'Administrador'
-                                        }
+                                    <Chip className="capitalize" size="sm" variant="dot" color="primary">
+                                        {dependency_id?.name || 'NA'}
                                     </Chip>
 
                                 </TableCell>
@@ -63,13 +61,6 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
                                 </TableCell>
                                 <TableCell>
                                     <div className="relative flex items-center gap-2">
-                                        {/* <Tooltip content="Detalles">
-                                            <Link to={`/auth/users/${id}`}>
-                                                <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                                                    <EyeIcon />
-                                                </span>
-                                            </Link>
-                                        </Tooltip> */}
                                         <Tooltip content="Editar">
                                             <Link to={`/auth/users/edit/${id}`}>
                                                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
@@ -102,7 +93,7 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams }) => {
             {
                 totalPages > 0 && (
                     <div className="flex justify-end py-5 lg:pt-10">
-                        <Pagination showControls total={totalPages} initialPage={1} onChange={(page) => { setSearchParams(`?page=${page}`) }} />
+                        <Pagination showControls total={totalPages} initialPage={currentPage} onChange={(page) => { setSearchParams(`?page=${page}`) }} />
                     </div>
                 )
             }

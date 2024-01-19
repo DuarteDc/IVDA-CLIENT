@@ -7,26 +7,20 @@ import { useUsers } from '../../hooks/useUsers';
 import { editUserValidations } from '../../validations/usersValidations';
 import { UIContext } from '../../context/ui/UIContext';
 
-export const FormEditUser = ({ subsecretaries, user }) => {
+export const FormEditUser = ({ dependencies, user }) => {
 
     const { loading } = useContext(UIContext);
     const { handleUpdateUser } = useUsers();
-    // const { getAdministrativeUnitsBySubsecretary, administrativeUnits } = useAdministrativeUnits();
-
-    useEffect(() => {
-        if (user.role === '0')
-            getAdministrativeUnitsBySubsecretary(user?.administrative_unit_id?.subsecretary_id);
-    }, [])
 
     const initialValues = {
         name: user.name,
         last_name: user?.last_name,
         email: user?.email,
         password: '',
-        role: user?.role,
-        administrative_unit_id: user?.administrative_unit_id?.id || '',
-        subsecretary_id: user?.administrative_unit_id?.subsecretary_id || '',
+        dependency_id: user.dependency_id + ''
     }
+
+    console.log(user)
 
     const formik = useFormik({
         initialValues,
@@ -98,68 +92,22 @@ export const FormEditUser = ({ subsecretaries, user }) => {
                     />
                     <div className="flex flex-col md:flex-row md:[&>*]:mr-4 [&>*]:mb-4 ">
                         <Select
-                            label="Rol"
-                            className="w-full md:max-w-xs"
-                            isInvalid={formik.touched.role && formik.errors.role ? true : false}
-                            errorMessage={formik.touched.role && formik.errors.role && formik.errors.role}
+                            label="Dependencias"
+                            isInvalid={formik.touched.dependency_id && formik.errors.dependency_id ? true : false}
+                            errorMessage={formik.touched.dependency_id && formik.errors.dependency_id && formik.errors.dependency_id}
                             required={true}
-                            selectedKeys={[formik.values.role]}
+                            selectedKeys={[formik.values.dependency_id]}
                             onChange={formik.handleChange}
-                            name="role"
+                            name="dependency_id"
                         >
-                            <SelectItem value="0" key="0">
-                                Usuario
-                            </SelectItem>
-                            <SelectItem value="1" key="1">
-                                Administrador
-                            </SelectItem>
+                            {
+                                dependencies?.map(({ id, name }) => (
+                                    <SelectItem value={id} key={id}>
+                                        {name}
+                                    </SelectItem>
+                                ))
+                            }
                         </Select>
-                        {
-                            formik.values.role === '0' && (
-                                <>
-                                    <Select
-                                        label="Subsecretaria"
-                                        className="w-full md:max-w-xs"
-                                        isInvalid={formik.touched.subsecretary_id && formik.errors.subsecretary_id ? true : false}
-                                        errorMessage={formik.touched.subsecretary_id && formik.errors.subsecretary_id && formik.errors.subsecretary_id}
-                                        required={true}
-                                        selectedKeys={[formik.values.subsecretary_id]}
-                                        onChange={(event) => { formik.handleChange(event); getAdministrativeUnitsBySubsecretary(event.target.value) }}
-                                        name="subsecretary_id"
-                                    >
-                                        {
-                                            subsecretaries?.map(({ id, name }) => (
-                                                <SelectItem value={id} key={id}>
-                                                    {name}
-                                                </SelectItem>
-                                            ))
-                                        }
-                                    </Select>
-                                    {
-                                        formik.values.subsecretary_id && (
-                                            <Select
-                                                label="Unidad Administrativa"
-                                                className="w-full md:max-w-xs"
-                                                isInvalid={formik.touched.administrative_unit_id && formik.errors.administrative_unit_id ? true : false}
-                                                errorMessage={formik.touched.administrative_unit_id && formik.errors.administrative_unit_id && formik.errors.administrative_unit_id}
-                                                required={true}
-                                                selectedKeys={[formik.values.administrative_unit_id]}
-                                                onChange={formik.handleChange}
-                                                name="administrative_unit_id"
-                                            >
-                                                {
-                                                    administrativeUnits?.map(({ id, name }) => (
-                                                        <SelectItem value={id} key={id}>
-                                                            {name}
-                                                        </SelectItem>
-                                                    ))
-                                                }
-                                            </Select>
-                                        )
-                                    }
-                                </>
-                            )
-                        }
                     </div>
                     <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
                         Editar Usuario

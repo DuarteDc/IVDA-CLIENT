@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth/AuthContext';
 import { Card, CardBody } from '@nextui-org/react';
-import { BuildingComunity, FileIcon, HomeCog, UsersIcon } from '../../components/icons';
+import { FileIcon, HomeCog, UsersIcon } from '../../components/icons';
 import { InventoriesTable } from '../../components/inventories/InventoriesTable';
 import { useDashboard } from '../../hooks/useDashboard';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const Dashboard = () => {
     return (
         <section className="min-h-screen">
             <div className="w-full rounded-md bg-blue-600/60 p-10 md:p-10 lg:p-20 grid grid-cols-1 md:grid-cols-2 shadow-2xl">
-                <div>
+                <div className="text-left">
                     <h1 className="text-5xl lg:text-7xl xl:text-8xl 2xl:text-9xl mb-5 font-bold dark:text-blue-400 text-blue-600">Bienvenido</h1>
                     <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold">{user?.name} {user?.last_name}</h2>
                 </div>
@@ -32,47 +32,36 @@ export const Dashboard = () => {
             </div>
             <Card className="my-20 md:my-40">
                 <CardBody>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         <Card shadow="sm" isPressable onPress={() => navigate('/auth/inventories')} className="bg-purple-500/50">
-                            <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-start lg:justify-between font-bold">
+                            <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-between font-bold">
                                 <span className="text-4xl lg:text-5xl">
                                     <h3 className="text-xs font-semibold">Inventarios</h3>
                                     {dataCount?.inventories}
                                 </span>
-                                <span className="p-5 bg-purple-500 rounded-lg hidden lg:block">
+                                <span className="p-1 lg:p-5 bg-purple-500 rounded-lg">
                                     <FileIcon width={60} height={60} />
                                 </span>
                             </CardBody>
                         </Card>
                         <Card shadow="sm" isPressable onPress={() => navigate('/auth/users')} className="bg-emerald-500/50">
-                            <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-start lg:justify-between font-bold">
+                            <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-between font-bold">
                                 <span className="text-4xl lg:text-5xl">
                                     <h3 className="text-xs font-semibold">Usuarios</h3>
                                     {dataCount?.users}
                                 </span>
-                                <span className="p-5 bg-emerald-500 rounded-lg hidden lg:block">
+                                <span className="p-1 lg:p-5 bg-emerald-500 rounded-lg">
                                     <UsersIcon width={60} height={60} />
                                 </span>
                             </CardBody>
                         </Card>
-                        <Card shadow="sm" isPressable onPress={() => navigate('/auth/subsecretaries')} className="bg-rose-500/50">
-                            <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-start lg:justify-between font-bold">
-                                <span className="text-4xl lg:text-5xl">
-                                    <h3 className="text-xs font-semibold">Subsecretarias</h3>
-                                    {dataCount?.subsecretaries}
-                                </span>
-                                <span className="p-5 bg-rose-500 rounded-lg hidden lg:block">
-                                    <BuildingComunity width={60} height={60} />
-                                </span>
-                            </CardBody>
-                        </Card>
                         <Card shadow="sm" isPressable onPress={() => navigate('/auth/administrative-units')} className="bg-amber-500/50">
-                            <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-start lg:justify-between font-bold">
+                            <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-between font-bold">
                                 <span className="text-4xl lg:text-5xl">
                                     <h3 className="text-xs font-semibold">Unidades Administrativas</h3>
-                                    {dataCount?.administartiveUnits}
+                                    {dataCount?.dependencies}
                                 </span>
-                                <span className="p-5 bg-amber-500 rounded-lg hidden lg:block">
+                                <span className="p-1 lg:p-5 bg-amber-500 rounded-lg">
                                     <HomeCog width={60} height={60} />
                                 </span>
                             </CardBody>
