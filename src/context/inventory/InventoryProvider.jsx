@@ -36,10 +36,10 @@ export const InventoryProvider = ({ children }) => {
         try {
             toggleLoading();
             const data = await getInventory(id);
-            if (!data) return navigate('/auth/not-found');
+            if (!data) return navigate('not-found');
             dispatch({ type: 'start_get_inventory', payload: data });
         } catch (error) {
-            navigate('/auth/not-found');
+            navigate('not-found');
         } finally {
             toggleLoading();
         }
@@ -56,9 +56,11 @@ export const InventoryProvider = ({ children }) => {
         dispatch({ type: 'get_current_inventory', payload: id });
     }
 
-    const startGetInventoryByUser = async () => {
-        const data = await getInventoryByUser();
-        if (data) dispatch({ type: 'get_inventory_by_user', payload: data });
+    const startGetInventoryByUser = async (params = '') => {
+        startLoading();
+        const data = await getInventoryByUser(params);
+        if (data) dispatch({ type: 'start_get_inventories', payload: data });
+        stopLoading();
     }
 
 

@@ -24,6 +24,8 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                 <TableHeader>
                     <TableColumn> # </TableColumn>
                     <TableColumn> Nombre </TableColumn>
+                    <TableColumn> Fecha de inventario </TableColumn>
+                    <TableColumn> Dependencia </TableColumn>
                     <TableColumn> Estatus </TableColumn>
                     <TableColumn></TableColumn>
                 </TableHeader>
@@ -32,7 +34,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                     loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
                 >
                     {
-                        inventories?.map(({ id, status, user_id }) => (
+                        inventories?.map(({ id, status, user_id, start_date, dependency_id }) => (
                             <TableRow key={id}>
                                 <TableCell>
                                     {id}
@@ -49,6 +51,12 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                     </User>
                                 </TableCell>
                                 <TableCell>
+                                    {start_date.split("-").reverse().join("-")}
+                                </TableCell>
+                                <TableCell>
+                                    {dependency_id?.name}
+                                </TableCell>
+                                <TableCell>
                                     <Chip className="capitalize" color={`${status ? 'success' : 'warning'}`} size="sm" variant="flat">
                                         {
                                             status ? 'Terminado' : 'En proceso'
@@ -58,19 +66,19 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                 </TableCell>
                                 <TableCell>
                                     {
-                                        user?.id === user_id && (
+                                        (user?.role === "0" || user?.id === user_id) && (
                                             <div className="relative flex items-center gap-2">
                                                 <Tooltip content="Detalles">
-                                                    <Link to={`/auth/inventories/${id}`}>
+                                                    <Link to={`${user?.role === "0" ? '/auth/inventories/' : '/auth/user/inventories/'}${id}`}>
                                                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                                             <EyeIcon />
                                                         </span>
                                                     </Link>
                                                 </Tooltip>
                                                 {
-                                                    !status && (
+                                                    (!status && user_id === user?.id && user?.role !== "0") && (
                                                         <Tooltip content="Editar">
-                                                            <Link to={`/auth/inventories/edit/${id}`}>
+                                                            <Link to={`/auth/user/inventories/edit/${id}`}>
                                                                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                                                                     <EditIcon />
                                                                 </span>
@@ -86,11 +94,13 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                                             </span>
                                                         </Tooltip>
                                                     ) : (
-                                                        <Tooltip color="primary" content="Finalizar">
-                                                            <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentInventory(id); }}>
-                                                                <DoneIcon />
-                                                            </span>
-                                                        </Tooltip>
+                                                        (user?.id === user_id && user?.role !== "0") && (
+                                                            <Tooltip color="primary" content="Finalizar">
+                                                                <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentInventory(id); }}>
+                                                                    <DoneIcon />
+                                                                </span>
+                                                            </Tooltip>
+                                                        )
                                                     )
                                                 }
                                             </div>

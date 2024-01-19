@@ -20,8 +20,6 @@ export const FormEditUser = ({ dependencies, user }) => {
         dependency_id: user.dependency_id + ''
     }
 
-    console.log(user)
-
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(editUserValidations()),
@@ -90,25 +88,23 @@ export const FormEditUser = ({ dependencies, user }) => {
                         onChange={formik.handleChange}
                         size="lg"
                     />
-                    <div className="flex flex-col md:flex-row md:[&>*]:mr-4 [&>*]:mb-4 ">
-                        <Select
-                            label="Dependencias"
-                            isInvalid={formik.touched.dependency_id && formik.errors.dependency_id ? true : false}
-                            errorMessage={formik.touched.dependency_id && formik.errors.dependency_id && formik.errors.dependency_id}
-                            required={true}
-                            selectedKeys={[formik.values.dependency_id]}
-                            onChange={formik.handleChange}
-                            name="dependency_id"
-                        >
-                            {
-                                dependencies?.map(({ id, name }) => (
-                                    <SelectItem value={id} key={id}>
-                                        {name}
-                                    </SelectItem>
-                                ))
-                            }
-                        </Select>
-                    </div>
+                    <Select
+                        label="Dependencias"
+                        isInvalid={formik.touched.dependency_id && formik.errors.dependency_id ? true : false}
+                        errorMessage={formik.touched.dependency_id && formik.errors.dependency_id && formik.errors.dependency_id}
+                        required={true}
+                        selectedKeys={[formik.values.dependency_id]}
+                        onChange={formik.handleChange}
+                        name="dependency_id"
+                    >
+                        {
+                            dependencies?.map(({ id, name }) => (
+                                <SelectItem value={id} key={id}>
+                                    {name}
+                                </SelectItem>
+                            ))
+                        }
+                    </Select>
                     <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
                         Editar Usuario
                     </Button>

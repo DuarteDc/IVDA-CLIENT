@@ -20,7 +20,7 @@ export const useInventory = () => {
 
     const handleUpdateInventory = async (id, data) => {
         startLoading();
-        if (await updateInventory(id, data)) navigate('/auth/inventories');
+        if (await updateInventory(id, data)) navigate(-1);
         stopLoading();
     }
 

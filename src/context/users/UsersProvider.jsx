@@ -38,8 +38,10 @@ export const UsersProvider = ({ children }) => {
         dispatch({ type: 'get_user', payload: user });
     }
 
+    const cleanUserCache = () => dispatch({ type: 'clear_user_cache' })
+
     return (
-        <UsersContext.Provider value={{ ...state, dispatch, setCurrentUser, getUserById, getUsers }}>
+        <UsersContext.Provider value={{ ...state, dispatch, setCurrentUser, getUserById, getUsers, cleanUserCache }}>
             {children}
         </UsersContext.Provider>
     )

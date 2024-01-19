@@ -29,7 +29,7 @@ export const Layout = ({ children }) => {
                 maxWidth="full"
             >
                 {
-                    user?.role === "1" ? (
+                    user?.role === "0" ? (
                         <NavbarContent justify="start">
                             <NavbarMenuToggle aria-label={isOpen ? "Close menu" : "Open menu"} />
                         </NavbarContent>
@@ -78,7 +78,7 @@ export const Layout = ({ children }) => {
             </Navbar>
             <main className={`min-h-screen [&>section]:lg:px-20 [&>section]:pt-10 [&>section]:lg:pt-20 px-2 [&>section]:overflow-hidden`}>
                 {
-                    user?.role === "1" && (
+                    user?.role === "0" && (
                         <Drawer
                             open={isOpen}
                             onClose={toggleDrawer}

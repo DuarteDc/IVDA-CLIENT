@@ -6,6 +6,7 @@ import { FileIcon, HomeIcon, PlusIcon, UsersIcon } from '../../components/icons'
 import { FilesInventoryTable, FormCreateFile } from '../../components/inventories';
 import { AlertModal } from '../../components/ui/AlertModal';
 import { LoadingScreen } from '../../components/ui/LoadingScreen';
+import { NotFound } from '../404/Index';
 
 export const Inventory = () => {
 
@@ -64,7 +65,7 @@ export const Inventory = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-6 mt-5 [&>*]:lg:px-4 mb-5 [&>span]:text-xs [&>span]:lg:text-base">
-                        <span className="md:col-span-2 bg-blue-500/80 w-full px-2 first-letter:text-white rounded-xl py-6">Fondo documental:</span>
+                        <span className="md:col-span-2 bg-blue-500/80 w-full px-2 rounded-xl py-6">Fondo documental:</span>
                         <Card className="w-full md:col-span-4"><CardBody className="w-full py-6 text-xs lg:text-base">Instituto de Información e Investigación Geográfica, Estadística y Catastral del Estado de México</CardBody></Card>
                         {/* <span className="bg-blue-500/80 w-full text-white rounded-xl py-6">Subfondo:</span>
                         <Card className="w-full"><CardBody className="w-full py-6 text-xs lg:text-base">{inventory?.administrative_unit_id?.name}</CardBody></Card> */}

@@ -8,11 +8,14 @@ import { useDependency } from '../../hooks/useDependency';
 
 export const Edit = () => {
     const { id } = useParams();
-    const { getUserById, user } = useContext(UsersContext);
+    const { getUserById, user, cleanUserCache } = useContext(UsersContext);
     const { startGetDependeciesWithoutUsersAndMyDependency, dependencyUser: dependencies } = useDependency();
 
     useEffect(() => {
         Promise.all([getUserById(id), startGetDependeciesWithoutUsersAndMyDependency(id)]);
+        return () => {
+            cleanUserCache();
+        }
     }, []);
 
     return (
@@ -21,7 +24,7 @@ export const Edit = () => {
             <div className="px-5 flex flex-col flex-wrap gap-4 mb-5">
                 <Breadcrumbs radius="lg" variant="solid" color="foreground">
                     <BreadcrumbItem>
-                        <Link to="/auth" className="flex items-center [&>:first-child]:mr-2">#
+                        <Link to="/auth" className="flex items-center [&>:first-child]:mr-2">
                             <HomeIcon width={20} height={20} />
                             Inicio
                         </Link>
@@ -38,7 +41,7 @@ export const Edit = () => {
             <div className="grid grid-cols-1 lg:grid-cols-7 w-full h-full mt-10 lg:mt-20 mb-20">
                 <div className="mt-10 [&>div>div>form>*]:my-2 [&>div>div>form]:md:px-5 [&>div>div]:py-10 md:px-5 col-span-4">
                     {
-                        (Object.keys(user).length > 0 && user.id === id) && (
+                        (Object.keys(user).length > 0) && (
                             <FormEditUser
                                 dependencies={dependencies}
                                 user={user}

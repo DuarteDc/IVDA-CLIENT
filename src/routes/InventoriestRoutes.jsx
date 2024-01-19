@@ -10,8 +10,8 @@ export const InventoriestRoutes = () => {
                 <Routes>
                     <Route path="/" element={<Inventories />} />
                     <Route path="/:id" element={<Inventory />} />
-                    <Route path="/edit/:id" element={<EditInventory />} />
-                    <Route path="/create" element={<CreateInventory />} />
+                    {/* <Route path="/edit/:id" element={<EditInventory />} />
+                    <Route path="/create" element={<CreateInventory />} /> */}
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
             }

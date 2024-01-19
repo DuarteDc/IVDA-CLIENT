@@ -39,6 +39,13 @@ export const usersReducer = (state, { type, payload }) => {
             }
         }
 
+
+        case 'clear_user_cache': {
+            return {
+                ...state,
+                user: []
+            }
+        }
         default:
             return state;
 

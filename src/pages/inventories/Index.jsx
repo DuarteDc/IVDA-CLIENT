@@ -4,11 +4,13 @@ import { InventoriesTable } from '../../components/inventories/InventoriesTable'
 import { HomeIcon, PlusIcon } from '../../components/icons';
 import { BreadcrumbItem, Breadcrumbs, Button } from '@nextui-org/react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 export const Inventories = () => {
 
   const [searchParams, setSearchParams] = useSearchParams(1);
   const { startGetInventories, inventories, totalPages } = useContext(InventoryContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     startGetInventories(searchParams);
@@ -18,9 +20,13 @@ export const Inventories = () => {
     <section>
       <h1 className="text-center text-4xl md:text-5xl font-bold pb-10 uppercase">Inventarios</h1>
       <div className="flex justify-end py-10">
-        <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
-            Crear Inventario
-        </Button>
+        {
+          user?.role === "1" && (
+            <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
+              Crear Inventario
+            </Button>
+          )
+        }
       </div>
       <div className="flex flex-col flex-wrap gap-4 mb-5">
         <Breadcrumbs radius="lg" variant="solid" color="foreground">

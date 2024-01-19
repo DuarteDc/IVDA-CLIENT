@@ -3,8 +3,9 @@ import { Avatar } from '@nextui-org/react';
 import { AuthContext } from "../../context/auth/AuthContext"
 
 export const Profile = () => {
-
+    
     const { user } = useContext(AuthContext);
+
     return (
         <section>
             <div className="bg-blue-600/50 rounded-lg flex items-center p-16">

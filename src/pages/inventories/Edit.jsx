@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { BreadcrumbItem, Breadcrumbs, Button, Card, CardBody, Spinner, useDisclosure } from '@nextui-org/react';
+import { useContext, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { BreadcrumbItem, Breadcrumbs, Button, Card, CardBody, useDisclosure } from '@nextui-org/react';
 
 import { FileIcon, HomeIcon, PlusIcon } from '../../components/icons';
 import { InventoryContext } from '../../context/inventory/InventoryContext';
@@ -9,13 +9,14 @@ import { FormEditInventory } from '../../components/inventories/FormEditInventor
 import { AlertModal } from '../../components/ui/AlertModal';
 import { useDependency } from '../../hooks/useDependency';
 import { LoadingScreen } from '../../components/ui/LoadingScreen';
+import { NotFound } from '../404/Index';
 
 
 export const EditInventory = () => {
 
     const { id } = useParams();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { startGetInventory, inventory, files, loading, clearInventoryCache } = useContext(InventoryContext);
+    const { startGetInventory, inventory, files, clearInventoryCache } = useContext(InventoryContext);
     const { startGetLocations, startGetTypeFiles, locations, typeFiles } = useDependency();
 
     useEffect(() => {
@@ -24,10 +25,13 @@ export const EditInventory = () => {
             clearInventoryCache()
         }
     }, []);
-
+    
     return (
         <section className="min-h-screen overflow-hidden">
-            <h1 className="text-center text-4xl  md:text-5xl font-bold uppercase pb-5 md:pb-10">Editar Inventario</h1>
+            {
+                inventory?.inventory_id?.status &&(<NotFound />)
+            }
+            <h1 className="text-center text-4xl  md:text-5xl font-bold uppercase pb-5 md:pb-10">Editar </h1>
             <div className="flex flex-col flex-wrap gap-4 my-2 md:my-20">
                 <Breadcrumbs radius="lg" variant="solid" color="foreground">
                     <BreadcrumbItem>
@@ -37,7 +41,7 @@ export const EditInventory = () => {
                         </Link>
                     </BreadcrumbItem>
                     <BreadcrumbItem>
-                        <Link to="/auth/inventories" className="flex items-center [&>:first-child]:mr-2">
+                        <Link to="/auth/user/inventories" className="flex items-center [&>:first-child]:mr-2">
                             <FileIcon width={20} height={20} />
                             Inventarios
                         </Link>

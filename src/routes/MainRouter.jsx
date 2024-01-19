@@ -10,9 +10,9 @@ import { InventoryProvider } from '../context/inventory/InventoryProvider';
 import { User, CompleteInventory } from '../pages/user/';
 import { Dashboard } from '../pages/dashboard/Index';
 import { NotFound } from '../pages/404/Index';
-import { Profile } from '../pages/profile';
 import { ResetPasswordMiddleware } from '../middlewares/ResetPasswordMiddleware';
 import { DependencyProvider } from '../context/dependency';
+import { CreateInventory, EditInventory, Inventory } from '../pages/inventories';
 
 export const MainRouter = () => {
 
@@ -55,7 +55,11 @@ export const MainRouter = () => {
                                                 <UserRoutes>
                                                     <Routes>
                                                         <Route path="/" element={<User />} />
-                                                        <Route path="/inventory" element={<CompleteInventory />} />
+                                                        <Route path="/inventories" element={<CompleteInventory />} />
+                                                        <Route path="/inventories/:id" element={<Inventory />} />
+                                                        <Route path="/inventories/edit/:id" element={<EditInventory />} />
+                                                        <Route path="/inventories/create" element={<CreateInventory />} />
+                                                        <Route path="/*" element={<NotFound />} />
                                                     </Routes>
                                                 </UserRoutes>
                                             } />
@@ -67,6 +71,7 @@ export const MainRouter = () => {
                     </Layout>
                 </PrivateRoutes>
             }
+            errorElement={<NotFound />}
             />
             <Route path="*" element={<NotFound />} />
         </Routes >

@@ -27,7 +27,7 @@ export const CreateInventory = () => {
             </Link>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <Link to="/auth/inventories" className="flex items-center [&>:first-child]:mr-2">
+            <Link to="/auth/user/inventories" className="flex items-center [&>:first-child]:mr-2">
               <UsersIcon width={20} height={20} />
               Inventarios
             </Link>
