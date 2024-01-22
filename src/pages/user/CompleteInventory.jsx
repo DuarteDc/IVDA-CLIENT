@@ -20,7 +20,7 @@ export const CompleteInventory = () => {
     <section>
       <h1 className="text-center text-4xl md:text-5xl font-bold pb-10 uppercase">Inventarios</h1>
       <div className="flex justify-end py-10">
-        <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
+        <Button startContent={<PlusIcon />} as={Link} to="create" className="bg-emerald-600 text-white">
           Crear Inventario
         </Button>
       </div>

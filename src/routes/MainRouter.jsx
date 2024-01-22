@@ -46,7 +46,7 @@ export const MainRouter = () => {
                                                         <Route path="/users/*" element={<UsersRoutes />} />
                                                         <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                                                         <Route path="/inventories/*" element={<InventoriestRoutes />} />
-                                                        <Route path="/dependencies/*" element={<DependencyRoutes />} />
+                                                        <Route path="/administrative-units/*" element={<DependencyRoutes />} />
                                                         <Route path="*" element={<NotFound />} />
                                                     </Routes>
                                                 </AdminRoutes>

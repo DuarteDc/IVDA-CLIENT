@@ -91,31 +91,31 @@ export const Layout = ({ children }) => {
                             <ul className="mt-[5rem] [&>*]:my-5 [&>li>a>svg]:mr-2 [&>li>a]:py-4 [&>li>a]:rounded-lg [&>li>a]:pl-5">
 
                                 <li onClick={toggleDrawer}>
-                                    <Link to="/auth" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth' ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                    <Link to="/auth" className={`flex items-center transition-all duration-1000 ease-in  ${pathname === '/auth' ? 'bg-emerald-600 text-white' : 'hover:bg-emerald-600/60'}`}>
                                         <HomeIcon width={28} height={24} />
                                         Inicio
                                     </Link>
                                 </li>
                                 <li onClick={toggleDrawer}>
-                                    <Link to="/auth/users" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/users') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                    <Link to="/auth/users" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/users') ? 'bg-emerald-600 text-white' : 'hover:bg-emerald-600/60'}`}>
                                         <UsersIcon width={28} height={24} />
                                         Usuarios
                                     </Link>
                                 </li>
                                 {/* <li onClick={toggleDrawer}>
-                                    <Link to="/auth/subsecretaries" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/subsecretaries') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                    <Link to="/auth/subsecretaries" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/subsecretaries') ? 'bg-emerald-600 text-white' : 'hover:bg-emerald-600/60'}`}>
                                         <BuildingComunity width={28} height={24} />
                                         Subsecretarias
                                     </Link>
                                 </li> */}
                                 <li onClick={toggleDrawer}>
-                                    <Link to="/auth/dependencies" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                    <Link to="/auth/administrative-units" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/administrative-units') ? 'bg-emerald-600 text-white' : 'hover:bg-emerald-600/60'}`}>
                                         <HomeCog width={28} height={24} />
-                                        Dependencias
+                                        Unidades Administrativas
                                     </Link>
                                 </li>
                                 <li onClick={toggleDrawer}>
-                                    <Link to="/auth/inventories" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/inventories') ? 'bg-primary text-white' : 'hover:bg-primary/60'}`}>
+                                    <Link to="/auth/inventories" className={`flex items-center  transition-all duration-1000 ease-in   ${pathname.includes('/auth/inventories') ? 'bg-emerald-600 text-white' : 'hover:bg-emerald-600/60'}`}>
                                         <FileIcon width={28} height={24} />
                                         Inventarios
                                     </Link>

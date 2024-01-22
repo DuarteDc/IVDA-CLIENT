@@ -18,11 +18,16 @@ apiInstance.interceptors.request.use(
       localStorage.removeItem('session');
     }
   },
-  function (error)  {
-    console.log(error, "XD");
-    return Promise.reject(error)
-  }
 )
+apiInstance.interceptors.response.use(function (response) {
+  return response;
+}, function ({ request }) {
+  if (window.location.pathname !== "/" && request.status === 401) {
+    window.location.replace("/")
+  }
+  return Promise.reject(error);
+});
+
 
 export const apiDownload = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,

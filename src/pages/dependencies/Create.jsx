@@ -17,7 +17,7 @@ export const CreateDependency = () => {
 
     return (
         <section className="min-h-screen overflow-hidden">
-            <h1 className="text-center text-4xl  md:text-5xl font-bold uppercase pb-5 md:pb-10">Crear Dependencia</h1>
+            <h1 className="text-center text-4xl  md:text-5xl font-bold uppercase pb-5 md:pb-10">Crear unidad administrativa</h1>
             <div className="px-5 flex flex-col flex-wrap gap-4 my-2 md:my-20">
                 <Breadcrumbs radius="lg" variant="solid" color="foreground">
                     <BreadcrumbItem>
@@ -27,9 +27,9 @@ export const CreateDependency = () => {
                         </Link>
                     </BreadcrumbItem>
                     <BreadcrumbItem>
-                        <Link to="/auth/dependencies" className="flex items-center [&>:first-child]:mr-2">
+                        <Link to="/auth/administrative-units" className="flex items-center [&>:first-child]:mr-2">
                             <HomeCog width={20} height={20} />
-                            Dependencias
+                            Unidades administrativas
                         </Link>
                     </BreadcrumbItem>
                     <BreadcrumbItem>Crear</BreadcrumbItem>

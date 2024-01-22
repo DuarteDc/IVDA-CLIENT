@@ -38,7 +38,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
                       icon: <BuildingComunity />
                     }}
                     name={name}
-                    description="Subsecretaria"
+                    description="Unidad administrativa"
                     className="truncate"
                   >
                     {name}
@@ -60,7 +60,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
                 <TableCell>
                   <div className="relative flex items-center gap-2">
                     <Tooltip content="Editar">
-                      <Link to={`/auth/dependencies/edit/${id}`}>
+                      <Link to={`edit/${id}`}>
                         <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                           <EditIcon />
                         </span>

@@ -51,8 +51,8 @@ export const FormEditAdministrativeUnit = ({ dependency }) => {
                         onChange={formik.handleChange}
                         size="lg"
                     />
-                    <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
-                        Actualizar Subsecretaria
+                    <Button type="submit" className="w-full font-bold py-8 bg-emerald-600 text-white" isLoading={loading} spinner={<Spinner color="default" />}>
+                        Guardar
                     </Button>
                 </form>
             </CardBody>

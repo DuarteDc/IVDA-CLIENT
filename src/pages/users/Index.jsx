@@ -20,7 +20,7 @@ export const Users = () => {
         <section className="min-h-screen pt-20 overflow-hidden">
             <h1 className="text-center text-5xl font-bold pb-10 uppercase">Usuarios</h1>
             <div className="flex justify-end py-10">
-                <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
+                <Button startContent={<PlusIcon />} as={Link} to="create" className="bg-emerald-600 text-white">
                     Crear Usuario
                 </Button>
             </div>

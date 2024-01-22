@@ -22,7 +22,7 @@ export const Inventories = () => {
       <div className="flex justify-end py-10">
         {
           user?.role === "1" && (
-            <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
+            <Button startContent={<PlusIcon />} as={Link} to="create" className="bg-emerald-600 text-white">
               Crear Inventario
             </Button>
           )

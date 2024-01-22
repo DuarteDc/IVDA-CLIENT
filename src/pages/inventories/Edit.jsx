@@ -10,6 +10,7 @@ import { AlertModal } from '../../components/ui/AlertModal';
 import { useDependency } from '../../hooks/useDependency';
 import { LoadingScreen } from '../../components/ui/LoadingScreen';
 import { NotFound } from '../404/Index';
+import { useInventory } from '../../hooks/useInventory';
 
 
 export const EditInventory = () => {
@@ -18,6 +19,7 @@ export const EditInventory = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { startGetInventory, inventory, files, clearInventoryCache, file, loading } = useContext(InventoryContext);
     const { startGetLocations, startGetTypeFiles, locations, typeFiles } = useDependency();
+    const { clearCurrentFileCache } = useInventory();
 
     useEffect(() => {
         Promise.all([startGetInventory(id), startGetLocations(), startGetTypeFiles(),]);
@@ -55,7 +57,7 @@ export const EditInventory = () => {
                 <CardBody className="mt-5 w-full">
                     <Divider className="my-4" />
                     <div>
-                        <Button color="primary" onClick={onOpen} className="py-6 my-5 w-7/12 md:5/12 lg:w-3/12 xl:w-2/12 float-right">
+                        <Button color="secondary" onClick={() => { clearCurrentFileCache(); onOpen(); }} className="py-6 my-5 w-7/12 md:5/12 lg:w-3/12 xl:w-2/12 float-right">
                             <PlusIcon />
                             Generar nuevo archivo
                         </Button>

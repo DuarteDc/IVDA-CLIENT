@@ -25,7 +25,7 @@ export const FormCreateAdministrativeUnit = () => {
     return (
         <Card>
             <CardBody>
-                <h2 className="text-center text-4xl py-4 font-bold">Nueva dependencia</h2>
+                <h2 className="text-center text-4xl py-4 font-bold">Nueva unidad administrativa</h2>
                 <form onSubmit={formik.handleSubmit}>
                     <Input
                         name="name"
@@ -51,8 +51,8 @@ export const FormCreateAdministrativeUnit = () => {
                         onChange={formik.handleChange}
                         size="lg"
                     />
-                    <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
-                        Crear Dependencia
+                    <Button type="submit" className="w-full font-bold py-8 text-white bg-emerald-600" isLoading={loading} spinner={<Spinner color="default" />}>
+                        Guardar
                     </Button>
                 </form>
             </CardBody>

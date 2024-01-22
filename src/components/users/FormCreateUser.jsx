@@ -102,8 +102,8 @@ export const FormCreateUser = ({ dependencies = [] }) => {
                             ))
                         }
                     </Select>
-                    <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
-                        Crear Usuario
+                    <Button type="submit" className="bg-emerald-600 text-white w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
+                        Gurdar
                     </Button>
 
                 </form>

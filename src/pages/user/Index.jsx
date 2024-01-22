@@ -45,7 +45,7 @@ export const User = () => {
                 <div>
                     <h3 className="font-bold text-5xl">¿Qué haremos hoy?</h3>
                     <div className="flex flex-wrap items-center mt-8 gap-5">
-                    <Button color="primary" as={Link} to="inventories/create" startContent={<PlusIcon />} size="lg">
+                    <Button as={Link} to="inventories/create" className="bg-emerald-600 text-white" startContent={<PlusIcon />} size="lg">
                         Crear nuevo inventario
                     </Button>
                     <Button color="secondary" as={Link} to="inventories" startContent={<LinkIcon />} size="lg">

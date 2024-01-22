@@ -5,11 +5,13 @@ import { InventoryContext } from '../../context/inventory/InventoryContext';
 import { AlertModal } from '../ui/AlertModal';
 import { useInventory } from '../../hooks/useInventory';
 import { UIContext } from '../../context/ui/UIContext';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 export const FilesInventoryTable = ({ files, showControls = true, status, openEditModal }) => {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { getCurrentFile, file } = useContext(InventoryContext);
+    const { user } = useContext(AuthContext);
+    const { getCurrentFile, file, inventory } = useContext(InventoryContext);
     const { loading } = useContext(UIContext);
     const { handleDeleteFile } = useInventory();
 
@@ -53,13 +55,17 @@ export const FilesInventoryTable = ({ files, showControls = true, status, openEd
                                 {showControls && (
                                     <TableCell>
                                         <span className="flex">
-                                            <Tooltip content="Editar">
-                                                <span className="text-lg cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(id); openEditModal(); }}>
-                                                    <EditIcon />
-                                                </span>
-                                            </Tooltip>
                                             {
-                                                !status && (
+                                                user?.id === inventory?.inventory_id?.user_id &&(
+                                                    <Tooltip content="Editar">
+                                                        <span className="text-lg cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(id); openEditModal(); }}>
+                                                            <EditIcon />
+                                                        </span>
+                                                    </Tooltip>
+                                                )
+                                            }
+                                            {
+                                                !inventory?.inventory_id?.status && (
                                                     < Tooltip color="danger" content="Eliminar">
                                                         <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(id); onOpen(); }}>
                                                             <TrashIcon />

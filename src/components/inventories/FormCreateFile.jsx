@@ -12,12 +12,6 @@ export const FormCreateFile = ({ inventoryId, onOpen, currentFile }) => {
 
     const { handleCreateFile, handleUpdateFile, clearCurrentFileCache } = useInventory();
 
-    useEffect(() => {
-        return () => {
-            clearCurrentFileCache();
-        }
-    }, [])
-
     const [value, setValue] = useState({
         startDate: (currentFile?.files_date?.length > 0) ? currentFile?.files_date[0] : null,
         endDate: (currentFile?.files_date?.length > 0) ? currentFile?.files_date[1] : null,
@@ -53,6 +47,7 @@ export const FormCreateFile = ({ inventoryId, onOpen, currentFile }) => {
             if (Object.keys(currentFile).length) await handleUpdateFile(inventoryId, currentFile?.id, newData);
             else await handleCreateFile(inventoryId, newData)
             onOpen();
+            clearCurrentFileCache();
         }
     })
 
@@ -175,7 +170,7 @@ export const FormCreateFile = ({ inventoryId, onOpen, currentFile }) => {
                         className="w-full col-span-2 mb-5"
                     />
                 </div>
-                <Button type="submit" className="w-full font-bold py-8 bg-emerald-600" isLoading={loading} spinner={<Spinner color="default" />}>
+                <Button type="submit" className="w-full font-bold py-8 bg-emerald-600 text-white" isLoading={loading} spinner={<Spinner color="default" />}>
                     Guardar
                 </Button>
             </form>

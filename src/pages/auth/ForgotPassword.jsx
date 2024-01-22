@@ -53,7 +53,7 @@ export const ForgotPassword = () => {
                             onChange={formik.handleChange}
                             size="lg"
                         />
-                        <Button color="primary" type="submit" className="w-full font-bold py-8 mt-5" isLoading={loading} spinner={<Spinner color="default" />}>
+                        <Button type="submit" className="w-full font-bold py-8 mt-5 bg-emerald-600 text-white" isLoading={loading} spinner={<Spinner color="default" />}>
                             Continuar
                         </Button>
                     </form>
