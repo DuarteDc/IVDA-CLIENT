@@ -31,7 +31,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                 </TableHeader>
                 <TableBody
                     isLoading={loading}
-                    loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+                    loadingContent={<div className="overflow-hidden z-50 fixed w-full h-full top-0 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
                 >
                     {
                         inventories?.map(({ id, status, user_id, start_date, dependency_id }) => (
@@ -76,7 +76,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                                     </Link>
                                                 </Tooltip>
                                                 {
-                                                    (!status && user_id === user?.id && user?.role !== "0") && (
+                                                    (user_id === user?.id && user?.role !== "0") && (
                                                         <Tooltip content="Editar">
                                                             <Link to={`/auth/user/inventories/edit/${id}`}>
                                                                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
@@ -95,8 +95,8 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                                                         </Tooltip>
                                                     ) : (
                                                         (user?.id === user_id && user?.role !== "0") && (
-                                                            <Tooltip color="primary" content="Finalizar">
-                                                                <span className="text-lg text-primary cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentInventory(id); }}>
+                                                            <Tooltip className="bg-emerald-600" content="Finalizar">
+                                                                <span className="text-lg text-emerald-600 cursor-pointer active:opacity-50" onClick={() => { onOpen(); getCurrentInventory(id); }}>
                                                                     <DoneIcon />
                                                                 </span>
                                                             </Tooltip>

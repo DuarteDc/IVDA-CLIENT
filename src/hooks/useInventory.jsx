@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { addFile, createInventory, deleteFile, downloadReport, finalizeInventory, updateInventory } from '../actions/inventoryActions';
+import { addFile, createInventory, deleteFile, downloadReport, finalizeInventory, updateInventory, updateInventoryFile } from '../actions/inventoryActions';
 import { useContext } from 'react';
 import { UIContext } from '../context/ui/UIContext';
 import { InventoryContext } from '../context/inventory/InventoryContext';
@@ -13,10 +13,10 @@ export const useInventory = () => {
 
     const handleCreateInventory = async (data) => {
         startLoading();
-        if (await createInventory(data)) navigate('/auth/inventories');
+        const inventory = await createInventory(data);
+        if (inventory) navigate(`/auth/user/inventories/edit/${inventory?.inventoryId}`);
         stopLoading();
     }
-
 
     const handleUpdateInventory = async (id, data) => {
         startLoading();
@@ -30,9 +30,15 @@ export const useInventory = () => {
         stopLoading();
     }
 
+    const handleUpdateFile = async (inventoryId, fileId, data) => {
+        startLoading();
+        if (await updateInventoryFile(inventoryId, fileId, data)) dispatch({ type: 'update_file', payload: { data, fileId } });
+        stopLoading();
+    }
+
     const handleDeleteFile = async () => {
         startLoading();
-        if (await deleteFile(inventory?.inventory_id?.id, file?.no)) dispatch({ type: 'remove_file', payload: file?.no });
+        if (await deleteFile(inventory?.inventory_id?.id, file?.id)) dispatch({ type: 'remove_file', payload: file?.id });
         stopLoading();
     }
 
@@ -49,12 +55,17 @@ export const useInventory = () => {
         stopLoading();
     }
 
+
+    const clearCurrentFileCache = () => dispatch({ type: 'clear_current_file_cache' });
+
     return {
         handleCreateInventory,
         handleUpdateInventory,
         handleDeleteFile,
         handleCreateFile,
         handleFinalizeInventory,
-        handleGenerateReport
+        handleGenerateReport,
+        handleUpdateFile,
+        clearCurrentFileCache
     }
 }

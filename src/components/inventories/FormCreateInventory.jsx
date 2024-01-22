@@ -178,8 +178,8 @@ export const FormCreateInventory = ({ dependency, typeFiles, locations }) => {
                             }
                         </div>
                     </div>
-                    <Button color="primary" type="submit" className="w-full font-bold py-8 mt-20" isLoading={loading} spinner={<Spinner color="default" />}>
-                        Crear Inventario
+                    <Button type="submit" className="bg-emerald-600 text-white w-full font-bold py-8 mt-20" isLoading={loading} spinner={<Spinner color="default" />}>
+                        Guardar
                     </Button>
                 </form>
             </CardBody>

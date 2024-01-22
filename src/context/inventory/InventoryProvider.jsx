@@ -45,8 +45,8 @@ export const InventoryProvider = ({ children }) => {
         }
     }
 
-    const getCurrentFile = (no) => {
-        dispatch({ type: 'get_current_file', payload: no });
+    const getCurrentFile = (id) => {
+        dispatch({ type: 'get_current_file', payload: id });
     }
 
 

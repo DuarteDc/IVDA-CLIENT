@@ -6,7 +6,7 @@ import { AlertModal } from '../ui/AlertModal';
 import { useInventory } from '../../hooks/useInventory';
 import { UIContext } from '../../context/ui/UIContext';
 
-export const FilesInventoryTable = ({ files, showControls = true, status }) => {
+export const FilesInventoryTable = ({ files, showControls = true, status, openEditModal }) => {
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const { getCurrentFile, file } = useContext(InventoryContext);
@@ -35,10 +35,10 @@ export const FilesInventoryTable = ({ files, showControls = true, status }) => {
                 </TableHeader>
                 <TableBody
                     isLoading={loading}
-                    loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+                    loadingContent={<div className="overflow-hidden z-50 fixed w-full h-full top-0 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
                 >
                     {
-                        files?.map(({ no, section, serie, no_ex, formule, name, total_legajos, total_files, files_date, observations }) => (
+                        files?.map(({ no, section, serie, no_ex, formule, name, total_legajos, total_files, files_date, observations, id }) => (
                             <TableRow key={no}>
                                 <TableCell>{no}</TableCell>
                                 <TableCell>{section}</TableCell>
@@ -48,33 +48,33 @@ export const FilesInventoryTable = ({ files, showControls = true, status }) => {
                                 <TableCell>{name}</TableCell>
                                 <TableCell>{total_legajos}</TableCell>
                                 <TableCell>{total_files}</TableCell>
-                                <TableCell>{files_date[0]}</TableCell>
+                                <TableCell>{`${files_date[0]?.split("-")?.reverse()?.join("-") || 'NA'} - ${files_date[1]?.split("-")?.reverse()?.join("-") || 'NA'}`}</TableCell>
                                 <TableCell>{observations}</TableCell>
                                 {showControls && (
                                     <TableCell>
-                                        {
-                                            !status && (
-                                                <span className="flex">
-                                                    {/* <Tooltip content="Editar">
-                                                <span className="text-lg cursor-pointer active:opacity-50" onClick={() => getCurrentFile(no)}>
+                                        <span className="flex">
+                                            <Tooltip content="Editar">
+                                                <span className="text-lg cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(id); openEditModal(); }}>
                                                     <EditIcon />
                                                 </span>
-                                            </Tooltip> */}
-                                                    <Tooltip color="danger" content="Eliminar">
-                                                        <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(no); onOpen(); }}>
+                                            </Tooltip>
+                                            {
+                                                !status && (
+                                                    < Tooltip color="danger" content="Eliminar">
+                                                        <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={() => { getCurrentFile(id); onOpen(); }}>
                                                             <TrashIcon />
                                                         </span>
                                                     </Tooltip>
-                                                </span>
-                                            )
-                                        }
+                                                )
+                                            }
+                                        </span>
                                     </TableCell>
                                 )}
                             </TableRow>
                         ))
                     }
                 </TableBody>
-            </Table>
+            </Table >
             {
                 isOpen && (
                     <AlertModal

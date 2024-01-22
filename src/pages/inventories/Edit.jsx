@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { BreadcrumbItem, Breadcrumbs, Button, Card, CardBody, useDisclosure } from '@nextui-org/react';
+import { BreadcrumbItem, Breadcrumbs, Button, Card, CardBody, Divider, useDisclosure } from '@nextui-org/react';
 
 import { FileIcon, HomeIcon, PlusIcon } from '../../components/icons';
 import { InventoryContext } from '../../context/inventory/InventoryContext';
@@ -16,7 +16,7 @@ export const EditInventory = () => {
 
     const { id } = useParams();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
-    const { startGetInventory, inventory, files, clearInventoryCache } = useContext(InventoryContext);
+    const { startGetInventory, inventory, files, clearInventoryCache, file, loading } = useContext(InventoryContext);
     const { startGetLocations, startGetTypeFiles, locations, typeFiles } = useDependency();
 
     useEffect(() => {
@@ -25,13 +25,10 @@ export const EditInventory = () => {
             clearInventoryCache()
         }
     }, []);
-    
+
     return (
         <section className="min-h-screen overflow-hidden">
-            {
-                inventory?.inventory_id?.status &&(<NotFound />)
-            }
-            <h1 className="text-center text-4xl  md:text-5xl font-bold uppercase pb-5 md:pb-10">Editar </h1>
+            <h1 className="text-center text-4xl  md:text-5xl font-bold uppercase pb-5 md:pb-10">Actualizar Información de archivo</h1>
             <div className="flex flex-col flex-wrap gap-4 my-2 md:my-20">
                 <Breadcrumbs radius="lg" variant="solid" color="foreground">
                     <BreadcrumbItem>
@@ -51,16 +48,19 @@ export const EditInventory = () => {
             </div>
             <Card className="mt-20 overflow-visible">
                 {
-                    !Object.keys(inventory).length && inventory?.inventory_id?.id !== id ?
-                        <LoadingScreen /> :
-                        <FormEditInventory inventory={inventory} locations={locations} typeFiles={typeFiles} />
+                    !loading ?
+                        <FormEditInventory inventory={inventory} locations={locations} typeFiles={typeFiles} /> :
+                        <LoadingScreen />
                 }
-                <CardBody>
-                    <Button color="primary" onClick={onOpen} className="py-4 my-5">
-                        <PlusIcon />
-                        Agregar Archivo
-                    </Button>
-                    <FilesInventoryTable files={files} showControls />
+                <CardBody className="mt-5 w-full">
+                    <Divider className="my-4" />
+                    <div>
+                        <Button color="primary" onClick={onOpen} className="py-6 my-5 w-7/12 md:5/12 lg:w-3/12 xl:w-2/12 float-right">
+                            <PlusIcon />
+                            Generar nuevo archivo
+                        </Button>
+                    </div>
+                    <FilesInventoryTable files={files} showControls openEditModal={onOpen} />
                 </CardBody>
             </Card>
 
@@ -74,7 +74,7 @@ export const EditInventory = () => {
                         size="4xl"
                         showControls={false}
                     >
-                        <FormCreateFile inventoryId={id} onOpen={onOpenChange} />
+                        <FormCreateFile inventoryId={id} onOpen={onOpenChange} currentFile={file} />
                     </AlertModal>
                 )
             }

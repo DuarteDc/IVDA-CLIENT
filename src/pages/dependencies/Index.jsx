@@ -18,10 +18,10 @@ export const Dependencies = () => {
 
     return (
         <section className="min-h-screen pt-20 overflow-hidden">
-            <h1 className="text-center text-5xl font-bold pb-10 uppercase">Dependencias</h1>
+            <h1 className="text-center text-5xl font-bold pb-10 uppercase">Unidades Administrativas</h1>
             <div className="flex justify-end py-10">
                 <Button color="primary" startContent={<PlusIcon />} as={Link} to="create">
-                    Crear dependencia
+                    Crear unidad administrativa
                 </Button>
             </div>
             <div className="flex flex-col flex-wrap gap-4 mb-5">
@@ -33,7 +33,7 @@ export const Dependencies = () => {
                             Inicio
                         </Link>
                     </BreadcrumbItem>
-                    <BreadcrumbItem>Dependencias</BreadcrumbItem>
+                    <BreadcrumbItem>Unidades administrativas</BreadcrumbItem>
                 </Breadcrumbs>
             </div>
             <AdministrativeUnitsTable

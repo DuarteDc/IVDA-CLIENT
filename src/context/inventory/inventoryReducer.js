@@ -41,7 +41,7 @@ export const inventoryReducer = (state, { type, payload }) => {
         case 'get_current_file':
             return {
                 ...state,
-                file: state.files.find(file => file.no === payload),
+                file: state.files.find(file => file.id === payload),
             }
 
         case 'add_file':
@@ -50,11 +50,17 @@ export const inventoryReducer = (state, { type, payload }) => {
                 files: [...state.files, { no: state.files?.length + 1, ...payload }]
             }
 
+        case 'update_file':
+            return {
+                ...state,
+                files: state.files.map(file => file.id == payload.fileId ? { ...payload.data, 'id': file.id, no: file.no } : file),
+            }
+
         case 'remove_file':
             return {
                 ...state,
                 file: {},
-                files: state.files.filter(file => file.no !== payload).map((file, index) => {
+                files: state.files.filter(file => file.id !== payload).map((file, index) => {
                     file.no = index + 1;
                     return file;
                 })
@@ -67,6 +73,13 @@ export const inventoryReducer = (state, { type, payload }) => {
                 ...state,
                 inventory: res,
                 files: body || []
+            }
+
+
+        case 'clear_current_file_cache':
+            return {
+                ...state,
+                file: []
             }
 
         default: state;

@@ -28,7 +28,9 @@ export const createInventory = async (body) => {
     try {
         const { data } = await apiInstance.post('/auth/inventories', body)
         successNotification(data?.message);
-        return true;
+        return {
+            inventoryId: data.inventory_id,
+        };
     } catch (error) {
         if (isAxiosError(error)) {
             errorNotification(error.response.data?.message);
@@ -71,9 +73,9 @@ export const addFile = async (inventoryId, body) => {
 }
 
 
-export const deleteFile = async (inventoryId, noFile) => {
+export const deleteFile = async (inventoryId, fileId) => {
     try {
-        const { data } = await apiInstance.delete(`/auth/inventories/remove-file/${inventoryId}/${noFile}`);
+        const { data } = await apiInstance.delete(`/auth/inventories/remove-file/${inventoryId}/${fileId}`);
         successNotification(data?.message);
         return true;
     } catch (error) {
@@ -107,6 +109,21 @@ export const getInventoryByUser = async (params) => {
         return data;
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const updateInventoryFile = async (inventoryId, fileId, body) => {
+    try {
+        const { data } = await apiInstance.put(`auth/inventories/update-file/${inventoryId}/${fileId}`, body);
+        successNotification(data?.message);
+        return true;
+    } catch (error) {
+        if (isAxiosError(error)) {
+            errorNotification(error.response.data?.message);
+            return false;
+        }
+        errorNotification();
+        return false;
     }
 }
 

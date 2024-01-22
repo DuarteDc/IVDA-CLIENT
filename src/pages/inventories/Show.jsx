@@ -6,12 +6,13 @@ import { FileIcon, HomeIcon, PlusIcon, UsersIcon } from '../../components/icons'
 import { FilesInventoryTable, FormCreateFile } from '../../components/inventories';
 import { AlertModal } from '../../components/ui/AlertModal';
 import { LoadingScreen } from '../../components/ui/LoadingScreen';
-import { NotFound } from '../404/Index';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 export const Inventory = () => {
 
     const { id } = useParams();
-    const { startGetInventory, inventory, files, loading } = useContext(InventoryContext);
+    const { user } = useContext(AuthContext);
+    const { startGetInventory, inventory, files, loading, file } = useContext(InventoryContext);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     useEffect(() => {
@@ -33,7 +34,7 @@ export const Inventory = () => {
                         </Link>
                     </BreadcrumbItem>
                     <BreadcrumbItem>
-                        <Link to="/auth/inventories" className="flex items-center [&>:first-child]:mr-2">
+                        <Link to={`${user?.role === "0" ? '/auth/inventories' : '/auth/user/inventories'}`} className="flex items-center [&>:first-child]:mr-2">
                             <FileIcon width={20} height={20} />
                             Inventarios
                         </Link>
@@ -49,18 +50,10 @@ export const Inventory = () => {
                             <span><b className="text-sm lg:text-xl mr-1">Codificación estructural:</b> {inventory?.dependency_id?.code}</span>
                             <span><b className="text-sm lg:text-xl mr-1">Uniad Administrativa:</b> {inventory?.dependency_id?.name}</span>
                             <span><b className="text-sm lg:text-xl mr-1">Tipo de archivo:</b> {inventory?.type_file_id?.name}</span>
-                            <span><b className="text-sm lg:text-xl mr-1">Ubicación física:</b> {inventory?.dependency_id?.name}</span>
+                            <span><b className="text-sm lg:text-xl mr-1">Ubicación física:</b> {inventory?.location_id?.name}</span>
                         </div>
                         <div className="flex items-end flex-col justify-end lg:text-lg [&>*]:my-2">
                             <span><b className="text-sm lg:text-xl mr-1">Fecha de elaboración:</b> {inventory?.inventory_id?.start_date.split("-").reverse().join("-")}</span>
-                            {
-                                !inventory?.inventory_id?.status && (
-                                    <Button color="primary" onClick={onOpen}>
-                                        <PlusIcon />
-                                        Agregar Archivo
-                                    </Button>
-                                )
-                            }
                         </div>
                     </div>
 
@@ -71,7 +64,7 @@ export const Inventory = () => {
                         <Card className="w-full"><CardBody className="w-full py-6 text-xs lg:text-base">{inventory?.administrative_unit_id?.name}</CardBody></Card> */}
                     </div>
 
-                    <FilesInventoryTable files={files} status={inventory?.inventory_id?.status} />
+                    <FilesInventoryTable files={files} status={inventory?.inventory_id?.status} openEditModal={onOpen} />
                 </CardBody>
             </Card>
 
@@ -85,7 +78,7 @@ export const Inventory = () => {
                         size="4xl"
                         showControls={false}
                     >
-                        <FormCreateFile inventoryId={id} onOpen={onOpenChange} />
+                        <FormCreateFile inventoryId={id} onOpen={onOpenChange} currentFile={file} />
                     </AlertModal>
                 )
             }

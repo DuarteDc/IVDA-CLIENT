@@ -29,7 +29,7 @@ export const UsersTable = ({ users = [], totalPages = 0, setSearchParams, curren
                 </TableHeader>
                 <TableBody
                     isLoading={loading}
-                    loadingContent={<div className="w-full h-full z-50 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+                    loadingContent={<div className="overflow-hidden z-50 fixed w-full h-full top-0 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
                 >
                     {
                         users?.map(({ id, name, last_name, email, status, dependency_id }) => (

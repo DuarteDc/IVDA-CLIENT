@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { Button, Card, CardBody, Input, Spinner, Textarea } from "@nextui-org/react"
@@ -8,13 +8,19 @@ import { addFileValidations } from '../../validations/inventoryValidation';
 import { useInventory } from '../../hooks/useInventory';
 
 
-export const FormCreateFile = ({ inventoryId, onOpen }) => {
+export const FormCreateFile = ({ inventoryId, onOpen, currentFile }) => {
 
-    const { handleCreateFile } = useInventory();
+    const { handleCreateFile, handleUpdateFile, clearCurrentFileCache } = useInventory();
+
+    useEffect(() => {
+        return () => {
+            clearCurrentFileCache();
+        }
+    }, [])
 
     const [value, setValue] = useState({
-        startDate: null,
-        endDate: null
+        startDate: (currentFile?.files_date?.length > 0) ? currentFile?.files_date[0] : null,
+        endDate: (currentFile?.files_date?.length > 0) ? currentFile?.files_date[1] : null,
     })
 
     const [error, setError] = useState(false);
@@ -25,14 +31,14 @@ export const FormCreateFile = ({ inventoryId, onOpen }) => {
     }
 
     const initialValues = {
-        section: '',
-        serie: '',
-        no_ex: '',
-        formule: '',
-        name: '',
-        total_legajos: '',
-        total_files: '',
-        observations: '',
+        section: currentFile?.section || '',
+        serie: currentFile?.serie || '',
+        no_ex: currentFile?.no_ex || '',
+        formule: currentFile?.formule || '',
+        name: currentFile?.name || '',
+        total_legajos: currentFile?.total_legajos || '',
+        total_files: currentFile?.total_files || '',
+        observations: currentFile?.observations || '',
     }
 
 
@@ -41,10 +47,12 @@ export const FormCreateFile = ({ inventoryId, onOpen }) => {
     const formik = useFormik({
         initialValues,
         validationSchema: Yup.object(addFileValidations()),
-        onSubmit: (data) => {
+        onSubmit: async (data) => {
             if (!value['startDate']) return setError(true);
             const newData = ({ ...data, files_date: [value.startDate, value.endDate] });
-            handleCreateFile(inventoryId, newData).then(() => onOpen())
+            if (Object.keys(currentFile).length) await handleUpdateFile(inventoryId, currentFile?.id, newData);
+            else await handleCreateFile(inventoryId, newData)
+            onOpen();
         }
     })
 
@@ -167,8 +175,8 @@ export const FormCreateFile = ({ inventoryId, onOpen }) => {
                         className="w-full col-span-2 mb-5"
                     />
                 </div>
-                <Button color="primary" type="submit" className="w-full font-bold py-8" isLoading={loading} spinner={<Spinner color="default" />}>
-                    Agregar Archivo
+                <Button type="submit" className="w-full font-bold py-8 bg-emerald-600" isLoading={loading} spinner={<Spinner color="default" />}>
+                    Guardar
                 </Button>
             </form>
         </>

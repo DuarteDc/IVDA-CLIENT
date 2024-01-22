@@ -18,7 +18,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
 
   return (
     <>
-      <Table aria-label="Unidades Administrativas" className={`${loading && '[&>div]:overflow-hidden' }`}>
+      <Table aria-label="Unidades Administrativas">
         <TableHeader>
           <TableColumn> Nombre </TableColumn>
           <TableColumn> Código estructural </TableColumn>
@@ -27,7 +27,7 @@ const AdministrativeUnitsTable = ({ dependencies = [], totalPages = 0, setSearch
         </TableHeader>
         <TableBody
           isLoading={loading}
-          loadingContent={<div className="z-50 fixed w-full h-full bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
+          loadingContent={<div className="overflow-hidden z-50 fixed w-full h-full top-0 bg-slate-200/60  dark:bg-black/80 flex items-center justify-center"><Spinner label="Espere..." /></div>}
         >
           {
             dependencies?.map(({ id, name, code, status }) => (
