@@ -1,8 +1,32 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+__Sistema de archivo general__
 
-Currently, two official plugins are available:
+__Dev Mode__
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1.- Ejecuta el siguiente comando para instalar las dependencias
+```
+npm run install
+```
+2.- Configura las variables de entorno dentro de la raiz del proyecto en un archivo llamado __.env__
+
+3.- Ejecuta el siguiente comando para ejecutar el proyecto en modo de desarrollo 
+```
+npm run dev
+```
+
+__Production Mode__
+1.- Ejecuta el siguiente comando para genera los archivos de producción
+```
+npm run build
+```
+2.- Para ver el proyecto en modo de producción ejecutal el comando 
+```
+npm run preview
+```
+<div>
+<p>LIGHT MODE</p>
+<img src="https://res.cloudinary.com/drwfhrssd/image/upload/v1706037210/nfckm5envxhhowkwc3ft.png" width="1000px" heigth="400px"/>
+<p>DARK MODE</p>
+<img src="https://res.cloudinary.com/drwfhrssd/image/upload/v1706037210/u3dxufpkzzu9dxqvskjw.png" width="1000px" heigth="400px"/>
+</div>
