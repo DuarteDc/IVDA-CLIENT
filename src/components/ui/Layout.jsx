@@ -68,7 +68,11 @@ export const Layout = ({ children }) => {
                             <DropdownItem key="email" className="h-14 gap-2">
                                 <p className="font-semibold">{user?.email}</p>
                             </DropdownItem>
-                            {/* <DropdownItem key="profile" onClick={() => navigate('/auth/profile')}>Mi Perfil</DropdownItem> */}
+                            {
+                                user?.role === "0" && (
+                                    <DropdownItem key="profile" onClick={() => navigate('/auth/profile')}>Mi Perfil</DropdownItem>
+                                )
+                            }
                             <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                                 Cerrar Sesión
                             </DropdownItem>

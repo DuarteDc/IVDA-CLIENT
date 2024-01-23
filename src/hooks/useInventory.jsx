@@ -26,7 +26,8 @@ export const useInventory = () => {
 
     const handleCreateFile = async (inventoryId, data) => {
         startLoading();
-        if (await addFile(inventoryId, data)) dispatch({ type: 'add_file', payload: data });
+        const response = await addFile(inventoryId, data);
+        if (response?.file) dispatch({ type: 'add_file', payload: response.file });
         stopLoading();
     }
 

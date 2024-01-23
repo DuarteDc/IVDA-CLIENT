@@ -13,6 +13,7 @@ import { NotFound } from '../pages/404/Index';
 import { ResetPasswordMiddleware } from '../middlewares/ResetPasswordMiddleware';
 import { DependencyProvider } from '../context/dependency';
 import { CreateInventory, EditInventory, Inventory } from '../pages/inventories';
+import { Profile } from '../pages/profile/Index';
 
 export const MainRouter = () => {
 
@@ -47,6 +48,7 @@ export const MainRouter = () => {
                                                         <Route path="/subsecretaries/*" element={<SubsecretariesRoutes />} />
                                                         <Route path="/inventories/*" element={<InventoriestRoutes />} />
                                                         <Route path="/administrative-units/*" element={<DependencyRoutes />} />
+                                                        <Route path="profile" element={<Profile />} />
                                                         <Route path="*" element={<NotFound />} />
                                                     </Routes>
                                                 </AdminRoutes>

@@ -45,7 +45,7 @@ export const useUsers = () => {
 
   const handleUpdateUser = async (id, body) => {
     startLoading();
-    if (await updateUser(id, body)) navigate('/auth/users');
+    if (await updateUser(id, body)) navigate(-1);
     stopLoading();
   }
 

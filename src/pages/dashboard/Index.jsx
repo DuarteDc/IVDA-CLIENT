@@ -56,7 +56,7 @@ export const Dashboard = () => {
                                 </span>
                             </CardBody>
                         </Card>
-                        <Card shadow="sm" isPressable onPress={() => navigate('/auth/dependencies')} className="bg-amber-500/50">
+                        <Card shadow="sm" isPressable onPress={() => navigate('/auth/administrative-units')} className="bg-amber-500/50">
                             <CardBody className="overflow-visible p-5 lg:p-10 flex flex-row items-center justify-between font-bold">
                                 <span className="text-4xl lg:text-5xl">
                                     <h3 className="text-xs font-semibold">Unidades Administrativas</h3>

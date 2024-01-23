@@ -21,8 +21,8 @@ apiInstance.interceptors.request.use(
 )
 apiInstance.interceptors.response.use(function (response) {
   return response;
-}, function ({ request }) {
-  if (window.location.pathname !== "/" && request.status === 401) {
+}, function (error) {
+  if (window.location.pathname !== "/" && error.request.status === 401) {
     window.location.replace("/")
   }
   return Promise.reject(error);

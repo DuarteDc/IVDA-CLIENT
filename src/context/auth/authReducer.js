@@ -1,6 +1,6 @@
 export const authReducer = (state, { type, payload }) => {
 
-    switch(type) {
+    switch (type) {
 
         case 'login': {
             return {
@@ -17,8 +17,14 @@ export const authReducer = (state, { type, payload }) => {
                 user: {}
             }
 
+        case 'update_profile':
+            return {
+                ...state,
+                user: payload
+            }
+
         default:
-            
+
             return state;
 
 

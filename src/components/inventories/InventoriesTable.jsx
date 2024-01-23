@@ -25,7 +25,7 @@ export const InventoriesTable = ({ inventories, totalPages, setSearchParams }) =
                     <TableColumn> # </TableColumn>
                     <TableColumn> Nombre </TableColumn>
                     <TableColumn> Fecha de inventario </TableColumn>
-                    <TableColumn> Dependencia </TableColumn>
+                    <TableColumn> Unidad administrativa </TableColumn>
                     <TableColumn> Estatus </TableColumn>
                     <TableColumn></TableColumn>
                 </TableHeader>

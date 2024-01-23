@@ -89,7 +89,7 @@ export const FormEditUser = ({ dependencies, user }) => {
                         size="lg"
                     />
                     <Select
-                        label="Dependencias"
+                        label="Unidad administrativa"
                         isInvalid={formik.touched.dependency_id && formik.errors.dependency_id ? true : false}
                         errorMessage={formik.touched.dependency_id && formik.errors.dependency_id && formik.errors.dependency_id}
                         required={true}

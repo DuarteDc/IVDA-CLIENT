@@ -47,7 +47,7 @@ export const inventoryReducer = (state, { type, payload }) => {
         case 'add_file':
             return {
                 ...state,
-                files: [...state.files, { no: state.files?.length + 1, ...payload }]
+                files: [...state.files, payload]
             }
 
         case 'update_file':

@@ -61,7 +61,9 @@ export const addFile = async (inventoryId, body) => {
     try {
         const { data } = await apiInstance.post(`/auth/inventories/add-file/${inventoryId}`, body);
         successNotification(data?.message);
-        return true;
+        return {
+             file: data.file
+        };
     } catch (error) {
         if (isAxiosError(error)) {
             errorNotification(error.response.data?.message);

@@ -1,0 +1,2 @@
+export { FormEditProfile } from './FormEditProfile';
+

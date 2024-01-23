@@ -25,8 +25,8 @@ export const addFileValidations = () => ({
 
     formule: Yup.string().required('La fórmula clasificadora del expediente es requerida'),
     name: Yup.string().required('El nombre del expediente'),
-    total_legajos: Yup.string().required('El total de legajos es requerido'),
-    total_files: Yup.string().required('El total de documentos es requerido'),
-    // files_date: Yup.string().required('Las fechas de los documentos son requeridas'),
+    total_legajos: Yup.number().typeError('El total de legajos debe ser un numero').positive('El numero debe ser positivo').integer().required('El total de legajos es requerido'),
+    total_files: Yup.number().typeError('El total de archivos debe ser un numero').positive('El numero debe ser positivo').integer().required('El total de documentos es requerido'),
     observations: Yup.string().required('Las observaciones son requeridas'),
+    // files_date: Yup.string().required('Las fechas de los documentos son requeridas'),
 });

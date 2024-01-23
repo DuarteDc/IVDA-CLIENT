@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -5,7 +6,6 @@ import { useFormik } from 'formik';
 import { Button, Input, Spinner } from '@nextui-org/react';
 import { forgotPasswordValidations } from '../../validations/authValidations';
 import { useAuth } from '../../hooks/useAuth';
-import { useContext } from 'react';
 import { UIContext } from '../../context/ui/UIContext';
 
 export const ForgotPassword = () => {
@@ -25,7 +25,7 @@ export const ForgotPassword = () => {
         <section className="min-h-screen flex items-center justify-center relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[2000px]">
                 <div className="flex items-center justify-center mb-5">
-                    <div className="bg-blue-600 flex items-center justify-center rounded-full w-[20rem] h-[20rem] lg:w-[40rem] lg:h-[40rem]">
+                    <div className="bg-emerald-600 flex items-center justify-center rounded-full w-[20rem] h-[20rem] lg:w-[40rem] lg:h-[40rem]">
                         <img
                             src="/assets/forgot-password.svg"
                             width={700}
